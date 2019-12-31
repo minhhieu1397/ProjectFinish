@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/Admin', 'Admin\LoginAdminController@login')->name('admin.login');
+Route::post('/Admin', 'Admin\LoginAdminController@postLogin')->name('admin.postLogin');
