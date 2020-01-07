@@ -1,24 +1,53 @@
 <template>
     <div class="row">
-        <div class="col-md-10 offset-md-1 border">
-          <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Users</h3>
-
-                <div class="box-tools text-right">
-                    <button class="btn btn-success" data-toggle="modal" data-target="#NewUser">
-                        New User
-                        <i class="fas fa-user-plus fa-fw"></i>
-                    </button>
+        <div class="col-md-10 offset-md-1">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Users</h3>
+                    <div class="box-tools text-right">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#NewUser">
+                            New Admin
+                            <i class="fas fa-user-plus fa-fw"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
             
             <!-- /.box-body -->
-          </div>
+            </div>
+            <div>
+                <table class="table table-condensed" >
+                    <thead>
+                        <tr class="table__title">
+                            <th>Admin Name</th>
+                            <th>Super Admin</th>
+                            <th>Update|delete</th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="(admin, index) in list_Admins" :key="admin.id">
+                        <tr class="table__content">
+                            <td>{{admin.user_name}}</td>
+                            <td>{{admin.is_super_manager}}</td>
+                            <td>
+                                <ul class="nav nav-treeview">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-trash-alt nav-icon text-red"></i>
+                                    </a>
+
+                                    <a class="" data-toggle="modal" data-target="#UpdateAdmin" :data-id=admin.id>
+                                        <i class="fas fa-edit nav-icon"></i>
+                                    </a>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
           <!-- /.box -->
         </div>
+
+       
             <!-- Modal -->
-            <div class="modal fade" id="NewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="NewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -27,52 +56,115 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                   <form @submit.prevent="createAdmin" @keydown="form.onKeydown($event)">
-                        <div class="form-group">
-                        <label>Username</label>
-                        <input v-model="form.user_name" type="text" name="user_name"
-                            class="form-control" :class="{ 'is-invalid': form.errors.has('user_name') }">
-                        <has-error :form="form" field="user_name"></has-error>
-                        </div>
+                     
+                    <div class="modal-body">
+                        <div class="api-calling">
+                            <div v-if="success !== null" class="alert alert-success"> {{success}}</div>
+                            <div class="create-form">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input v-model="admin.user_name" type="text" name="user_name"
+                                    class="form-control">
+                                    
+                                    <span v-if="errors.user_name" class="text-danger"> {{ errors.user_name[0] }} </span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input v-model="admin.password" type="password" name="password"
+                                        class="form-control">
+                                    <span v-if="errors.password" class="text-danger"> {{ errors.password[0] }} </span>
 
-                        <div class="form-group">
-                        <label>Password</label>
-                        <input v-model="form.password" type="password" name="password"
-                            class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
-                        <has-error :form="form" field="password"></has-error>
+                                </div>
+                                <div class="form-group">
+                                <div class="block">
+                                        <div class="title">Super Admin</div>
+                                        <div class="input">
+                                            <b-form-checkbox v-model="admin.is_super_manager">
+                                                Admin
+                                            </b-form-checkbox>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="button-create">
+                                    <button @click="createAdmin" class="btn btn-primary">Create</button>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <div class="form-group">
-                        <label>is_super_manager</label>
-                        <input v-model="form.password" type="is_super_manager" name="is_super_manager"
-                            class="form-control" :class="{ 'is-invalid': form.errors.has('is_super_manager') }">
-                        <has-error :form="form" field="is_super_manager"></has-error>
-                        </div>
 
-                        <button  type="submit" class="btn btn-primary">Log In</button>
-                    </form>
+        <!-- Modal -->
+      <!-- Modal -->
+        <div class="modal fade" id="UpdateAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="UpdateAdminLable">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ,...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
                 </div>
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
+
     export default {
         data() {
             return {
-                form: new Form({
+                admin: {
                     user_name :'',
                     password :'',
-                    is_super_manager :'',
-                })
+                    is_super_manager : false,
+                },
+                errors: [],   
+                success: null,
+                list_Admins: [],
             }
+        },
+        created() {
+           this.getListAdmins()
         },
         methods: {
             createAdmin() {
-                console.log('aaaaaaaaaaa.')
-                this.form.post('api/admin');
-            }
+                this.errors = []
+                axios.post('api/admin', {user_name: this.admin.user_name, password: this.admin.password, is_super_manager: this.admin.is_super_manager})
+                .then(response => {
+                    this.admin.user_name = null
+                    this.admin.password = null
+                    this.admin.is_super_manager = null
+                    this.success = 'Tạo admin thành công'
+                })
+                .catch(error => {
+                    this.success = ''
+                    if (error.response.status == 422) {
+                        this.errors = error.response.data.errors
+                    }
+                })
+            },
+            getListAdmins() {
+               axios.get('/api/admin')
+               .then(response => {
+                   this.list_Admins = response.data
+               })
+               .catch(error => {
+                   this.errors = error.response.data.errors.name
+               })
+           }
         },
         mounted() {
             console.log('Component mounted.')

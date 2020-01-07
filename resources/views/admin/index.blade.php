@@ -100,13 +100,9 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                          <router-view></router-view>
-                        </div>
-                    </div>
+            <div class="card">
+                <div class="card-body">
+                  <router-view></router-view>
                 </div>
             </div>
         </div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\ApiCreateRequest;
+use App\Models\Admin;
 
 class AdminController extends Controller
 {
@@ -14,7 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        return Admin::all();
     }
 
     /**
@@ -23,9 +25,13 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ApiCreateRequest $request)
     {
-        dd(1);
+        return Admin::create([
+            'user_name'     => $request->input('user_name'),
+            'password'    =>  \Hash::make($request->input('password')),
+            'is_super_manager'    => $request->input('is_super_manager'),
+        ]);
     }
 
     /**

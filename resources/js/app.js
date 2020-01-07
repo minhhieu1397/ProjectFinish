@@ -17,13 +17,16 @@ Vue.component(AlertError.name, AlertError)
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import BootstrapVue from 'bootstrap-vue';
 
 
 Vue.use(VueRouter)
+Vue.use(BootstrapVue);
 
 const router = new VueRouter({
     mode: 'history',
-    routes: [{
+    routes: [
+        {
             path: '/ListAdmin',
             component: require('./components/ListAdmin.vue').default
         },
