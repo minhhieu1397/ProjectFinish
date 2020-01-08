@@ -2011,6 +2011,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2032,15 +2049,17 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.errors = [];
-      axios.post('api/admin', {
+      axios.post('api/admin/', {
         user_name: this.admin.user_name,
         password: this.admin.password,
         is_super_manager: this.admin.is_super_manager
       }).then(function (response) {
         _this.admin.user_name = null;
         _this.admin.password = null;
-        _this.admin.is_super_manager = null;
+        _this.admin.is_super_manager = false;
         _this.success = 'Tạo admin thành công';
+
+        _this.getListAdmins();
       })["catch"](function (error) {
         _this.success = '';
 
@@ -2052,10 +2071,53 @@ __webpack_require__.r(__webpack_exports__);
     getListAdmins: function getListAdmins() {
       var _this2 = this;
 
-      axios.get('/api/admin').then(function (response) {
+      axios.get('/api/admin/').then(function (response) {
         _this2.list_Admins = response.data;
       })["catch"](function (error) {
         _this2.errors = error.response.data.errors.name;
+      });
+    },
+    sendAdmin: function sendAdmin(admin) {
+      this.success = '';
+      this.admin = admin;
+    },
+    handleClickNewUser: function handleClickNewUser() {
+      this.success = '';
+      this.admin = {
+        user_name: '',
+        password: '',
+        is_super_manager: false
+      };
+    },
+    updateAdmin: function updateAdmin(admin) {
+      var _this3 = this;
+
+      axios.put('/api/admin/' + this.admin.id, {
+        user_name: this.admin.user_name,
+        is_super_manager: this.admin.is_super_manager
+      }).then(function (response) {
+        _this3.success = 'Cập nhập thành công';
+      })["catch"](function (error) {
+        _this3.success = '';
+
+        if (error.response.status == 422) {
+          _this3.errors = error.response.data.errors;
+        }
+      });
+    },
+    deleteAdmin: function deleteAdmin(admin, index) {
+      var _this4 = this;
+
+      axios["delete"]('/api/admin/' + admin.id).then(function (response) {
+        console.log(response.data.result);
+
+        _this4.list_Admins.splice(index, 1);
+      })["catch"](function (error) {
+        _this4.success = '';
+
+        if (error.response.status == 422) {
+          _this4.errors = error.response.data.errors;
+        }
       });
     }
   },
@@ -67829,14 +67891,35 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-md-10 offset-md-1" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "box" }, [
+        _c("div", { staticClass: "box-header" }, [
+          _c("h3", { staticClass: "box-title" }, [_vm._v("Users")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "box-tools text-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success",
+                attrs: { "data-toggle": "modal", "data-target": "#NewUser" },
+                on: { click: _vm.handleClickNewUser }
+              },
+              [
+                _vm._v(
+                  "\n                        New Admin\n                        "
+                ),
+                _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+              ]
+            )
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("div", [
         _c(
           "table",
           { staticClass: "table table-condensed" },
           [
-            _vm._m(1),
+            _vm._m(0),
             _vm._v(" "),
             _vm._l(_vm.list_Admins, function(admin, index) {
               return _c("tbody", { key: admin.id }, [
@@ -67847,18 +67930,42 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [
                     _c("ul", { staticClass: "nav nav-treeview" }, [
-                      _vm._m(2, true),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "nav-link",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteAdmin(admin, index)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-trash-alt nav-icon text-red"
+                          })
+                        ]
+                      ),
                       _vm._v(" "),
                       _c(
                         "a",
                         {
+                          staticClass: "nav-link",
                           attrs: {
                             "data-toggle": "modal",
-                            "data-target": "#UpdateAdmin",
-                            "data-id": admin.id
+                            "data-target": "#UpdateAdmin"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.sendAdmin(admin)
+                            }
                           }
                         },
-                        [_c("i", { staticClass: "fas fa-edit nav-icon" })]
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-edit nav-icon text-blue"
+                          })
+                        ]
                       )
                     ])
                   ])
@@ -67892,7 +67999,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "api-calling" }, [
@@ -68023,36 +68130,127 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm._m(4)
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "UpdateAdmin",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalCenterTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "api-calling" }, [
+                  _vm.success !== null
+                    ? _c("div", { staticClass: "alert alert-success" }, [
+                        _vm._v(" " + _vm._s(_vm.success))
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "create-form" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Username")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.admin.user_name,
+                            expression: "admin.user_name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "user_name" },
+                        domProps: { value: _vm.admin.user_name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.admin,
+                              "user_name",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "block" }, [
+                        _c("div", { staticClass: "title" }, [
+                          _vm._v("Super Admin")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "input" },
+                          [
+                            _c(
+                              "b-form-checkbox",
+                              {
+                                attrs: { value: "1" },
+                                model: {
+                                  value: _vm.admin.is_super_manager,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.admin, "is_super_manager", $$v)
+                                  },
+                                  expression: "admin.is_super_manager"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                            Admin\n                                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "button-create" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function($event) {
+                              return _vm.updateAdmin(_vm.admin)
+                            }
+                          }
+                        },
+                        [_vm._v("Update")]
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box" }, [
-      _c("div", { staticClass: "box-header" }, [
-        _c("h3", { staticClass: "box-title" }, [_vm._v("Users")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "box-tools text-right" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-success",
-              attrs: { "data-toggle": "modal", "data-target": "#NewUser" }
-            },
-            [
-              _vm._v(
-                "\n                        New Admin\n                        "
-              ),
-              _c("i", { staticClass: "fas fa-user-plus fa-fw" })
-            ]
-          )
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -68063,16 +68261,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Super Admin")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Update|delete")])
+        _c("th", [_vm._v("Delete|Update")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-trash-alt nav-icon text-red" })
     ])
   },
   function() {
@@ -68102,80 +68292,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "UpdateAdmin",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalCenterTitle",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-dialog-centered",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c(
-                  "h5",
-                  {
-                    staticClass: "modal-title",
-                    attrs: { id: "UpdateAdminLable" }
-                  },
-                  [_vm._v("Modal title")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _vm._v("\n                ,...\n            ")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Close")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                  [_vm._v("Save changes")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "UpdateAdminLable" } },
+        [_vm._v("Update user")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
   }
 ]
 render._withStripped = true

@@ -54,7 +54,16 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $admin = Admin::find($id);
+        
+        $admin->update([
+            'user_name' => $request->input('user_name'),
+            'is_super_manager' => $request->input('is_super_manager')
+        ]);
+
+        return response([
+            'admin' => $admin
+        ], 200);;
     }
 
     /**
@@ -65,6 +74,11 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $admin = Admin::find($id);
+        $admin->delete();
+
+        return response([
+            'result' => 'success'
+        ], 200);
     }
 }
