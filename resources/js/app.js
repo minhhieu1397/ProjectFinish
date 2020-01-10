@@ -30,6 +30,30 @@ const router = new VueRouter({
             path: '/ListAdmin',
             component: require('./components/ListAdmin.vue').default
         },
+        {
+            path: '/Comment',
+            component: require('./components/Comment.vue').default
+        },
+        {
+            path: '/Detail',
+            component: require('./components/Detail.vue').default
+        },
+        {
+            path: '/PlaceTour',
+            component: require('./components/PlaceTour.vue').default
+        },
+        {
+            path: '/Program',
+            component: require('./components/Program.vue').default
+        },
+        {
+            path: '/Reserve',
+            component: require('./components/Reserve.vue').default
+        },
+        {
+            path: '/Tour',
+            component: require('./components/Tour.vue').default
+        },
     ],
 })
     /**
@@ -42,8 +66,6 @@ const router = new VueRouter({
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
