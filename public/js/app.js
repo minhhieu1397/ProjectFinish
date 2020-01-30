@@ -1871,6 +1871,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -1888,6 +1905,125 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2061,6 +2197,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2082,7 +2220,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.errors = [];
-      axios.post('api/admin/', {
+      axios.post('/api/admin', {
         user_name: this.admin.user_name,
         password: this.admin.password,
         is_super_manager: this.admin.is_super_manager
@@ -2104,7 +2242,7 @@ __webpack_require__.r(__webpack_exports__);
     getListAdmins: function getListAdmins() {
       var _this2 = this;
 
-      axios.get('/api/admin/').then(function (response) {
+      axios.get('/api/admin').then(function (response) {
         _this2.list_Admins = response.data;
       })["catch"](function (error) {
         _this2.errors = error.response.data.errors.name;
@@ -2219,6 +2357,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -2236,6 +2395,33 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2285,7 +2471,186 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      tour: {
+        tour_name: '',
+        vehicle: '',
+        departure: '',
+        day_night: '',
+        price: '',
+        note: ''
+      },
+      errors: [],
+      success: '',
+      list_Tours: []
+    };
+  },
+  created: function created() {
+    this.getAllTours();
+  },
+  methods: {
+    createTour: function createTour() {
+      var _this = this;
+
+      axios.post('/api/tour', {
+        tour_name: this.tour.tour_name,
+        vehicle: this.tour.vehicle,
+        departure: this.tour.departure,
+        day_night: this.tour.day_night,
+        price: this.tour.price,
+        note: this.tour.note
+      }).then(function (response) {
+        _this.tour.tour_name = null;
+        _this.tour.vehicle = null;
+        _this.tour.departune = null;
+        _this.tour.day_night = null;
+        _this.tour.price = null;
+        _this.tour.note = null;
+        _this.success = 'Tạo Tour thành công';
+      })["catch"](function (error) {
+        _this.success = '';
+
+        if (error.response.status == 422) {
+          _this.errors = error.response.data.errors;
+        }
+      });
+    },
+    getAllTours: function getAllTours() {
+      var _this2 = this;
+
+      axios.get('/api/tour').then(function (response) {
+        _this2.list_Tours = response.data;
+      })["catch"](function (error) {
+        _this2.errors = error.response.data.errors.name;
+      });
+    }
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -68014,16 +68379,34 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Comment")]),
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-10 offset-md-1" }, [
+        _c("div", { staticClass: "box" }, [
+          _c("div", { staticClass: "box-header" }, [
+            _c("h3", { staticClass: "box-title" }, [_vm._v("Comment")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("table", { staticClass: "table table-condensed" }, [
+            _c("thead", [
+              _c("tr", { staticClass: "table__title" }, [
+                _c("th", [_vm._v("Tài khoản")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Nội dung")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Xóa")])
+              ])
+            ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
+            _c("tbody", [
+              _c("tr", { staticClass: "table__content" }, [
+                _c("td"),
+                _vm._v(" "),
+                _c("td"),
+                _vm._v(" "),
+                _c("td")
+              ])
             ])
           ])
         ])
@@ -68052,27 +68435,306 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "NewUser",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "api-calling" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "create-form" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "block" }, [
+                        _c("div", { staticClass: "title" }, [
+                          _vm._v("Super Admin")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "input" },
+                          [
+                            _c("b-form-checkbox", [
+                              _vm._v(
+                                "\n                                            Admin\n                                        "
+                              )
+                            ])
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(5)
+                  ])
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "UpdateAdmin",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalCenterTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(6),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "api-calling" }, [
+                  _c("div", { staticClass: "alert alert-success" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "create-form" }, [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "block" }, [
+                        _c("div", { staticClass: "title" }, [
+                          _vm._v("Super Admin")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "input" },
+                          [
+                            _c("b-form-checkbox", { attrs: { value: "1" } }, [
+                              _vm._v(
+                                "\n                                            Admin\n                                        "
+                              )
+                            ])
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(8)
+                  ])
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Detail")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
+    return _c("div", { staticClass: "col-md-10 offset-md-1" }, [
+      _c("div", { staticClass: "box" }, [
+        _c("div", { staticClass: "box-header" }, [
+          _c("h3", { staticClass: "box-title" }, [_vm._v("Tour du lịch")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "box-tools text-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success",
+                attrs: { "data-toggle": "modal", "data-target": "#NewUser" }
+              },
+              [
+                _vm._v(
+                  "\n                        Thêm mới tour\n                        "
+                ),
+                _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _c("table", { staticClass: "table table-condensed" }, [
+          _c("thead", [
+            _c("tr", { staticClass: "table__title" }, [
+              _c("th", [_vm._v("Ngày đi")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Ngày về")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("HÌnh ảnh")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Số tiền")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Tài khoản tạo")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tbody", [
+            _c("tr", { staticClass: "table__content" }, [
+              _c("td"),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _c("td")
             ])
           ])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title", attrs: { id: "NewUserLabel" } }, [
+        _vm._v("Add New")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("div", { staticClass: "alert alert-success" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", [_vm._v("Username")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "text", name: "user_name" }
+      }),
+      _vm._v(" "),
+      _c("span", { staticClass: "text-danger" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", [_vm._v("Password")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "password", name: "password" }
+      }),
+      _vm._v(" "),
+      _c("span", { staticClass: "text-danger" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "button-create" }, [
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Create")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "UpdateAdminLable" } },
+        [_vm._v("Update user")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", [_vm._v("Username")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "text", name: "user_name" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "button-create" }, [
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Update")])
     ])
   }
 ]
@@ -68211,9 +68873,11 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "api-calling" }, [
-                  _vm.success !== null
-                    ? _c("div", { staticClass: "alert alert-success" }, [
-                        _vm._v(" " + _vm._s(_vm.success))
+                  _vm.success != ""
+                    ? _c("div", [
+                        _c("div", { staticClass: "alert alert-success" }, [
+                          _vm._v(" " + _vm._s(_vm.success))
+                        ])
                       ])
                     : _vm._e(),
                   _vm._v(" "),
@@ -68363,7 +69027,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "api-calling" }, [
-                  _vm.success !== null
+                  _vm.success !== ""
                     ? _c("div", { staticClass: "alert alert-success" }, [
                         _vm._v(" " + _vm._s(_vm.success))
                       ])
@@ -68595,16 +69259,42 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Program")]),
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-10 offset-md-1" }, [
+        _c("div", { staticClass: "box" }, [
+          _c("div", { staticClass: "box-header" }, [
+            _c("h3", { staticClass: "box-title" }, [_vm._v("Comment")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("table", { staticClass: "table table-condensed" }, [
+            _c("thead", [
+              _c("tr", { staticClass: "table__title" }, [
+                _c("th", [_vm._v("Tiêu đề")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Ngày")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Nội dung")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Chi tiết")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Xóa")])
+              ])
+            ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
+            _c("tbody", [
+              _c("tr", { staticClass: "table__content" }, [
+                _c("td"),
+                _vm._v(" "),
+                _c("td"),
+                _vm._v(" "),
+                _c("td"),
+                _vm._v(" "),
+                _c("td"),
+                _vm._v(" "),
+                _c("td")
+              ])
             ])
           ])
         ])
@@ -68640,16 +69330,54 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Reserve")]),
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-10 offset-md-1" }, [
+        _c("div", { staticClass: "box" }, [
+          _c("div", { staticClass: "box-header" }, [
+            _c("h3", { staticClass: "box-title" }, [_vm._v("Comment")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("table", { staticClass: "table table-condensed" }, [
+            _c("thead", [
+              _c("tr", { staticClass: "table__title" }, [
+                _c("th", [_vm._v("Tour")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Ngày đặt")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Trẻ em")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Người lớn")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Trạng thái")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Điện thoại")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Ghi chú")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Thanh toán")])
+              ])
+            ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
+            _c("tbody", [
+              _c("tr", { staticClass: "table__content" }, [
+                _c("td"),
+                _vm._v(" "),
+                _c("td"),
+                _vm._v(" "),
+                _c("td"),
+                _vm._v(" "),
+                _c("td"),
+                _vm._v(" "),
+                _c("td"),
+                _vm._v(" "),
+                _c("td"),
+                _vm._v(" "),
+                _c("td"),
+                _vm._v(" "),
+                _c("td")
+              ])
             ])
           ])
         ])
@@ -68678,28 +69406,448 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-10 offset-md-1" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", [
+        _c(
+          "table",
+          { staticClass: "table table-condensed" },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._l(_vm.list_Tours, function(tour) {
+              return _c("tbody", { key: tour.id }, [
+                _c("tr", { staticClass: "table__content" }, [
+                  _c("td", [_vm._v(_vm._s(tour.tour_name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(tour.vehicle))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(tour.departure))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(tour.day_night))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(tour.price) + " VNĐ")]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(tour.note))]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    [
+                      _c(
+                        "b-dropdown",
+                        { attrs: { variant: "light", text: "Chi tiết" } },
+                        [
+                          _c(
+                            "b-dropdown-item",
+                            {
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#Program"
+                              }
+                            },
+                            [_vm._v("Chương trình")]
+                          ),
+                          _vm._v(" "),
+                          _c("b-dropdown-item", { attrs: { href: "#" } }, [
+                            _vm._v("Chi tiết")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ])
+            })
+          ],
+          2
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "NewUser",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "api-calling" }, [
+                  _vm.success != ""
+                    ? _c("div", [
+                        _c("div", { staticClass: "alert alert-success" })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "create-form" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Tour")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.tour.tour_name,
+                            expression: "tour.tour_name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "user_name" },
+                        domProps: { value: _vm.tour.tour_name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.tour, "tour_name", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.tour_name
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(" " + _vm._s(_vm.errors.tour_name[0]) + " ")
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Phương tiện")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.tour.vehicle,
+                            expression: "tour.vehicle"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "user_name" },
+                        domProps: { value: _vm.tour.vehicle },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.tour, "vehicle", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.vehicle
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(" " + _vm._s(_vm.errors.vehicle[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Ngày khởi hành")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.tour.departure,
+                            expression: "tour.departure"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "date", name: "user_name" },
+                        domProps: { value: _vm.tour.departure },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.tour, "departure", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.departure
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(" " + _vm._s(_vm.errors.departure[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Thời gian")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.tour.day_night,
+                            expression: "tour.day_night"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "user_name" },
+                        domProps: { value: _vm.tour.day_night },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.tour, "day_night", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.day_night
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(" " + _vm._s(_vm.errors.day_night[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Giá")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.tour.price,
+                            expression: "tour.price"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "user_name" },
+                        domProps: { value: _vm.tour.price },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.tour, "price", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.price
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(" " + _vm._s(_vm.errors.price[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Ghi chú")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.tour.note,
+                            expression: "tour.note"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "user_name" },
+                        domProps: { value: _vm.tour.note },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.tour, "note", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.note
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(" " + _vm._s(_vm.errors.note[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "button-create" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: { click: _vm.createTour }
+                        },
+                        [_vm._v("Create")]
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _vm._m(3)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Tour")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+    return _c("div", { staticClass: "box" }, [
+      _c("div", { staticClass: "box-header" }, [
+        _c("h3", { staticClass: "box-title" }, [_vm._v("Tour du lịch")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "box-tools text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success",
+              attrs: { "data-toggle": "modal", "data-target": "#NewUser" }
+            },
+            [
               _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
+                "\n                        Thêm mới tour\n                        "
+              ),
+              _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+            ]
+          )
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { staticClass: "table__title" }, [
+        _c("th", [_vm._v("Tour")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Phương tiện")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ngày khởi hành")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Thời gian")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Giá/1 người")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ghi chú")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Chi tiết")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title", attrs: { id: "NewUserLabel" } }, [
+        _vm._v("Add New")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "Program",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalCenterTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  { staticClass: "modal-title", attrs: { id: "ProgramLable" } },
+                  [_vm._v("Update user")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "api-calling" }, [
+                  _vm._v(
+                    "\n                        aaaaaa\n                    "
+                  )
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true

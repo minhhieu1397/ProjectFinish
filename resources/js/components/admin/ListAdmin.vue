@@ -58,7 +58,9 @@
                      
                     <div class="modal-body">
                         <div class="api-calling">
-                            <div v-if="success !== null" class="alert alert-success"> {{success}}</div>
+                            <div v-if="success != ''" >
+                                <div class="alert alert-success"> {{success}}</div>
+                            </div>
                             <div class="create-form">
                                 <div class="form-group">
                                     <label>Username</label>
@@ -108,7 +110,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="api-calling">
-                            <div v-if="success !== null" class="alert alert-success"> {{success}}</div>
+                            <div v-if="success !== ''" class="alert alert-success"> {{success}}</div>
                             <div class="create-form">
                                 <div class="form-group">
                                     <label>Username</label>
@@ -159,7 +161,7 @@
         methods: {
             createAdmin() {
                 this.errors = []
-                axios.post('api/admin/', {user_name: this.admin.user_name, password: this.admin.password, is_super_manager: this.admin.is_super_manager})
+                axios.post('/api/admin', {user_name: this.admin.user_name, password: this.admin.password, is_super_manager: this.admin.is_super_manager})
                 .then(response => {
                     this.admin.user_name = null
                     this.admin.password = null
@@ -175,7 +177,7 @@
                 })
             },
             getListAdmins() {
-                axios.get('/api/admin/')
+                axios.get('/api/admin')
                 .then(response => {
                    this.list_Admins = response.data
                 })

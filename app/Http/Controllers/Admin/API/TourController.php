@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Tour\CreateTourRequest;
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\ApiCreateRequest;
-use App\Http\Requests\Admin\UpdateAdminRequest;
-use App\Models\Admin;
+use App\Models\Tour;
 
-class AdminController extends Controller
+class TourController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,17 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return Admin::all();
+        return Tour::all();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -26,12 +35,15 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ApiCreateRequest $request)
+    public function store(CreateTourRequest $request)
     {
-        return Admin::create([
-            'user_name'     => $request->input('user_name'),
-            'password'    =>  \Hash::make($request->input('password')),
-            'is_super_manager'    => $request->input('is_super_manager'),
+        return Tour::create([
+            'tour_name' => $request->input('tour_name'),
+            'vehicle' => $request->input('vehicle'),
+            'departure' => $request->input('departure'),
+            'day_night' => $request->input('day_night'),
+            'price' => $request->input('price'),
+            'note' => $request->input('note'),
         ]);
     }
 
@@ -47,6 +59,17 @@ class AdminController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -55,16 +78,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $admin = Admin::find($id);
-        
-        $admin->update([
-            'user_name' => $request->input('user_name'),
-            'is_super_manager' => $request->input('is_super_manager')
-        ]);
-
-        return response([
-            'admin' => $admin
-        ], 200);;
+        //
     }
 
     /**
@@ -75,11 +89,6 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        $admin = Admin::find($id);
-        $admin->delete();
-
-        return response([
-            'result' => 'success'
-        ], 200);
+        //
     }
 }
