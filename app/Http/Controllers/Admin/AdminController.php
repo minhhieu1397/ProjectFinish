@@ -14,4 +14,9 @@ class AdminController extends Controller
 
         return view('admin.index', compact('admin'));
     }
+
+    public function getAdmin()
+    {
+        return Auth::guard('admin')->user();
+    }
 }

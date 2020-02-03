@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Tour\CreateTourRequest;
 use Illuminate\Http\Request;
-use App\Models\Tour;
+use App\Models\Program;
 
-class TourController extends Controller
+class ProgramController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class TourController extends Controller
      */
     public function index()
     {
-        return Tour::all();
+        //
     }
 
     /**
@@ -35,15 +34,13 @@ class TourController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateTourRequest $request)
+    public function store(Request $request)
     {
-        return Tour::create([
-            'tour_name' => $request->input('tour_name'),
-            'vehicle' => $request->input('vehicle'),
-            'departure' => $request->input('departure'),
-            'day_night' => $request->input('day_night'),
-            'price' => $request->input('price'),
-            'note' => $request->input('note'),
+        return Program::create([
+            'tour_id' => $request->input('tour_id'),
+            'title' => $request->input('title'),
+            'day' => $request->input('day'),
+            'detail' => $request->input('detail'),
         ]);
     }
 
@@ -55,7 +52,7 @@ class TourController extends Controller
      */
     public function show($id)
     {
-        //
+        return Program::where('tour_id', $id)->get();
     }
 
     /**
@@ -78,20 +75,7 @@ class TourController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tour = Tour::find($id);
-        
-        $tour->update([
-            'tour_name' => $request->input('tour_name'),
-            'vehicle' => $request->input('vehicle'),
-            'departune' => $request->input('departune'),
-            'day_night' => $request->input('day_night'),
-            'price' => $request->input('price'),
-            'note' => $request->input('note'),
-        ]);
-
-        return response([
-            'tour' => $tour
-        ], 200);
+        //
     }
 
     /**
@@ -102,11 +86,6 @@ class TourController extends Controller
      */
     public function destroy($id)
     {
-        $tour = Tour::find($id);
-        $tour->delete();
-
-        return response([
-            'result' => 'success'
-        ], 200);
+        //
     }
 }

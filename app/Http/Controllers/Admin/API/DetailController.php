@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin\API;
+namespace App\Http\Controllers\Admin\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Tour\CreateTourRequest;
 use Illuminate\Http\Request;
-use App\Models\Tour;
+use App\Models\Detail;
+use Illuminate\Support\Facades\Gate;
 
-class TourController extends Controller
+class DetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class TourController extends Controller
      */
     public function index()
     {
-        return Tour::all();
+        //
     }
 
     /**
@@ -35,18 +35,23 @@ class TourController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateTourRequest $request)
+    public function store(Request $request)
     {
-        return Tour::create([
-            'tour_name' => $request->input('tour_name'),
-            'vehicle' => $request->input('vehicle'),
-            'departure' => $request->input('departure'),
-            'day_night' => $request->input('day_night'),
-            'price' => $request->input('price'),
-            'note' => $request->input('note'),
-        ]);
-    }
+        return $request->all();
+        // dd($request->input('image'));
+        // $imageName = time().'.'.$photos->getClientOriginalExtension();
+        // $request->image->move(public_path('images'), $imageName);
 
+        // dd($name);
+        // return Detail::create([
+        //     'tour_id' => $request->input('tour_id'),
+        //     'day_start' => $request->input('day_start'),
+        //     'day_end' => $request->input('day_end'),
+        //     'image' => '/imageAdmin/' . $filename,
+        //     'amount' => $request->input('amount'),
+        //     'account' => $request->input('account'),
+        // ]);
+    }
     /**
      * Display the specified resource.
      *
@@ -78,20 +83,7 @@ class TourController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tour = Tour::find($id);
-        
-        $tour->update([
-            'tour_name' => $request->input('tour_name'),
-            'vehicle' => $request->input('vehicle'),
-            'departune' => $request->input('departune'),
-            'day_night' => $request->input('day_night'),
-            'price' => $request->input('price'),
-            'note' => $request->input('note'),
-        ]);
-
-        return response([
-            'tour' => $tour
-        ], 200);
+        //
     }
 
     /**
@@ -102,11 +94,6 @@ class TourController extends Controller
      */
     public function destroy($id)
     {
-        $tour = Tour::find($id);
-        $tour->delete();
-
-        return response([
-            'result' => 'success'
-        ], 200);
+        //
     }
 }

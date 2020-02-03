@@ -18,4 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/admin', 'Admin\API\AdminController');
+Route::apiResource('/program', 'Admin\API\ProgramController');
 Route::apiResource('/tour', 'Admin\API\TourController');
+Route::apiResource('/detail', 'Admin\API\DetailController');
+Route::get('/current_admin', function() {
+    return Auth::guard('admin')->user();
+});

@@ -29,9 +29,9 @@ class AdminController extends Controller
     public function store(ApiCreateRequest $request)
     {
         return Admin::create([
-            'user_name'     => $request->input('user_name'),
-            'password'    =>  \Hash::make($request->input('password')),
-            'is_super_manager'    => $request->input('is_super_manager'),
+            'user_name' => $request->input('user_name'),
+            'password' => \Hash::make($request->input('password')),
+            'is_super_manager' => $request->input('is_super_manager'),
         ]);
     }
 
@@ -64,7 +64,7 @@ class AdminController extends Controller
 
         return response([
             'admin' => $admin
-        ], 200);;
+        ], 200);
     }
 
     /**
