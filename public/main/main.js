@@ -49364,7 +49364,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ProjectFinish\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\projectfinish\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })

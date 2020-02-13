@@ -5,7 +5,7 @@
                 <div class="box-header">
                     <h3 class="box-title">Tour du lịch</h3>
                     <div class="box-tools text-right">
-                        <button class="btn btn-success" data-toggle="modal" data-target="#NewUser">
+                        <button class="btn btn-success" @click="handleClickNewTour" data-toggle="modal" data-target="#NewUser">
                             Thêm mới tour
                             <i class="fas fa-plus-circle fa-fw"></i>
                         </button>
@@ -15,6 +15,7 @@
             <div>
                 <table class="table table-condensed" >
                     <thead>
+                        {{this.admin_current.user_name}}
                         <tr class="table__title">
                             <th>Tour</th>
                             <th>Phương tiện</th>
@@ -36,8 +37,8 @@
                             <td>{{ tour.note }}</td>
                             <td> 
                                 <b-dropdown variant="light" text="Chi tiết">
-                                    <b-dropdown-item data-toggle="modal" data-target="#Program" @click="sendTour(tour)">Chương trình</b-dropdown-item>
-                                    <b-dropdown-item data-toggle="modal" data-target="#Detail" @click="sendTour(tour)">Chi tiết</b-dropdown-item>
+                                    <b-dropdown-item data-toggle="modal" data-target="#Program" @click="sendTourProgram(tour)">Chương trình</b-dropdown-item>
+                                    <b-dropdown-item data-toggle="modal" data-target="#Detail" @click="sendTourDetal(tour)">Chi tiết</b-dropdown-item>
                                 </b-dropdown>
                             </td>
                             <td>
@@ -45,7 +46,7 @@
                                     <a class="nav-link" @click="deleteTour(tour, index)">
                                         <i class="fas fa-trash-alt nav-icon text-red"></i>
                                     </a>
-                                    <a class="nav-link" data-toggle="modal" data-target="#UpdateTour" @click="sendTour(tour)">
+                                    <a class="nav-link" data-toggle="modal" data-target="#UpdateTour" @click="sendTourUpdate(tour)">
                                         <i class="fas fa-edit nav-icon text-blue"></i>
                                     </a>
                                 </ul>
@@ -62,16 +63,16 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="NewTourLabel">Add New</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title" id="NewTourLabel">Thêm mới tour</h5>
+                        <button type="button" class="close" @click="successCreateTour=''" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                      
                     <div class="modal-body">
                         <div class="api-calling">
-                            <div v-if="success != ''">
-                                <div class="alert alert-success"> {{ success }} </div>
+                            <div v-if="successCreateTour != ''">
+                                <div class="alert alert-success"> {{ successCreateTour }} </div>
                             </div>
                             <div class="create-form">
                                 <div class="form-group">
@@ -117,7 +118,7 @@
                                     <span v-if="errors.note" class="text-danger"> {{ errors.note[0] }}</span>
                                 </div>
                                 <div class="button-create">
-                                    <button @click="createTour" class="btn btn-primary">Create</button>
+                                    <button @click="createTour" class="btn btn-primary">Tạo</button>
                                 </div>
                             </div>
                         </div>
@@ -139,56 +140,69 @@
                     <div class="modal-body">
                         <div class="api-calling">
                             <div v-if="!iscreateProgram" >
-                                <button class="btn btn-primary" @click="isCreateProgram">
-                                Thêm chương trình
-                                <i class="fas fa-plus fa-fw"></i>
-                                </button>
-                                <div v-if="success !== ''" class="alert alert-success"> {{success}}</div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" @click="isCreateProgram">
+                                    Thêm
+                                    <i class="fas fa-plus fa-fw"></i>
+                                    </button>
+                                </div>
                                 <table class="table table-condensed" >
-                                        <thead>
-                                            <tr class="table__title">
-                                                <th>Tour</th>
-                                                <th>Tiêu đề</th>
-                                                <th>Ngày</th>
-                                                <th>Chi tiết</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody v-for="program in list_Program" :key="program.id">
-                                            <tr class="table__content">
-                                                <td>{{ tour.tour_name }}</td>
-                                                <td>{{ program.title }}</td>
-                                                <td>{{ program.day }}</td>
-                                                <td>{{ program.detail }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <thead>
+                                        <tr class="table__title">
+                                            <th>Tour</th>
+                                            <th>Tiêu đề</th>
+                                            <th>Ngày</th>
+                                            <th>Chi tiết</th>
+                                            <th>Xóa|Sửa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-for="(program, index) in list_Program" :key="program.id">
+                                        <tr class="table__content">
+                                            <td>{{ tour.tour_name }}</td>
+                                            <td>{{ program.title }}</td>
+                                            <td>{{ program.day }}</td>
+                                            <td>{{ program.detail }}</td>
+                                            <td>
+                                                <ul class="nav nav-treeview">
+                                                    <a class="nav-link" @click="deleteProgram(program, index)">
+                                                        <i class="fas fa-trash-alt nav-icon text-red"></i>
+                                                    </a>
+                                                    <a class="nav-link" data-toggle="modal" data-target="#UpdateProgram" @click="sendProgramUpdate(program)">
+                                                        <i class="fas fa-edit nav-icon text-blue"></i>
+                                                    </a>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div v-else>
                                 <div class="create-form">
-                                    
-                                    <div v-if="success !== ''" class="alert alert-success"> {{success}}</div>
+                                    <div v-if="successCreateProgram != ''" class="alert alert-success"> {{successCreateProgram}}</div>
                                     <div class="form-group">
                                         <label>Title</label>
                                         <input v-model="program.title" type="text" name="title"
                                         class="form-control">
+                                        <span v-if="errors.title" class="text-danger"> {{ errors.title[0] }} </span>
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày thứ</label>
                                         <input v-model="program.day" type="text" name="day"
                                         class="form-control">
+                                        <span v-if="errors.day" class="text-danger"> {{ errors.day[0] }} </span>
                                     </div>
                                     <div class="form-group">
                                         <label>Chi tiết</label>
                                         <input v-model="program.detail" type="text" name="detail"
                                         class="form-control">
+                                        <span v-if="errors.detail" class="text-danger"> {{ errors.detail[0] }} </span>
                                     </div>
                                     <div class="button-create">
                                         <button @click="createProgram" class="btn btn-primary">Create</button>
-                                        <button class="btn btn-primary" @click="listProgram(tour)">
-                                            Danh sách chương trình
+                                        <button class="btn btn-success" @click="listProgram(tour)">
+                                            Danh sách
                                         </button>
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>
@@ -209,7 +223,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="api-calling">
-                            <div v-if="success !== ''" class="alert alert-success"> {{success}}</div>
+                            <div v-if="successUpdateTour !== ''" class="alert alert-success"> {{successUpdateTour}}</div>
                             <div class="create-form">
                                 <div class="form-group">
                                     <label>Tour</label>
@@ -268,48 +282,195 @@
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="DetailLable">Create Detail</h5>
+                        <h5 class="modal-title" id="DetailLable">Chi tiết</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="api-calling">
-                            <div v-if="success !== ''" class="alert alert-success"> {{success}}</div>
+                            <div v-if="!isCreateDetail">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" @click="isCreateDetail = true">
+                                    Thêm
+                                    <i class="fas fa-plus fa-fw"></i>
+                                    </button>
+                                </div>
+                                <div v-if="success !== ''" class="alert alert-success"> {{success}}</div>
+                                <table class="table table-condensed" >
+                                    <thead>
+                                        <tr class="table__title">
+                                            <th>Ngày đi</th>
+                                            <th>Ngày về</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Số lượng còn</th>
+                                            <th>Xóa|Sửa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-for="(detail, index) in list_Detail" :key="detail.id">
+                                        <tr class="table__content">
+                                            <td>{{ detail.day_start }}</td>
+                                            <td>{{ detail.day_end }}</td>
+                                            <td>{{ detail.image }}</td>
+                                            <td>{{ detail.amount }}</td>
+                                            <td>
+                                                <ul class="nav nav-treeview">
+                                                    <a class="nav-link" @click="deleteDetail(detail, index)">
+                                                        <i class="fas fa-trash-alt nav-icon text-red"></i>
+                                                    </a>
+                                                    <a class="nav-link" data-toggle="modal" data-target="#UpdateDetail" @click="sendDetailUpdate(detail)">
+                                                        <i class="fas fa-edit nav-icon text-blue"></i>
+                                                    </a>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div v-else>
+                                <div v-if="successCreateDetail !== ''" class="alert alert-success"> {{successCreateDetail}}</div>
+                                <div class="create-form">
+                                    <form @submit="CreateDetail(tour)" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label>Day Start</label>
+                                            <input v-model="detail.day_start" type="date" name="day_start"
+                                            class="form-control">
+                                            
+                                            <span v-if="errors.day_start" class="text-danger"> {{ errors.day_start[0] }} </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Day End</label>
+                                            <input v-model="detail.day_end" type="date" name="day_end"
+                                            class="form-control">
+                                            
+                                            <span v-if="errors.day_end" class="text-danger"> {{ errors.day_end[0] }}</span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Image</label>
+                                            <input type="file" v-on:change="onImageChange" class="form-control">
+                                            
+                                            <div  class="text-danger" v-if="errorFileMessage.length > 0">
+                                                <span>{{ errorFileMessage }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Amount</label>
+                                            <input v-model="detail.amount" type="text" name="amount"
+                                            class="form-control">
+                                            
+                                            <span v-if="errors.amount" class="text-danger"> {{ errors.amount[0] }}</span>
+                                        </div>
+                                        <div class="button-create">
+                                            <button class="btn btn-primary">Create</button>
+                                            <button class="btn btn-success" @click="listDetail(tour)">
+                                                Danh sách
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update Program -->
+        <div class="modal fade" id="UpdateProgram" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="DetailLable">Thay đổi chương trình</h5>
+                        <button type="button" class="close" @click="getAllprogram(tour)" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="api-calling">
+                            <div v-if="successUpdateProgram !== ''" class="alert alert-success"> {{successUpdateProgram}}</div>
                             <div class="create-form">
-                                <div class="form-group">
-                                    <label>Day Start</label>
-                                    <input v-model="detail.day_start" type="date" name="day_start"
-                                    class="form-control">
-                                    
-                                    <span v-if="errors.day_start" class="text-danger"> {{ errors.day_start[0] }} </span>
+                                <div class="create-form">
+                                    <div class="form-group">
+                                        <label>Title</label>
+                                        <input v-model="program.title" type="text" name="title"
+                                        class="form-control">
+                                        <span v-if="errors.title" class="text-danger"> {{ errors.title[0] }} </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ngày thứ</label>
+                                        <input v-model="program.day" type="text" name="day"
+                                        class="form-control">
+                                        <span v-if="errors.day" class="text-danger"> {{ errors.day[0] }} </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Chi tiết</label>
+                                        <textarea v-model="program.detail" name="detail"
+                                        class="form-control"></textarea>
+                                        <span v-if="errors.detail" class="text-danger"> {{ errors.detail[0] }} </span>
+                                    </div>
+                                    <div class="button-create">
+                                        <button @click="updateProgram()" class="btn btn-primary">Update</button>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Day End</label>
-                                    <input v-model="detail.day_end" type="date" name="day_end"
-                                    class="form-control">
-                                    
-                                    <span v-if="errors.day_end" class="text-danger"> {{ errors.day_end[0] }}</span>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                                <div class="form-group">
-                                    <label>Image</label>
-                                     <input type="file" v-on:change="onImageChange" class="form-control">
-                                    class="form-control">
-                                    
-                                    <span v-if="errors.day_end" class="text-danger"> {{ errors.day_end[0] }}</span>
-                                </div>
+        <!-- Update Detail -->
+        <div class="modal fade" id="UpdateDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="DetailLable">Sửa</h5>
+                        <button type="button" @click="successUpdateDetail=''" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="api-calling">
+                            <div v-if="successUpdateDetail !== ''" class="alert alert-success"> {{successUpdateDetail}}</div>
+                            <div class="create-form">
+                                <form @submit="updateDetail()" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label>Day Start</label>
+                                        <input v-model="detail.day_start" type="date" name="day_start"
+                                        class="form-control">
+                                        
+                                        <span v-if="errors.day_start" class="text-danger"> {{ errors.day_start[0] }} </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Day End</label>
+                                        <input v-model="detail.day_end" type="date" name="day_end"
+                                        class="form-control">
+                                        
+                                        <span v-if="errors.day_end" class="text-danger"> {{ errors.day_end[0] }}</span>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label>Amount</label>
-                                    <input v-model="detail.amount" type="text" name="amount"
-                                    class="form-control">
-                                    
-                                    <span v-if="errors.amount" class="text-danger"> {{ errors.amount[0] }}</span>
-                                </div>
-                                <div class="button-create">
-                                    <button @click="CreateDetail(tour)" class="btn btn-primary">Create</button>
-                                </div>
+                                    <div class="form-group">
+                                        <label>Image</label>
+                                        <input type="file" v-on:change="onImageChange" class="form-control">
+                                        
+                                        <div  class="text-danger" v-if="errorFileMessage.length > 0">
+                                            <span>{{ errorFileMessage }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Amount</label>
+                                        <input v-model="detail.amount" type="text" name="amount"
+                                        class="form-control">
+                                        
+                                        <span v-if="errors.amount" class="text-danger"> {{ errors.amount[0] }}</span>
+                                    </div>
+                                    <div class="button-create">
+                                        <button class="btn btn-primary">Update</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -343,6 +504,7 @@
                 },
                 list_Program: [],
                 detail: {
+                    image: '',
                     day_start: '',
                     day_end: '',
                     amount: '',
@@ -350,26 +512,46 @@
                 },
                 admin_current: {
                     user_name: '',
-                }
+                },
+                errorFileMessage: '',
+                isCreateDetail: false,
+                list_Detail: [],
+                successUpdateDetail: '',
+                successUpdateProgram: '',
+                successUpdateTour: '',
+                successCreateTour: '',
+                successCreateProgram: '',
+                successCreateDetail: '',
             }
         },
         created() {
-            this.getAllTours()
-            this.getAdminCurrent()
+            this.getAllTours();
+            this.getAdminCurrent();
         },
         methods: {
+            handleClickNewTour() {
+                this.successCreateTour = '';
+                this.tour = {
+                    tour_name: '',
+                    vehicle: '',
+                    departure: '',
+                    day_night: '',
+                    price: '',
+                    note: '',
+                }
+            },
             createTour(tour) {
                 axios.post('/api/tour', {tour_name: this.tour.tour_name, vehicle: this.tour.vehicle, departure: this.tour.departure, 
                     day_night: this.tour.day_night, price: this.tour.price, note: this.tour.note })
                     .then(response => {
-                        this.tour.tour_name = null
-                        this.tour.vehicle = null
-                        this.tour.departune = null
-                        this.tour.day_night = null
-                        this.tour.price = null
-                        this.tour.note = null
-                        this.success = 'Tạo Tour thành công'
-                        this. getAllTours()
+                        this.tour.tour_name = null;
+                        this.tour.vehicle = null;
+                        this.tour.departune = null;
+                        this.tour.day_night = null;
+                        this.tour.price = null;
+                        this.tour.note = null;
+                        this.successCreateTour = 'Tạo Tour thành công';
+                        this.getAllTours();
                     })
                     .catch(error => {
                         this.success = ''
@@ -379,6 +561,7 @@
                     })
             },
             getAllTours() {
+                this.successUpdateTour = '';
                 axios.get('/api/tour')
                 .then(response => {
                    this.list_Tours = response.data
@@ -392,6 +575,8 @@
                 .then(response => {
                     this.admin_current = response.data
                     console.log(this.admin_current.user_name)
+                    console.log('this.admin_current')
+
                 })
                 .catch(error => {
                    this.errors = error.response.data.errors.name
@@ -406,25 +591,24 @@
                 })
                 .catch(error => {
                     this.success = ''
-                    if (error.response.status == 422) {
-                        this.errors = error.response.data.errors
-                    }
+                    this.errors = error.response.data.errors.name
 				})
+            },
+            sendTourUpdate(tour) {
+                this.tour = tour
             },
             updateTour() {
                 axios.put('/api/tour/' + this.tour.id, {tour_name: this.tour.tour_name, vehicle: this.tour.vehicle, departune: this.tour.departune, day_night: this.tour.day_night,
                     price: this.tour.price, note: this.tour.note})
 				.then(response => {
-                    this.success = 'Cập nhập thành công'
+                    this.successUpdateTour = 'Cập nhập Tour thành công'
 				})
 				.catch(error => {
                     this.success = ''
-                    if (error.response.status == 422) {
-                        this.errors = error.response.data.errors
-                    }
+                    this.errors = error.response.data.errors.name
 				})
             },
-            sendTour(tour) {
+            sendTourProgram(tour) {
                 this.getAllprogram(tour)
                 this.tour = tour
                 this.iscreateProgram = false
@@ -436,18 +620,36 @@
                 axios.post('/api/program', {tour_id: this.tour.id, title: this.program.title, day: this.program.day, 
                 detail: this.program.detail })
                 .then(response => {
-                    this.program.title = null
-                    this.success = 'Tạo program thành công'
+                    this.successCreateProgram = 'Tạo program thành công'
                 })
                 .catch(error => {
-                    this.success = ''
+                    this.successCreateProgram = ''
                     if (error.response.status == 422) {
                         this.errors = error.response.data.errors
                     }
                 })
             },
+            deleteProgram(program, index) {
+                axios.delete('/api/program/' + program.id)
+                .then(response => {
+                    console.log(response.data.result)
+                    this.list_Program.splice(index, 1)
+                })
+                .catch(error => {
+                    this.success = ''
+                    this.errors = error.response.data.errors.name
+				})
+            },
             getAllprogram(tour) {
-                this.tour = tour
+                this.successCreateProgram = '';
+                this.successUpdateProgram = '';
+                this.tour = tour;
+                this.program = {
+                    tour_id: '',
+                    title: '',
+                    day: '',
+                    detail: '',
+                }
                 axios.get('/api/program/' + this.tour.id)
                 .then(response => {
                    this.list_Program = response.data
@@ -457,38 +659,130 @@
                 })
             },
             listProgram(tour) {
-                this.success = ''
                 this.iscreateProgram = false
                 this.getAllprogram(tour)
             },
-            CreateDetail(tour) {
-                console.log(this.detail.image)
-                axios.post('/api/detail', {image: this.detail.image})
+            sendProgramUpdate(program) {
+                this.program = program;
+            },
+            updateProgram() {
+                axios.put('/api/program/' + this.program.id, {title: this.program.title, day: this.program.day, detail: this.program.detail})
+				.then(response => {
+                    this.successUpdateProgram = 'Cập nhập thành công'
+				})
+				.catch(error => {
+                    this.success = ''
+                    if (error.response.status == 422) {
+                        this.errors = error.response.data.errors
+                    }
+				})
+            },
+            sendTourDetal(tour) {
+                this.tour = tour
+                this.getAllDetail(tour)
+                this.isCreateDetail = false
+            },
+            listDetail(tour) {
+                this.isCreateDetail = false;
+                this.getAllDetail(tour);
+            },
+            getAllDetail(tour) {
+                this.tour = tour
+                this.successCreateDetail = '';
+                this.detail= {
+                    image: '',
+                    day_start: '',
+                    day_end: '',
+                    amount: '',
+                    account: '',
+                }
+                axios.get('/api/detail/' + this.tour.id)
                 .then(response => {
-                    this.detail.day_start = null
-                    this.detail.day_end = null
-                    this.detail.amount
+                    this.list_Detail = response.data
                 })
                 .catch(error => {
-                    if(error.response.status ==422) {
-                        this.errprs = error.response.data.errors
-                    }
+                    this.errors = error.response.data.errors.name
                 })
             },
+            CreateDetail(tour) {
+                this.errorFileMessage ='';
+                event.preventDefault();
+                let currentObj = this;
+ 
+                const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                }
+
+                let formData = new FormData();
+                formData.append('image', this.detail.image);
+                formData.append('tour_id', this.tour.id);
+                formData.append('day_start', this.detail.day_start);
+                formData.append('day_end', this.detail.day_end);
+                formData.append('amount', this.detail.amount);
+                formData.append('account', this.admin_current.user_name);
+
+                axios.post('/api/detail', formData, config)
+                .then(response => {
+                    this.detail.day_start = null;
+                    this.detail.day_end = null;
+                    this.detail.amount = null;
+                    this.successCreateDetail = 'Tạo Chi Tiết Thành Công'
+                })
+               .catch(error => {
+                    this.success = ''
+                    if (error.response.status == 422) {
+                        this.errors = error.response.data.errors
+                    }
+
+                    this.errorFileMessage = 'Hình ảnh trống ';
+                })
+            },
+            sendDetailUpdate(detailID) {
+                console.log(detailID)
+                this.detail = detailID
+            },
             onImageChange(e){
-                let files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createImage(files[0]);
+                console.log(e.target.files[0]);
+                this.detail.image = e.target.files[0];
             },
-            createImage(file) {
-                let reader = new FileReader();
-                let vm = this;
-                reader.onload = (e) => {
-                    vm.detail.image = e.target.result;
-                };
-                reader.readAsDataURL(file);
+            deleteDetail(detail, index) {
+                axios.delete('/api/detail/' + detail.id)
+                .then(response => {
+                    console.log(response.data.result)
+                    this.list_Detail.splice(index, 1)
+                })
+                .catch(error => {
+                    this.success = ''
+                    this.errors = error.response.data.errors.name
+				})
             },
+            updateDetail() {
+                event.preventDefault();
+                let currentObj = this;
+ 
+                // const config = {
+                //     headers: { 'content-type': 'application/x-www-form-urlencoded' }
+                // }
+                console.log(this.detail.id)
+                let formData = new FormData();
+                formData.append('_method', 'PUT');
+                formData.append('image', this.detail.image);
+                formData.append('tour_id', this.tour.id);
+                formData.append('day_start', this.detail.day_start);
+                formData.append('day_end', this.detail.day_end);
+                formData.append('amount', this.detail.amount);
+
+                axios.post('/api/detail/' + this.detail.id, formData)
+                .then(response => {
+                    this.successUpdateDetail = 'Cập nhập thành công '
+                })
+               .catch(error => {
+                    this.success = ''
+                    if (error.response.status == 422) {
+                        this.errors = error.response.data.errors
+                    }
+                })
+            }
         },
         mounted() {
             console.log('Component mounted.')

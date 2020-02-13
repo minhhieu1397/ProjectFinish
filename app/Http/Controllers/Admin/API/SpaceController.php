@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Program;
-use App\Http\Requests\Admin\Program\CreateProgramRequest;
-use App\Http\Requests\Admin\Program\UpdateProgramRequest;
+use App\Models\Space;
 
-class ProgramController extends Controller
+class SpaceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,7 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        //
+        return Space::all();
     }
 
     /**
@@ -36,13 +34,10 @@ class ProgramController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateProgramRequest $request)
+    public function store(Request $request)
     {
-        return Program::create([
-            'tour_id' => $request->input('tour_id'),
-            'title' => $request->input('title'),
-            'day' => $request->input('day'),
-            'detail' => $request->input('detail'),
+        return Space::create([
+            'space' => $request->input('space'),
         ]);
     }
 
@@ -54,7 +49,7 @@ class ProgramController extends Controller
      */
     public function show($id)
     {
-        return Program::where('tour_id', $id)->get();
+        //
     }
 
     /**
@@ -75,19 +70,14 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProgramRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $program = Program::find($id);
-        
-        $program->update([
-            'title' => $request->input('title'),
-            'day' => $request->input('day'),
-            'detail' => $request->input('detail'),
+        $space = Space::find($id);
+        $space->update([
+            'space' => $request->input('space')
         ]);
-
-        return response([
-            'program' => $program
-        ], 200);
+        
+        return $space;
     }
 
     /**
@@ -98,9 +88,9 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        $program = Program::find($id);
-        $program->delete();
-
+        $space = Space::find($id);
+        $space->delete();
+        
         return response([
             'result' => 'success'
         ], 200);

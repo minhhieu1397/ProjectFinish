@@ -27,31 +27,31 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
-            path: '/ListAdmin',
+            path: '/Admin/ListAdmin',
             component: require('./components/admin/ListAdmin.vue').default
         },
         {
-            path: '/Comment',
+            path: '/Admin/Comment',
             component: require('./components/admin/Comment.vue').default
         },
         {
-            path: '/Detail',
+            path: '/Admin/Detail',
             component: require('./components/admin/Detail.vue').default
         },
         {
-            path: '/PlaceTour',
+            path: '/Admin/PlaceTour',
             component: require('./components/admin/PlaceTour.vue').default
         },
         {
-            path: '/Program',
+            path: '/Admin/Program',
             component: require('./components/admin/Program.vue').default
         },
         {
-            path: '/Reserve',
+            path: '/Admin/Reserve',
             component: require('./components/admin/Reserve.vue').default
         },
         {
-            path: '/Tour',
+            path: '/Admin/Tour',
             component: require('./components/admin/Tour.vue').default
         },
     ],

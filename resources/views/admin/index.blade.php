@@ -7,7 +7,7 @@
 
   <title>Quản trị viên</title>
 
-  <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+  c
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper" id="app">
@@ -39,16 +39,16 @@
                 with font-awesome or any other icon font library -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
+                        <i class="nav-icon fas fa-users blue"></i>
                         <p>
                             Quản trị viên
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <router-link to="/ListAdmin" class="nav-link">
-                                <i class="fas fa-list-alt nav-icon"></i>
+                    <ul class="nav nav-treeview tree-left">
+                        <li class="nav-item ">
+                            <router-link to="/Admin/ListAdmin" class="nav-link">
+                                <i class="fas fa-list-alt nav-icon yellow "></i>
                                 <p>Danh sách quản lí</p>
                             </router-link>
                         </li>
@@ -56,46 +56,46 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-book blue"></i>
                         <p>
                             Tour Du Lịch
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview tree-left">
                         <li class="nav-item">
-                            <router-link to="/PlaceTour" class="nav-link">
-                                <i class="fas fa-map-marker nav-icon"></i>
+                            <router-link to="/Admin/PlaceTour" class="nav-link">
+                                <i class="fas fa-map-marker nav-icon red"></i>
                                 <p>Địa điểm</p>
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/Tour" class="nav-link">
-                                <i class="fas fa-list nav-icon"></i>
+                            <router-link to="/Admin/Tour" class="nav-link">
+                                <i class="fas fa-list nav-icon purple"></i>
                             <p>Tour</p>
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/Comment" class="nav-link">
-                                <i class="fas fa-comment-alt nav-icon"></i>
+                            <router-link to="/Admin/Comment" class="nav-link">
+                                <i class="fas fa-comment-alt nav-icon while"></i>
                             <p>Bình luận</p>
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/Reserve" class="nav-link">
-                                <i class="fas fa-shopping-cart nav-icon"></i>
+                            <router-link to="/Admin/Reserve" class="nav-link">
+                                <i class="fas fa-shopping-cart nav-icon orange"></i>
                             <p>Phiếu đặt</p>
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/Detail" class="nav-link">
-                                <i class="fas fa-marker nav-icon"></i>
+                            <router-link to="/Admin/Detail" class="nav-link">
+                                <i class="fas fa-marker nav-icon green"></i>
                             <p>Chi tiết</p>
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/Program" class="nav-link">
-                                <i class="fas fa-clock nav-icon"></i>
+                            <router-link to="/Admin/Program" class="nav-link">
+                                <i class="fas fa-clock nav-icon teal"></i>
                             <p>Chương trình</p>
                             </router-link>
                         </li>
