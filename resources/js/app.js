@@ -8,19 +8,20 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import { Form, HasError, AlertError } from 'vform';
+// import { Form, HasError, AlertError } from 'vform';
 
-window.Form = Form;
+// window.Form = Form;
 
-Vue.component(HasError.name, HasError)
-Vue.component(AlertError.name, AlertError)
+// Vue.component(HasError.name, HasError)
+// Vue.component(AlertError.name, AlertError)
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import BootstrapVue from 'bootstrap-vue';
+import Swal from 'sweetalert2';
 
-
-Vue.use(VueRouter)
+window.Swal = Swal;
+Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
 const router = new VueRouter({
@@ -53,6 +54,10 @@ const router = new VueRouter({
         {
             path: '/Admin/Tour',
             component: require('./components/admin/Tour.vue').default
+        },
+        {
+            path: '/Admin/TestJWT',
+            component: require('./components/admin/TestJWT.vue').default
         },
     ],
 })

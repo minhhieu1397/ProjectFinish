@@ -22,6 +22,7 @@ Route::apiResource('/program', 'Admin\API\ProgramController');
 Route::apiResource('/tour', 'Admin\API\TourController');
 Route::apiResource('/detail', 'Admin\API\DetailController');
 Route::apiResource('/space', 'Admin\API\SpaceController');
+Route::apiResource('/JWT', 'Admin\API\TestJwtController');
 Route::get('/current_admin', function() {
     return Auth::guard('admin')->user();
 });

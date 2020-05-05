@@ -1,13 +1,15 @@
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Quản trị viên</title>
+    <title>Quản trị viên</title>
 
-  c
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+
+  
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper" id="app">
@@ -63,6 +65,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview tree-left">
+                        <li class="nav-item">
+                            <router-link to="/Admin/TestJWT" class="nav-link">
+                                <i class="fas fa-map-marker nav-icon red"></i>
+                                <p>Test JWT</p>
+                            </router-link>
+                        </li>
                         <li class="nav-item">
                             <router-link to="/Admin/PlaceTour" class="nav-link">
                                 <i class="fas fa-map-marker nav-icon red"></i>

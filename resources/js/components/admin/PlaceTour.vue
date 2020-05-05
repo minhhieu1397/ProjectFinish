@@ -153,16 +153,37 @@
                 })
             },
             DeleteSpace(space, index) {
-                axios.delete('/api/space/' + space.id)
-                .then(response => {
-                    this.successDeleteSpace = 'Xóa thành công';
-                    console.log(response.data.result);
-                    this.listSpace.splice(index, 1);
+                Swal.fire({
+                    title: 'Bạn có chắc chắn muốn xóa?',
+                    text: "Nếu xóa bạn không thể lấy lại!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xóa!',
+                    cancelButtonText: 'Hủy',
+                }).then((result) => {
+                    axios.delete('/api/space/' + space.id)
+                    .then(response => {
+                        this.successDeleteSpace = 'Xóa thành công';
+                        console.log(response.data.result);
+                        this.listSpace.splice(index, 1);
+                    })
+                    .catch(error => {
+                        this.successDeleteSpace = '';
+                        this.errors = error.response.data.errors.name;
+                    })
+
+                    if (result.value) {
+                        
+                        Swal.fire(
+                        'Xóa Thành Công!',
+                        'Bạn đã xóa địa điểm',
+                        'Thành công'
+                        )
+                    }
                 })
-                .catch(error => {
-                    this.successDeleteSpace = '';
-                    this.errors = error.response.data.errors.name;
-                })
+               
             },
             sendSpace(space) {
                 this.space = space;

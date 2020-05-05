@@ -184,11 +184,11 @@
                 .catch(error => {
                    this.errors = error.response.data.errors.name
                 })
-           },
+            },
            sendAdmin(admin) {
                this.success = '';
                this.admin = admin;
-           },
+            },
            handleClickNewUser() {
                 this.success = '';
                 this.admin = {
@@ -196,7 +196,7 @@
                     password :'',
                     is_super_manager : false,
                 }
-           },
+            },
            updateAdmin(admin) {
                 axios.put('/api/admin/' + this.admin.id, {user_name: this.admin.user_name, is_super_manager: this.admin.is_super_manager})
 				.then(response => {
