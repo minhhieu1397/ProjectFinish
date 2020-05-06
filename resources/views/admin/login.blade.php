@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 	<title>Login</title>
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="{{ asset('/css/app.css') }}">
@@ -13,8 +15,9 @@
 </head>
 <body>
   <!-- Page Content -->	
-	<div class="container-fluid">
-		<div class="row">
+	<div class="container-fluid" id="app">
+		<router-view></router-view>
+		<!-- <div class="row">
 			<div class="col-md-2 offset-md-5 form-login">
 				<form method="POST" action="{{ route('admin.postLogin') }}" role="form">
 					{{ csrf_field() }}
@@ -32,7 +35,8 @@
 					</div>
 				</form>
 			</div>
-		</div>
+		</div> -->
 	</div>
+	<script src="{{ asset('/js/app.js') }}"></script>
 </body>
 </html>

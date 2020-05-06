@@ -24,41 +24,61 @@ window.Swal = Swal;
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
+
 const router = new VueRouter({
     mode: 'history',
     routes: [
         {
-            path: '/Admin/ListAdmin',
-            component: require('./components/admin/ListAdmin.vue').default
+            path: '/Admin',
+            redirect: '/Admin/Login'
         },
         {
-            path: '/Admin/Comment',
-            component: require('./components/admin/Comment.vue').default
+            path: '/Admin/home',
+            component: require('./components/admin.vue').default,
+            children: [
+                // {
+                //     path: '/Admin/home',
+                //     redirect: '/Admin/ListAdmin'
+                // },
+                {
+                    path: '/Admin/ListAdmin',
+                    component: require('./components/admin/ListAdmin.vue').default
+                },
+                {
+                    path: '/Admin/Comment',
+                    component: require('./components/admin/Comment.vue').default
+                },
+                {
+                    path: '/Admin/Detail',
+                    component: require('./components/admin/Detail.vue').default
+                },
+                {
+                    path: '/Admin/PlaceTour',
+                    component: require('./components/admin/PlaceTour.vue').default
+                },
+                {
+                    path: '/Admin/Program',
+                    component: require('./components/admin/Program.vue').default
+                },
+                {
+                    path: '/Admin/Reserve',
+                    component: require('./components/admin/Reserve.vue').default
+                },
+                {
+                    path: '/Admin/Tour',
+                    component: require('./components/admin/Tour.vue').default
+                },
+                {
+                    path: '/Admin/TestJWT',
+                    component: require('./components/admin/TestJWT.vue').default
+                },
+            ]
         },
         {
-            path: '/Admin/Detail',
-            component: require('./components/admin/Detail.vue').default
+            path: '/Admin/Login',
+            component: require('./components/login.vue').default
         },
-        {
-            path: '/Admin/PlaceTour',
-            component: require('./components/admin/PlaceTour.vue').default
-        },
-        {
-            path: '/Admin/Program',
-            component: require('./components/admin/Program.vue').default
-        },
-        {
-            path: '/Admin/Reserve',
-            component: require('./components/admin/Reserve.vue').default
-        },
-        {
-            path: '/Admin/Tour',
-            component: require('./components/admin/Tour.vue').default
-        },
-        {
-            path: '/Admin/TestJWT',
-            component: require('./components/admin/TestJWT.vue').default
-        },
+        
     ],
 })
     /**

@@ -20,6 +20,5 @@ Route::get('/Admin', 'Admin\LoginAdminController@login')->name('admin.login');
 Route::post('/Admin', 'Admin\LoginAdminController@postLogin')->name('admin.postLogin');
 Route::get('/Admin/home', 'Admin\AdminController@index')->name('admins.index');
 Route::get('/Admin/admin', 'Admin\AdminController@getAdmin');
-Route::get('/Admin/{path}', 'Admin\AdminController@index');
-
+Route::get('/Admin/{path}', 'Admin\LoginAdminController@login');
 Route::get('/home', 'User\UserController@index');
