@@ -3718,7 +3718,8 @@ __webpack_require__.r(__webpack_exports__);
         user_name: '',
         password: ''
       },
-      login: ''
+      login: '',
+      jwt: ''
     };
   },
   methods: {
@@ -3733,7 +3734,9 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this.login);
 
         if (_this.login.result) {
-          console.log('ok');
+          _this.Jwt = response.data.jwt;
+          console.log(_this.Jwt);
+          document.cookie = 'jwt=' + _this.Jwt;
 
           _this.$router.push({
             path: '/Admin/ListAdmin',
@@ -71548,7 +71551,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("li", { staticClass: "nav-item has-treeview" }, [
+                _c("li", { staticClass: "nav-item has-treeview menu-open" }, [
                   _vm._m(3),
                   _vm._v(" "),
                   _c("ul", { staticClass: "nav nav-treeview tree-left" }, [

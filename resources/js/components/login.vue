@@ -26,6 +26,7 @@
                     password:''
                 },
                 login: '',
+                jwt: ''
             }
         },
         methods: {
@@ -35,7 +36,10 @@
                     this.login = response.data;
                     console.log(this.login)
                     if (this.login.result) {
-                        console.log('ok')
+                        
+                        this.Jwt = response.data.jwt;
+                        console.log(this.Jwt)
+                        document.cookie = 'jwt=' +  this.Jwt;
                         this.$router.push({ path: '/Admin/ListAdmin',  params: { admin: this.admin } })
                     } else {
                         console.log('no')
