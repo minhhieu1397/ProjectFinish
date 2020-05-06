@@ -3388,12 +3388,16 @@ __webpack_require__.r(__webpack_exports__);
       successUpdateTour: '',
       successCreateTour: '',
       successCreateProgram: '',
-      successCreateDetail: ''
+      successCreateDetail: '',
+      adminCurrent: '',
+      jwt: '',
+      myCookie: ''
     };
   },
   created: function created() {
     this.getAllTours();
     this.getAdminCurrent();
+    this.setJwt();
   },
   methods: {
     handleClickNewTour: function handleClickNewTour() {
@@ -3410,6 +3414,9 @@ __webpack_require__.r(__webpack_exports__);
     createTour: function createTour(tour) {
       var _this = this;
 
+      console.log(this.jwt);
+      console.log('aaaaaaaaaaa');
+      console.log(this.adminCurrent);
       axios.post('/api/tour', {
         tour_name: this.tour.tour_name,
         vehicle: this.tour.vehicle,
@@ -3427,6 +3434,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.successCreateTour = 'Tạo Tour thành công';
 
         _this.getAllTours();
+
+        console.log('aaaaaaaaaaa');
       })["catch"](function (error) {
         _this.success = '';
 
@@ -3674,6 +3683,31 @@ __webpack_require__.r(__webpack_exports__);
           _this13.errors = error.response.data.errors;
         }
       });
+    },
+    setJwt: function setJwt() {
+      console.log('test jwt');
+      this.myCookie = document.cookie;
+      var name = 'Jwt' + "=";
+      var ad = 'admin' + "=";
+      var ca = this.myCookie.split(';');
+
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+
+        if (c.indexOf('jwt') == 0) {
+          this.Jwt = c.substring(name.length, c.length);
+          console.log('jwt');
+        } else if (c.indexOf('admin') == 0) {
+          this.adminCurrent = c.substring(ad.length, c.length);
+          console.log(this.adminCurrent);
+        }
+      }
+
+      console.log(ca);
     }
   },
   mounted: function mounted() {
@@ -3737,6 +3771,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.Jwt = response.data.jwt;
           console.log(_this.Jwt);
           document.cookie = 'jwt=' + _this.Jwt;
+          document.cookie = 'admin=' + _this.admin.user_name;
 
           _this.$router.push({
             path: '/Admin/ListAdmin',

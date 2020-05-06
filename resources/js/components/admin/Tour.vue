@@ -522,11 +522,15 @@
                 successCreateTour: '',
                 successCreateProgram: '',
                 successCreateDetail: '',
+                adminCurrent: '',
+                jwt: '',
+                myCookie: ''
             }
         },
         created() {
             this.getAllTours();
             this.getAdminCurrent();
+            this.setJwt();
         },
         methods: {
             handleClickNewTour() {
@@ -541,6 +545,10 @@
                 }
             },
             createTour(tour) {
+                console.log(this.jwt);
+                console.log('aaaaaaaaaaa');
+                console.log(this.adminCurrent);
+
                 axios.post('/api/tour', {tour_name: this.tour.tour_name, vehicle: this.tour.vehicle, departure: this.tour.departure, 
                     day_night: this.tour.day_night, price: this.tour.price, note: this.tour.note })
                     .then(response => {
@@ -552,6 +560,8 @@
                         this.tour.note = null;
                         this.successCreateTour = 'Tạo Tour thành công';
                         this.getAllTours();
+                console.log('aaaaaaaaaaa');
+
                     })
                     .catch(error => {
                         this.success = ''
@@ -782,7 +792,28 @@
                         this.errors = error.response.data.errors
                     }
                 })
-            }
+            },
+            setJwt() {
+                console.log('test jwt');
+                this.myCookie = document.cookie;
+                var name = 'Jwt' + "=";
+                var ad = 'admin' + "=";
+                var ca = this.myCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf('jwt') == 0) {
+                        this.Jwt=  c.substring(name.length,c.length);
+                        console.log('jwt');
+                    } else if (c.indexOf('admin') == 0) {
+                        this.adminCurrent = c.substring(ad.length,c.length);
+                        console.log(this.adminCurrent);
+                    }
+                }
+                console.log(ca);
+            },
         },
         mounted() {
             console.log('Component mounted.')

@@ -40,6 +40,7 @@
                         this.Jwt = response.data.jwt;
                         console.log(this.Jwt)
                         document.cookie = 'jwt=' +  this.Jwt;
+                        document.cookie = 'admin=' +  this.admin.user_name;
                         this.$router.push({ path: '/Admin/ListAdmin',  params: { admin: this.admin } })
                     } else {
                         console.log('no')

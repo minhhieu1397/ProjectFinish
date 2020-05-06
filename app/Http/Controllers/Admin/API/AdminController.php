@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\ApiCreateRequest;
 use App\Http\Requests\Admin\UpdateAdminRequest;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -29,6 +30,8 @@ class AdminController extends Controller
     public function store(ApiCreateRequest $request)
     {
         $s = $request->input('user_name');
+        $admin = Auth::guard('admin')->user();
+        dd($admin);
         $admin = Admin::find(1);
         $abc = $this->base64($s, $admin);
         
