@@ -3415,7 +3415,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       console.log(this.jwt);
-      console.log('aaaaaaaaaaa');
       console.log(this.adminCurrent);
       axios.post('/api/tour', {
         tour_name: this.tour.tour_name,
@@ -3423,7 +3422,9 @@ __webpack_require__.r(__webpack_exports__);
         departure: this.tour.departure,
         day_night: this.tour.day_night,
         price: this.tour.price,
-        note: this.tour.note
+        note: this.tour.note,
+        jwt: this.jwt,
+        admin: this.adminCurrent
       }).then(function (response) {
         _this.tour.tour_name = null;
         _this.tour.vehicle = null;
@@ -3434,8 +3435,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.successCreateTour = 'Tạo Tour thành công';
 
         _this.getAllTours();
-
-        console.log('aaaaaaaaaaa');
       })["catch"](function (error) {
         _this.success = '';
 
@@ -3460,7 +3459,6 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/Admin/admin').then(function (response) {
         _this3.admin_current = response.data;
         console.log(_this3.admin_current.user_name);
-        console.log('this.admin_current');
       })["catch"](function (error) {
         _this3.errors = error.response.data.errors.name;
         console.log('errors get admin current');
@@ -3490,7 +3488,9 @@ __webpack_require__.r(__webpack_exports__);
         departune: this.tour.departune,
         day_night: this.tour.day_night,
         price: this.tour.price,
-        note: this.tour.note
+        note: this.tour.note,
+        jwt: this.jwt,
+        admin: this.adminCurrent
       }).then(function (response) {
         _this5.successUpdateTour = 'Cập nhập Tour thành công';
       })["catch"](function (error) {
@@ -3662,10 +3662,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this13 = this;
 
       event.preventDefault();
-      var currentObj = this; // const config = {
-      //     headers: { 'content-type': 'application/x-www-form-urlencoded' }
-      // }
-
+      var currentObj = this;
       console.log(this.detail.id);
       var formData = new FormData();
       formData.append('_method', 'PUT');
@@ -3699,15 +3696,13 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         if (c.indexOf('jwt') == 0) {
-          this.Jwt = c.substring(name.length, c.length);
-          console.log('jwt');
+          this.jwt = c.substring(name.length, c.length);
+          console.log(this.jwt);
         } else if (c.indexOf('admin') == 0) {
           this.adminCurrent = c.substring(ad.length, c.length);
           console.log(this.adminCurrent);
         }
       }
-
-      console.log(ca);
     }
   },
   mounted: function mounted() {

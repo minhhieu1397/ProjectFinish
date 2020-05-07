@@ -14,3 +14,42 @@
 .tree-left {
     margin-left: 10px;
 }
+.header-home {
+    background-color: #FFCCCC;
+    font-family: cursive;
+    color: #333333;
+}
+
+.header-home ul li a{
+    color: #333333;
+    font-size: 20px;
+}
+
+.footer-home {
+    background-color: #333333;
+    color: #FFFFFF;
+}
+
+.carousel-inner img{
+    height: 800px;
+	width: 100%;
+}
+.the-travel {
+    font-family: cursive;
+}
+.active-pink-2 input.form-control[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid #f48fb1;
+    box-shadow: 0 1px 0 0 #f48fb1;
+  }
+  .active-pink input.form-control[type=text] {
+    border-bottom: 1px solid #f48fb1;
+    box-shadow: 0 1px 0 0 #f48fb1;
+  }
+.text-home{
+    color: #FF0000;
+}
+
+.top-header h5 {
+    font-size: 15px;
+    color: #666666;
+}

@@ -31,7 +31,7 @@ class AdminController extends Controller
     {
         $s = $request->input('user_name');
         $admin = Auth::guard('admin')->user();
-        dd($admin);
+        
         $admin = Admin::find(1);
         $abc = $this->base64($s, $admin);
         

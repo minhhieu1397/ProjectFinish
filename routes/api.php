@@ -24,6 +24,8 @@ Route::apiResource('/detail', 'Admin\API\DetailController');
 Route::apiResource('/space', 'Admin\API\SpaceController');
 Route::apiResource('/JWT', 'Admin\API\TestJwtController');
 Route::apiResource('/login', 'Admin\API\LoginController');
+Route::apiResource('/checkJwt', 'Admin\API\checkJwtController');
+Route::post('get', 'Admin\API\TestController@get');
 Route::get('/current_admin', function() {
     return Auth::guard('admin')->user();
 });

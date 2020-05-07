@@ -8,6 +8,33 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import BootstrapVue from 'bootstrap-vue';
+import Swal from 'sweetalert2';
+
+window.Swal = Swal;
+Vue.use(VueRouter);
+Vue.use(BootstrapVue);
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            path: '/',
+            redirect: '/home'
+        },
+        {
+            path: '/home',
+            component: require('./components/tour/home.vue').default,
+        },
+        {
+            path: '/Admin/Login',
+            component: require('./components/login.vue').default
+        },
+        
+    ],
+})
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -28,4 +55,5 @@ window.Vue = require('vue');
 
 const app = new Vue({
     el: '#app',
+    router
 });

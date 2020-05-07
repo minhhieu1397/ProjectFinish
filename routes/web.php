@@ -21,4 +21,6 @@ Route::post('/Admin', 'Admin\LoginAdminController@postLogin')->name('admin.postL
 Route::get('/Admin/home', 'Admin\AdminController@index')->name('admins.index');
 Route::get('/Admin/admin', 'Admin\AdminController@getAdmin');
 Route::get('/Admin/{path}', 'Admin\LoginAdminController@login');
-Route::get('/home', 'User\UserController@index');
+Route::get('/{path}', 'Tour\TourController@index');
+
+Route::get('/', 'Tour\TourController@index');

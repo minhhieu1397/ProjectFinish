@@ -546,11 +546,10 @@
             },
             createTour(tour) {
                 console.log(this.jwt);
-                console.log('aaaaaaaaaaa');
                 console.log(this.adminCurrent);
 
                 axios.post('/api/tour', {tour_name: this.tour.tour_name, vehicle: this.tour.vehicle, departure: this.tour.departure, 
-                    day_night: this.tour.day_night, price: this.tour.price, note: this.tour.note })
+                    day_night: this.tour.day_night, price: this.tour.price, note: this.tour.note, jwt: this.jwt, admin: this.adminCurrent})
                     .then(response => {
                         this.tour.tour_name = null;
                         this.tour.vehicle = null;
@@ -560,8 +559,6 @@
                         this.tour.note = null;
                         this.successCreateTour = 'Tạo Tour thành công';
                         this.getAllTours();
-                console.log('aaaaaaaaaaa');
-
                     })
                     .catch(error => {
                         this.success = ''
@@ -585,8 +582,6 @@
                 .then(response => {
                     this.admin_current = response.data
                     console.log(this.admin_current.user_name)
-                    console.log('this.admin_current')
-
                 })
                 .catch(error => {
                    this.errors = error.response.data.errors.name
@@ -609,7 +604,7 @@
             },
             updateTour() {
                 axios.put('/api/tour/' + this.tour.id, {tour_name: this.tour.tour_name, vehicle: this.tour.vehicle, departune: this.tour.departune, day_night: this.tour.day_night,
-                    price: this.tour.price, note: this.tour.note})
+                    price: this.tour.price, note: this.tour.note, jwt: this.jwt, admin: this.adminCurrent})
 				.then(response => {
                     this.successUpdateTour = 'Cập nhập Tour thành công'
 				})
@@ -769,10 +764,6 @@
             updateDetail() {
                 event.preventDefault();
                 let currentObj = this;
- 
-                // const config = {
-                //     headers: { 'content-type': 'application/x-www-form-urlencoded' }
-                // }
                 console.log(this.detail.id)
                 let formData = new FormData();
                 formData.append('_method', 'PUT');
@@ -805,14 +796,13 @@
                         c = c.substring(1);
                     }
                     if (c.indexOf('jwt') == 0) {
-                        this.Jwt=  c.substring(name.length,c.length);
-                        console.log('jwt');
+                        this.jwt=  c.substring(name.length,c.length);
+                        console.log(this.jwt);
                     } else if (c.indexOf('admin') == 0) {
                         this.adminCurrent = c.substring(ad.length,c.length);
                         console.log(this.adminCurrent);
                     }
                 }
-                console.log(ca);
             },
         },
         mounted() {
