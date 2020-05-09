@@ -90359,11 +90359,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/Admin/home',
     component: __webpack_require__(/*! ./components/admin.vue */ "./resources/js/components/admin.vue")["default"],
-    children: [// {
-    //     path: '/Admin/home',
-    //     redirect: '/Admin/ListAdmin'
-    // },
-    {
+    children: [{
+      path: '/Admin/home',
+      redirect: '/Admin/ListAdmin'
+    }, {
       path: '/Admin/ListAdmin',
       component: __webpack_require__(/*! ./components/admin/ListAdmin.vue */ "./resources/js/components/admin/ListAdmin.vue")["default"]
     }, {

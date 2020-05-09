@@ -36,10 +36,10 @@ const router = new VueRouter({
             path: '/Admin/home',
             component: require('./components/admin.vue').default,
             children: [
-                // {
-                //     path: '/Admin/home',
-                //     redirect: '/Admin/ListAdmin'
-                // },
+                {
+                    path: '/Admin/home',
+                    redirect: '/Admin/ListAdmin'
+                },
                 {
                     path: '/Admin/ListAdmin',
                     component: require('./components/admin/ListAdmin.vue').default

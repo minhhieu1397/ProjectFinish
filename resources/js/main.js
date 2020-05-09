@@ -20,10 +20,10 @@ Vue.use(BootstrapVue);
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        {
-            path: '/',
-            redirect: '/home'
-        },
+        // {
+        //     path: '/',
+        //     redirect: '/home'
+        // },
         {
             path: '/home',
             component: require('./components/tour/home.vue').default,

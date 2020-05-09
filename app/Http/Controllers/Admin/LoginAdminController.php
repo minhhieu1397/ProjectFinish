@@ -12,18 +12,4 @@ class LoginAdminController extends Controller
     {
         return view('admin.login');
     }
-
-    public function postLogin(Request $request)
-    {
-        $user_name = $request->input('user_name');
-        $password = $request->input('password');
-        
-        if (Auth::guard('admin')->attempt(['user_name' => $user_name, 'password' => $password])) {
-            return redirect()->route('admins.index');
-        } else {
-            return back()->withInput()->withErrors([
-                'errorLogin' => 'Username or password incorrect'
-            ]);
-        }
-    }
 }

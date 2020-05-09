@@ -17,10 +17,10 @@ Route::get('/', function () {
 
 // Route::resource('admins', 'AdminController');
 Route::get('/Admin', 'Admin\LoginAdminController@login')->name('admin.login');
-Route::post('/Admin', 'Admin\LoginAdminController@postLogin')->name('admin.postLogin');
+// Route::post('/Admin', 'Admin\LoginAdminController@postLogin')->name('admin.postLogin');
 Route::get('/Admin/home', 'Admin\AdminController@index')->name('admins.index');
 Route::get('/Admin/admin', 'Admin\AdminController@getAdmin');
 Route::get('/Admin/{path}', 'Admin\LoginAdminController@login');
-Route::get('/{path}', 'Tour\TourController@index');
+// Route::get('/', 'Tour\TourController@index');
 
 Route::get('/', 'Tour\TourController@index');

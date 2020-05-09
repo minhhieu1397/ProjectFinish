@@ -85241,10 +85241,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
-  routes: [{
-    path: '/',
-    redirect: '/home'
-  }, {
+  routes: [// {
+  //     path: '/',
+  //     redirect: '/home'
+  // },
+  {
     path: '/home',
     component: __webpack_require__(/*! ./components/tour/home.vue */ "./resources/js/components/tour/home.vue")["default"]
   }, {
