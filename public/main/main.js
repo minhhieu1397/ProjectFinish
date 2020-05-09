@@ -1993,6 +1993,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -69844,124 +69881,187 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6 pl-0 pr-0" }, [
-        _c("span", [
-          _c("img", {
-            staticClass: "d-inline-block pl-2",
-            attrs: { src: "/img/logo.jpg", width: "200px", height: "150px" }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "d-inline-block pl-5 text-home" }, [
-            _c("h3", { staticClass: "text-center the-travel " }, [
-              _vm._v("Lên kế hoạch ngay!")
-            ]),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6 pl-0 pr-0" }, [
+          _c("span", [
+            _c("img", {
+              staticClass: "d-inline-block pl-2",
+              attrs: { src: "/img/logo.jpg", width: "200px", height: "150px" }
+            }),
             _vm._v(" "),
-            _c("h5", { staticClass: "text-center the-travel " }, [
-              _vm._v(
-                "Du lịch tận hưởng, trải nghiệm du lịch giá rẻ chưa từng thấy"
-              )
+            _c("div", { staticClass: "d-inline-block pl-5 text-home" }, [
+              _c("h3", { staticClass: "text-center the-travel " }, [
+                _vm._v("Lên kế hoạch ngay!")
+              ]),
+              _vm._v(" "),
+              _c("h5", { staticClass: "text-center the-travel " }, [
+                _vm._v(
+                  "Du lịch tận hưởng, trải nghiệm du lịch giá rẻ chưa từng thấy"
+                )
+              ])
             ])
           ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 pl-0 pr-0" }, [
-        _c("h5", { staticClass: " the-travel " }, [
-          _vm._v("Tìm kiếm khu du lịch: ")
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "md-form active-pink active-pink-2 mb-3 mt-0 d-inline-block pl-5"
-          },
-          [
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                placeholder: "Search",
-                "aria-label": "Search"
-              }
-            })
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-outline-success ml-3 mb-1 mt-0 ",
-            attrs: { type: "button" }
-          },
-          [_vm._v("Success")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-12 pl-0 pr-0" }, [
-        _c(
-          "div",
-          {
-            staticClass: "carousel slide",
-            attrs: { id: "slides", "data-ride": "carousel" }
-          },
-          [
-            _c("ul", { staticClass: "carousel-indicators" }, [
-              _c("li", {
-                staticClass: "active",
-                attrs: { "data-target": "#slides", "data-slide-to": "0" }
-              }),
-              _vm._v(" "),
-              _c("li", {
-                staticClass: "active",
-                attrs: { "data-target": "#slides", "data-slide-to": "1" }
-              }),
-              _vm._v(" "),
-              _c("li", {
-                staticClass: "active",
-                attrs: { "data-target": "#slides", "data-slide-to": "2" }
+        _c("div", { staticClass: "col-md-4 offset-md-2 pl-0 pr-0" }, [
+          _c("h5", { staticClass: " the-travel " }, [
+            _vm._v("Tìm kiếm khu du lịch: ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "md-form active-pink active-pink-2 mb-3 mt-0 d-inline-block pl-5"
+            },
+            [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  placeholder: "Search",
+                  "aria-label": "Search"
+                }
               })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "carousel-inner " }, [
-              _c("div", { staticClass: "carousel-item active car-home" }, [
-                _c("img", { attrs: { src: "/img/dalat.jpg" } }),
-                _vm._v(" "),
-                _c("div", { staticClass: "carousel-caption item-inner" }, [
-                  _c("h1", { staticClass: "display-2" }, [_vm._v("Đà Lạt")]),
-                  _vm._v(" "),
-                  _c("h2", { staticClass: "display-4" }, [
-                    _vm._v("Du lịch Đà Lạt")
-                  ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-success ml-3 mb-1 mt-0 ",
+              attrs: { type: "button" }
+            },
+            [_vm._v("Success")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "icoin-home" }, [
+            _c("ul", { staticClass: "list-unstyled" }, [
+              _c("li", { staticClass: "d-inline-block pl-5" }, [
+                _c("a", { attrs: { href: "#!" } }, [
+                  _c("i", {
+                    staticClass: "fa fa-facebook-official",
+                    staticStyle: { "font-size": "40px" }
+                  })
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "carousel-item" }, [
-                _c("img", { attrs: { src: "/img/pic2.jpg" } }),
-                _vm._v(" "),
-                _c("div", { staticClass: "carousel-caption" }, [
-                  _c("h1", { staticClass: "display-2" }, [_vm._v("Sa")]),
-                  _vm._v(" "),
-                  _c("h2", { staticClass: "display-4" }, [
-                    _vm._v("Du lịch mọi nơi")
-                  ])
+              _c("li", { staticClass: "d-inline-block pl-3" }, [
+                _c("a", { attrs: { href: "#!" } }, [
+                  _c("i", {
+                    staticClass: "fa fa-instagram ",
+                    staticStyle: { "font-size": "40px" },
+                    attrs: { "aria-hidden": "true" }
+                  })
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "carousel-item" }, [
-                _c("img", { attrs: { src: "/img/pic3.jpg" } }),
-                _vm._v(" "),
-                _c("div", { staticClass: "carousel-caption" }, [
-                  _c("h1", { staticClass: "display-2" }, [_vm._v("Du lịch")]),
-                  _vm._v(" "),
-                  _c("h2", { staticClass: "display-4" }, [
-                    _vm._v("Du lịch mọi nơi")
-                  ])
+              _c("li", { staticClass: "d-inline-block pl-3" }, [
+                _c("a", { attrs: { href: "#!" } }, [
+                  _c("i", {
+                    staticClass: "fa fa-twitch",
+                    staticStyle: { "font-size": "40px" },
+                    attrs: { "aria-hidden": "true" }
+                  })
                 ])
               ])
             ])
-          ]
-        )
+          ]),
+          _vm._v(" "),
+          _c("h5", { staticClass: " the-travel " }, [
+            _vm._v("Theo dõi để nhận ưu đãi !!!")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-12 pl-0 pr-0" }, [
+          _c(
+            "div",
+            {
+              staticClass: "carousel slide",
+              attrs: { id: "slides", "data-ride": "carousel" }
+            },
+            [
+              _c("ul", { staticClass: "carousel-indicators" }, [
+                _c("li", {
+                  staticClass: "active",
+                  attrs: { "data-target": "#slides", "data-slide-to": "0" }
+                }),
+                _vm._v(" "),
+                _c("li", {
+                  staticClass: "active",
+                  attrs: { "data-target": "#slides", "data-slide-to": "1" }
+                }),
+                _vm._v(" "),
+                _c("li", {
+                  staticClass: "active",
+                  attrs: { "data-target": "#slides", "data-slide-to": "2" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "carousel-inner " }, [
+                _c("div", { staticClass: "carousel-item active car-home" }, [
+                  _c("img", { attrs: { src: "/img/dalat.jpg" } }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "carousel-caption item-inner" }, [
+                    _c("h1", { staticClass: "display-2" }, [_vm._v("Đà Lạt")]),
+                    _vm._v(" "),
+                    _c("h2", { staticClass: "display-4" }, [
+                      _vm._v("Du lịch Đà Lạt")
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "carousel-item car-home ml-0 mr-0" }, [
+                  _c("img", { attrs: { src: "/img/pic2.jpg" } }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "carousel-caption" }, [
+                    _c("h1", { staticClass: "display-2" }, [_vm._v("Sa")]),
+                    _vm._v(" "),
+                    _c("h2", { staticClass: "display-4" }, [
+                      _vm._v("Du lịch mọi nơi")
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "carousel-item car-home" }, [
+                  _c("img", { attrs: { src: "/img/pic3.jpg" } }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "carousel-caption" }, [
+                    _c("h1", { staticClass: "display-2" }, [_vm._v("Du lịch")]),
+                    _vm._v(" "),
+                    _c("h2", { staticClass: "display-4" }, [
+                      _vm._v("Du lịch mọi nơi")
+                    ])
+                  ])
+                ])
+              ])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 pl-0 pr-0" }, [
+        _c("hr", { staticClass: "mt-2" }),
+        _vm._v(" "),
+        _c("div", [
+          _c("h3", { staticClass: "text-center" }, [_vm._v("Tour Nổi Bật")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "d-inline-block pr-1 col-md-3" }, [
+        _vm._v("\n            Hà Nội\n        ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "d-inline-block pr-1 col-md-3" }, [
+        _vm._v("\n            Hà Nội\n        ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "d-inline-block pr-1 pl-1 col-md-3" }, [
+        _vm._v("\n            Hà Nội\n        ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "d-inline-block pl-1 col-md-3" }, [
+        _vm._v("\n            Hà Nội\n        ")
       ])
     ])
   }
@@ -85241,11 +85341,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
-  routes: [// {
-  //     path: '/',
-  //     redirect: '/home'
-  // },
-  {
+  routes: [{
+    path: '/',
+    redirect: '/home'
+  }, {
     path: '/home',
     component: __webpack_require__(/*! ./components/tour/home.vue */ "./resources/js/components/tour/home.vue")["default"]
   }, {

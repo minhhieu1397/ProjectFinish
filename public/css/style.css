@@ -53,3 +53,34 @@
     font-size: 15px;
     color: #666666;
 }
+.header-home ul li a:hover {
+    color: #FF0000;
+}
+
+.footer-home {
+    font-size: 17px;
+}
+
+.footer-home  {
+    font-size: 17px;
+}
+
+.footer-home  {
+    font-size: 17px;
+    color: #DDDDDD;
+}
+
+.footer-home li a {
+    color: #FFFFFF;
+}
+
+.footer-home a:hover{
+    color: #999999;
+}
+
+.icoin-home a:hover {
+    color: #AAAAAA;
+}
+.icoin-home a {
+    color: #000000;
+}

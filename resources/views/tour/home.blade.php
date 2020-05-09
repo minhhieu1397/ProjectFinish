@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -32,11 +33,17 @@
                 <a class="nav-link" href="#">Link 2</a>
             </li>
         </ul>
-
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="#">Đăng kí</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="#">Đăng nhập</a>
+            </li>
+        </ul>
     </nav>
-
+    <hr>
     <br>
-
     <div class="container-fluid" id="app">
         <router-view></router-view>
     </div>
@@ -52,8 +59,8 @@
                 <div class="col-md-6 mt-md-0 mt-3">
 
                     <!-- Content -->
-                    <h5 class="text-uppercase">Footer Content</h5>
-                    <p>Here you can use rows and columns to organize your footer content.</p>
+                    <h5 class="text-uppercase">Du lịch mọi lúc mọi nơi</h5>
+                    <p>Bạn có câu hỏi hay thắc mắc, có thể liên hệ với chúng tôi</p>
 
                 </div>
                 <!-- Grid column -->
@@ -64,20 +71,17 @@
                 <div class="col-md-3 mb-md-0 mb-3">
 
                     <!-- Links -->
-                    <h5 class="text-uppercase">Links</h5>
+                    <h5 class="text-uppercase">Liên hệ</h5>
 
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#!">Link 1</a>
+                            Số điện thoại: 0123456789
                         </li>
                         <li>
-                            <a href="#!">Link 2</a>
+                            Email: Minhhieu97.hust@gmail.com
                         </li>
                         <li>
-                            <a href="#!">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 4</a>
+                            Địa chỉ: Số 1, Đại Cồ Việt
                         </li>
                     </ul>
 
@@ -88,20 +92,16 @@
                 <div class="col-md-3 mb-md-0 mb-3">
 
                     <!-- Links -->
-                    <h5 class="text-uppercase">Links</h5>
+                    <h5 class="text-uppercase">Mạng xã hội</h5>
 
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#!">Link 1</a>
+                        <i class="fa fa-facebook-official" style="font-size:24px"></i> :
+                            <a href="#!">Facebook</a>
                         </li>
                         <li>
-                            <a href="#!">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 4</a>
+                            <i class="fa fa-instagram" aria-hidden="true" style="font-size:24px"></i> :
+                            <a href="#!">Instagram</a>
                         </li>
                     </ul>
 
@@ -115,8 +115,8 @@
         <!-- Footer Links -->
 
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+        <div class="footer-copyright text-center py-3">© 2020 create by:
+           Hieu20151340
         </div>
         <!-- Copyright -->
 
