@@ -73,7 +73,7 @@ class TourController extends Controller
      */
     public function show($id)
     {
-        return Tour::all();
+        return Tour::where('id', $id)->get();
     }
 
     /**

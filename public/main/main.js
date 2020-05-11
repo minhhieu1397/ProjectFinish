@@ -1961,18 +1961,57 @@ __webpack_require__.r(__webpack_exports__);
         tour_id: '',
         day: '',
         detail: ''
+      },
+      list_program: [],
+      tour: {
+        id: '',
+        tour_name: '',
+        vehicle: '',
+        departune: '',
+        day_night: '',
+        price: '',
+        note: ''
       }
     };
   },
   created: function created() {
     this.id = this.$route.params.id;
-    console.log(this.id);
-    console.log('aaa');
-    console.log(this.$route);
-    console.log(this.$route.params);
-    console.log(this.$route.params.id);
+    this.getDetail();
+    this.getListProgram();
+    this.getTour();
   },
-  methods: {},
+  methods: {
+    getDetail: function getDetail() {
+      var _this = this;
+
+      axios.get('/api/detail/' + this.id).then(function (response) {
+        _this.detail = response.data;
+        console.log(_this.detail);
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors.name;
+      });
+    },
+    getListProgram: function getListProgram() {
+      var _this2 = this;
+
+      axios.get('/api/program/' + this.id).then(function (response) {
+        _this2.list_program = response.data;
+        console.log(_this2.list_program);
+      })["catch"](function (error) {
+        _this2.errors = error.response.data.errors.name;
+      });
+    },
+    getTour: function getTour() {
+      var _this3 = this;
+
+      axios.get('/api/tour/' + this.id).then(function (response) {
+        _this3.list_program = response.data;
+        console.log(_this3.list_program);
+      })["catch"](function (error) {
+        _this3.errors = error.response.data.errors.name;
+      });
+    }
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -2132,7 +2171,7 @@ __webpack_require__.r(__webpack_exports__);
     getAllTourHighlights: function getAllTourHighlights() {
       var _this = this;
 
-      axios.get('/api/tour/' + this.isHighLight).then(function (response) {
+      axios.get('/api/tourhighlight/').then(function (response) {
         _this.tourHighlights = response.data;
       })["catch"](function (error) {
         _this.errors = error.response.data.errors.name;

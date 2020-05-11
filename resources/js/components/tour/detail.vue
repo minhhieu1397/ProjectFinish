@@ -13,7 +13,7 @@
         data() {
            return {
                id: '',
-               detail: {
+                detail: {
                     id :'',
                     tour_id: '',
                     day_start: '',
@@ -26,19 +26,56 @@
                     tour_id :'',
                     day : '',
                     detail :'',
-                }
+                },
+                list_program: [],
+                tour: {
+                    id: '',
+                    tour_name: '',
+                    vehicle: '',
+                    departune: '',
+                    day_night: '',
+                    price: '',
+                    note: '',
+                },
            }
         },
         created() {
             this.id = this.$route.params.id;
-            console.log(this.id);
-            console.log('aaa');
-            console.log(this.$route);  
-      console.log(this.$route.params);
-      console.log(this.$route.params.id);
+            this.getDetail();
+            this.getListProgram();
+            this.getTour();
         },
         methods: {
-           
+           getDetail() {
+                axios.get('/api/detail/' + this.id)
+                .then(response => {
+                   this.detail = response.data;
+                    console.log(this.detail)
+                })
+                .catch(error => {
+                   this.errors = error.response.data.errors.name
+                })
+           },
+            getListProgram() {
+                axios.get('/api/program/' + this.id)
+                .then(response => {
+                   this.list_program = response.data;
+                    console.log(this.list_program);
+                })
+                .catch(error => {
+                   this.errors = error.response.data.errors.name
+                })
+            },
+            getTour() {
+                axios.get('/api/tour/' + this.id)
+                .then(response => {
+                    this.list_program = response.data;
+                    console.log(this.list_program);
+                })
+                .catch(error => {
+                   this.errors = error.response.data.errors.name
+                })
+            }
         },
         mounted() {
             console.log('Component mounted.')

@@ -140,7 +140,7 @@
         },
         methods: {
             getAllTourHighlights() {
-                axios.get('/api/tour/' + this.isHighLight)
+                axios.get('/api/tourhighlight/')
                 .then(response => {
                    this.tourHighlights = response.data
                 })
