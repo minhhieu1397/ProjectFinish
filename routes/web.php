@@ -24,3 +24,5 @@ Route::get('/Admin/{path}', 'Admin\LoginAdminController@login');
 
 Route::get('/', 'Tour\TourController@index');
 Route::get('/{path}', 'Tour\TourController@index');
+Route::get('/Detail/{path}', 'Tour\TourController@index');
+

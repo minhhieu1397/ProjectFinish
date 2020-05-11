@@ -32,6 +32,10 @@ const router = new VueRouter({
             path: '/Admin/Login',
             component: require('./components/login.vue').default
         },
+        {
+            path: '/Detail/:id',
+            component: require('./components/tour/detail.vue').default
+        },
         
     ],
 })

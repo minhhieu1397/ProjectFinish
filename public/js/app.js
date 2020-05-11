@@ -3348,6 +3348,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3375,7 +3382,8 @@ __webpack_require__.r(__webpack_exports__);
         day_start: '',
         day_end: '',
         amount: '',
-        account: ''
+        account: '',
+        description: ''
       },
       admin_current: {
         user_name: ''
@@ -3623,6 +3631,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('day_end', this.detail.day_end);
       formData.append('amount', this.detail.amount);
       formData.append('account', this.admin_current.user_name);
+      formData.append('description', this.admin_current.description);
       axios.post('/api/detail', formData, config).then(function (response) {
         _this11.detail.day_start = null;
         _this11.detail.day_end = null;
@@ -74609,6 +74618,44 @@ var render = function() {
                                 _vm.errors.amount
                                   ? _c("span", { staticClass: "text-danger" }, [
                                       _vm._v(" " + _vm._s(_vm.errors.amount[0]))
+                                    ])
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("description")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.detail.description,
+                                      expression: "detail.description"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { type: "text", name: "amount" },
+                                  domProps: { value: _vm.detail.description },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.detail,
+                                        "description",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.errors.description
+                                  ? _c("span", { staticClass: "text-danger" }, [
+                                      _vm._v(
+                                        " " + _vm._s(_vm.errors.description[0])
+                                      )
                                     ])
                                   : _vm._e()
                               ]),

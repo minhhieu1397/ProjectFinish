@@ -50,6 +50,7 @@ class DetailController extends Controller
                 'image' => $imageName,
                 'amount' => $request->input('amount'),
                 'account' => $request->input('account'),
+                'description' => $request->input('description')
             ]);
         }
         

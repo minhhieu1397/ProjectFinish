@@ -362,6 +362,13 @@
                                             
                                             <span v-if="errors.amount" class="text-danger"> {{ errors.amount[0] }}</span>
                                         </div>
+                                        <div class="form-group">
+                                            <label>description</label>
+                                            <input v-model="detail.description" type="text" name="amount"
+                                            class="form-control">
+                                            
+                                            <span v-if="errors.description" class="text-danger"> {{ errors.description[0] }}</span>
+                                        </div>
                                         <div class="button-create">
                                             <button class="btn btn-primary">Create</button>
                                             <button class="btn btn-success" @click="listDetail(tour)">
@@ -509,6 +516,7 @@
                     day_end: '',
                     amount: '',
                     account: '',
+                    description: ''
                 },
                 admin_current: {
                     user_name: '',
@@ -725,6 +733,7 @@
                 formData.append('day_end', this.detail.day_end);
                 formData.append('amount', this.detail.amount);
                 formData.append('account', this.admin_current.user_name);
+                formData.append('description', this.admin_current.description);
 
                 axios.post('/api/detail', formData, config)
                 .then(response => {

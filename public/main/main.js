@@ -1925,6 +1925,61 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tour/detail.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tour/detail.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id: '',
+      detail: {
+        id: '',
+        tour_id: '',
+        day_start: '',
+        amount: '',
+        account: '',
+        description: ''
+      },
+      program: {
+        id: '',
+        tour_id: '',
+        day: '',
+        detail: ''
+      }
+    };
+  },
+  created: function created() {
+    this.id = this.$route.params.id;
+    console.log(this.id);
+    console.log('aaa');
+    console.log(this.$route);
+    console.log(this.$route.params);
+    console.log(this.$route.params.id);
+  },
+  methods: {},
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tour/home.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tour/home.vue?vue&type=script&lang=js& ***!
@@ -2030,7 +2085,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      tourHighlight: {
+        id: '',
+        tour_name: '',
+        vehicle: '',
+        departune: '',
+        day_night: '',
+        price: '',
+        note: ''
+      },
+      isHighLight: true,
+      tourHighlights: []
+    };
+  },
+  created: function created() {
+    this.getAllTourHighlights();
+  },
+  methods: {
+    getAllTourHighlights: function getAllTourHighlights() {
+      var _this = this;
+
+      axios.get('/api/tour/' + this.isHighLight).then(function (response) {
+        _this.tourHighlights = response.data;
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors.name;
+      });
+    },
+    viewDetail: function viewDetail(tourHighlight) {
+      console.log(tourHighlight.id);
+      this.$router.push({
+        path: '/Detail/' + tourHighlight.id
+      });
+    }
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -69858,6 +69972,35 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tour/detail.vue?vue&type=template&id=53d4caed&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tour/detail.vue?vue&type=template&id=53d4caed& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-10 offset-md-1" }, [
+      _c("h1", { staticClass: "text-center" }, [_vm._v("Chi tiết tour")]),
+      _vm._v("\n        " + _vm._s(_vm.$route.params.id) + "\n\n    ")
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tour/home.vue?vue&type=template&id=5851017b&":
 /*!************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tour/home.vue?vue&type=template&id=5851017b& ***!
@@ -69873,7 +70016,119 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pl-0 pr-0" }, [
+      _c("hr", { staticClass: "mt-2" }),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c(
+        "div",
+        _vm._l(_vm.tourHighlights, function(tourHighlight) {
+          return _c("div", { key: tourHighlight.id }, [
+            _c("hr", { staticClass: "hrhome" }),
+            _vm._v(" "),
+            _c("div", [
+              _c("div", { staticClass: "pl-5 ml-5 d-inline-block" }, [
+                _c("div", { staticClass: "h3 pl-5 ml-5" }, [
+                  _vm._v(
+                    "\n                            Du Lịch " +
+                      _vm._s(tourHighlight.tour_name) +
+                      "\n                        "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("img", {
+                  staticClass: "h3 pl-5 ml-5",
+                  attrs: {
+                    height: "200px",
+                    width: "250px",
+                    src: "/img/pic3.jpg"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "d-inline-block ml-3 detai-highlight" },
+                [
+                  _c("div", {}, [
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v("Phương tiện:")]),
+                    _vm._v(
+                      " " +
+                        _vm._s(tourHighlight.vehicle) +
+                        "\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("strong", [_vm._v("Ngày khởi hành:")]),
+                    _vm._v(
+                      " " +
+                        _vm._s(tourHighlight.departure) +
+                        "\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("strong", [_vm._v("Thời gian:")]),
+                    _vm._v(
+                      " " +
+                        _vm._s(tourHighlight.day_night) +
+                        "\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("strong", [_vm._v("Giá:")]),
+                    _vm._v(
+                      " " +
+                        _vm._s(tourHighlight.price) +
+                        "\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(tourHighlight.note) +
+                        "\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        on: {
+                          click: function($event) {
+                            return _vm.viewDetail(tourHighlight)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Xem chi tiết >>\n                            "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        }),
+        0
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -69881,188 +70136,170 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6 pl-0 pr-0" }, [
-          _c("span", [
-            _c("img", {
-              staticClass: "d-inline-block pl-2",
-              attrs: { src: "/img/logo.jpg", width: "200px", height: "150px" }
-            }),
+      _c("div", { staticClass: "col-md-6 pl-0 pr-0" }, [
+        _c("span", [
+          _c("img", {
+            staticClass: "d-inline-block pl-2",
+            attrs: { src: "/img/logo.jpg", width: "200px", height: "150px" }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-inline-block pl-5 text-home" }, [
+            _c("h3", { staticClass: "text-center the-travel " }, [
+              _vm._v("Lên kế hoạch ngay!")
+            ]),
             _vm._v(" "),
-            _c("div", { staticClass: "d-inline-block pl-5 text-home" }, [
-              _c("h3", { staticClass: "text-center the-travel " }, [
-                _vm._v("Lên kế hoạch ngay!")
-              ]),
-              _vm._v(" "),
-              _c("h5", { staticClass: "text-center the-travel " }, [
-                _vm._v(
-                  "Du lịch tận hưởng, trải nghiệm du lịch giá rẻ chưa từng thấy"
-                )
-              ])
+            _c("h5", { staticClass: "text-center the-travel " }, [
+              _vm._v(
+                "Du lịch tận hưởng, trải nghiệm du lịch giá rẻ chưa từng thấy"
+              )
             ])
           ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4 offset-md-2 pl-0 pr-0" }, [
+        _c("h5", { staticClass: " the-travel " }, [
+          _vm._v("Tìm kiếm khu du lịch: ")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-4 offset-md-2 pl-0 pr-0" }, [
-          _c("h5", { staticClass: " the-travel " }, [
-            _vm._v("Tìm kiếm khu du lịch: ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "md-form active-pink active-pink-2 mb-3 mt-0 d-inline-block pl-5"
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Search",
-                  "aria-label": "Search"
-                }
-              })
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-outline-success ml-3 mb-1 mt-0 ",
-              attrs: { type: "button" }
-            },
-            [_vm._v("Success")]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "icoin-home" }, [
-            _c("ul", { staticClass: "list-unstyled" }, [
-              _c("li", { staticClass: "d-inline-block pl-5" }, [
-                _c("a", { attrs: { href: "#!" } }, [
-                  _c("i", {
-                    staticClass: "fa fa-facebook-official",
-                    staticStyle: { "font-size": "40px" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "d-inline-block pl-3" }, [
-                _c("a", { attrs: { href: "#!" } }, [
-                  _c("i", {
-                    staticClass: "fa fa-instagram ",
-                    staticStyle: { "font-size": "40px" },
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "d-inline-block pl-3" }, [
-                _c("a", { attrs: { href: "#!" } }, [
-                  _c("i", {
-                    staticClass: "fa fa-twitch",
-                    staticStyle: { "font-size": "40px" },
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("h5", { staticClass: " the-travel " }, [
-            _vm._v("Theo dõi để nhận ưu đãi !!!")
-          ])
-        ]),
+        _c(
+          "div",
+          {
+            staticClass:
+              "md-form active-pink active-pink-2 mb-3 mt-0 d-inline-block pl-5"
+          },
+          [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                placeholder: "Search",
+                "aria-label": "Search"
+              }
+            })
+          ]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-12 pl-0 pr-0" }, [
-          _c(
-            "div",
-            {
-              staticClass: "carousel slide",
-              attrs: { id: "slides", "data-ride": "carousel" }
-            },
-            [
-              _c("ul", { staticClass: "carousel-indicators" }, [
-                _c("li", {
-                  staticClass: "active",
-                  attrs: { "data-target": "#slides", "data-slide-to": "0" }
-                }),
-                _vm._v(" "),
-                _c("li", {
-                  staticClass: "active",
-                  attrs: { "data-target": "#slides", "data-slide-to": "1" }
-                }),
-                _vm._v(" "),
-                _c("li", {
-                  staticClass: "active",
-                  attrs: { "data-target": "#slides", "data-slide-to": "2" }
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-success ml-3 mb-1 mt-0 ",
+            attrs: { type: "button" }
+          },
+          [_vm._v("Success")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "icoin-home" }, [
+          _c("ul", { staticClass: "list-unstyled" }, [
+            _c("li", { staticClass: "d-inline-block pl-5" }, [
+              _c("a", { attrs: { href: "#!" } }, [
+                _c("i", {
+                  staticClass: "fa fa-facebook-official",
+                  staticStyle: { "font-size": "40px" }
                 })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "carousel-inner " }, [
-                _c("div", { staticClass: "carousel-item active car-home" }, [
-                  _c("img", { attrs: { src: "/img/dalat.jpg" } }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "carousel-caption item-inner" }, [
-                    _c("h1", { staticClass: "display-2" }, [_vm._v("Đà Lạt")]),
-                    _vm._v(" "),
-                    _c("h2", { staticClass: "display-4" }, [
-                      _vm._v("Du lịch Đà Lạt")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "carousel-item car-home ml-0 mr-0" }, [
-                  _c("img", { attrs: { src: "/img/pic2.jpg" } }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "carousel-caption" }, [
-                    _c("h1", { staticClass: "display-2" }, [_vm._v("Sa")]),
-                    _vm._v(" "),
-                    _c("h2", { staticClass: "display-4" }, [
-                      _vm._v("Du lịch mọi nơi")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "carousel-item car-home" }, [
-                  _c("img", { attrs: { src: "/img/pic3.jpg" } }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "carousel-caption" }, [
-                    _c("h1", { staticClass: "display-2" }, [_vm._v("Du lịch")]),
-                    _vm._v(" "),
-                    _c("h2", { staticClass: "display-4" }, [
-                      _vm._v("Du lịch mọi nơi")
-                    ])
-                  ])
-                ])
               ])
-            ]
-          )
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "d-inline-block pl-3" }, [
+              _c("a", { attrs: { href: "#!" } }, [
+                _c("i", {
+                  staticClass: "fa fa-instagram ",
+                  staticStyle: { "font-size": "40px" },
+                  attrs: { "aria-hidden": "true" }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "d-inline-block pl-3" }, [
+              _c("a", { attrs: { href: "#!" } }, [
+                _c("i", {
+                  staticClass: "fa fa-twitch",
+                  staticStyle: { "font-size": "40px" },
+                  attrs: { "aria-hidden": "true" }
+                })
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("h5", { staticClass: " the-travel " }, [
+          _vm._v("Theo dõi để nhận ưu đãi !!!")
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-12 pl-0 pr-0" }, [
-        _c("hr", { staticClass: "mt-2" }),
-        _vm._v(" "),
-        _c("div", [
-          _c("h3", { staticClass: "text-center" }, [_vm._v("Tour Nổi Bật")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "d-inline-block pr-1 col-md-3" }, [
-        _vm._v("\n            Hà Nội\n        ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "d-inline-block pr-1 col-md-3" }, [
-        _vm._v("\n            Hà Nội\n        ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "d-inline-block pr-1 pl-1 col-md-3" }, [
-        _vm._v("\n            Hà Nội\n        ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "d-inline-block pl-1 col-md-3" }, [
-        _vm._v("\n            Hà Nội\n        ")
+        _c(
+          "div",
+          {
+            staticClass: "carousel slide",
+            attrs: { id: "slides", "data-ride": "carousel" }
+          },
+          [
+            _c("ul", { staticClass: "carousel-indicators" }, [
+              _c("li", {
+                staticClass: "active",
+                attrs: { "data-target": "#slides", "data-slide-to": "0" }
+              }),
+              _vm._v(" "),
+              _c("li", {
+                staticClass: "active",
+                attrs: { "data-target": "#slides", "data-slide-to": "1" }
+              }),
+              _vm._v(" "),
+              _c("li", {
+                staticClass: "active",
+                attrs: { "data-target": "#slides", "data-slide-to": "2" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "carousel-inner " }, [
+              _c("div", { staticClass: "carousel-item active car-home" }, [
+                _c("img", { attrs: { src: "/img/dalat.jpg" } }),
+                _vm._v(" "),
+                _c("div", { staticClass: "carousel-caption item-inner" }, [
+                  _c("h1", { staticClass: "display-2" }, [_vm._v("Đà Lạt")]),
+                  _vm._v(" "),
+                  _c("h2", { staticClass: "display-4" }, [
+                    _vm._v("Du lịch Đà Lạt")
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "carousel-item car-home ml-0 mr-0" }, [
+                _c("img", { attrs: { src: "/img/pic2.jpg" } }),
+                _vm._v(" "),
+                _c("div", { staticClass: "carousel-caption" }, [
+                  _c("h1", { staticClass: "display-2" }, [_vm._v("Sa")]),
+                  _vm._v(" "),
+                  _c("h2", { staticClass: "display-4" }, [
+                    _vm._v("Du lịch mọi nơi")
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "carousel-item car-home" }, [
+                _c("img", { attrs: { src: "/img/pic3.jpg" } }),
+                _vm._v(" "),
+                _c("div", { staticClass: "carousel-caption" }, [
+                  _c("h1", { staticClass: "display-2" }, [_vm._v("Du lịch")]),
+                  _vm._v(" "),
+                  _c("h2", { staticClass: "display-4" }, [
+                    _vm._v("Du lịch mọi nơi")
+                  ])
+                ])
+              ])
+            ])
+          ]
+        )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("h3", { staticClass: "text-center" }, [_vm._v("Tour Nổi Bật")])
     ])
   }
 ]
@@ -85240,6 +85477,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/tour/detail.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/tour/detail.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _detail_vue_vue_type_template_id_53d4caed___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./detail.vue?vue&type=template&id=53d4caed& */ "./resources/js/components/tour/detail.vue?vue&type=template&id=53d4caed&");
+/* harmony import */ var _detail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./detail.vue?vue&type=script&lang=js& */ "./resources/js/components/tour/detail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _detail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _detail_vue_vue_type_template_id_53d4caed___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _detail_vue_vue_type_template_id_53d4caed___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/tour/detail.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tour/detail.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/tour/detail.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_detail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./detail.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tour/detail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_detail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tour/detail.vue?vue&type=template&id=53d4caed&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/tour/detail.vue?vue&type=template&id=53d4caed& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_detail_vue_vue_type_template_id_53d4caed___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./detail.vue?vue&type=template&id=53d4caed& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tour/detail.vue?vue&type=template&id=53d4caed&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_detail_vue_vue_type_template_id_53d4caed___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_detail_vue_vue_type_template_id_53d4caed___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/tour/home.vue":
 /*!***********************************************!*\
   !*** ./resources/js/components/tour/home.vue ***!
@@ -85350,6 +85656,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/Admin/Login',
     component: __webpack_require__(/*! ./components/login.vue */ "./resources/js/components/login.vue")["default"]
+  }, {
+    path: '/Detail/:id',
+    component: __webpack_require__(/*! ./components/tour/detail.vue */ "./resources/js/components/tour/detail.vue")["default"]
   }]
 });
 /**

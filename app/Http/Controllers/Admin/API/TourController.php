@@ -73,7 +73,7 @@ class TourController extends Controller
      */
     public function show($id)
     {
-       dd(1);
+        return Tour::all();
     }
 
     /**
