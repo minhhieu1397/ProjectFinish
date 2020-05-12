@@ -15,7 +15,7 @@ class CrateTableImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('detail_id');
+            $table->integer('tour_id');
             $table->string('url');
             $table->timestamps();
         });

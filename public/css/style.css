@@ -94,3 +94,13 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.detail-tour {
+    font-size: 18px;
+    color: blue;
+}
+
+.detail-tour strong {
+    font-size: 18px;
+    color: #FF0000;
+}

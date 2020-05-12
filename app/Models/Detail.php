@@ -12,6 +12,6 @@ class Detail extends Model
     protected $table = 'detail_table';
 
     protected $fillable = [
-        'tour_id','day_start','day_end','image','amount','account','description'
+        'tour_id','day_start','day_end','amount','account','description'
     ];
 }

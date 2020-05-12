@@ -39,22 +39,14 @@ class DetailController extends Controller
      */
     public function store(CreateDetailRequest $request)
     {
-        if ($request->image != "undefined") {
-            $imageName = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path('image\detail'), $imageName);
-            
             return Detail::create([
                 'tour_id' => $request->input('tour_id'),
                 'day_start' => $request->input('day_start'),
                 'day_end' => $request->input('day_end'),
-                'image' => $imageName,
                 'amount' => $request->input('amount'),
                 'account' => $request->input('account'),
                 'description' => $request->input('description')
             ]);
-        }
-        
-        return response()->json(['errorsFile' => 'Have errors'], 500);
     }
     /**
      * Display the specified resource.

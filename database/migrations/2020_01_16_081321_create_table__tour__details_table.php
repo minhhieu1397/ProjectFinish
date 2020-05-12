@@ -18,7 +18,6 @@ class CreateTableTourDetailsTable extends Migration
             $table->integer('tour_id');
             $table->date('day_start');
             $table->date('day_end');
-            $table->string('image');
             $table->integer('amount');
             $table->string('account');
             $table->timestamps();

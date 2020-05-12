@@ -3355,6 +3355,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3399,7 +3420,13 @@ __webpack_require__.r(__webpack_exports__);
       successCreateDetail: '',
       adminCurrent: '',
       jwt: '',
-      myCookie: ''
+      myCookie: '',
+      isCreateImage: false,
+      imageDetails: [],
+      image: {
+        url: '',
+        tour_id: ''
+      }
     };
   },
   created: function created() {
@@ -3592,6 +3619,7 @@ __webpack_require__.r(__webpack_exports__);
       this.isCreateDetail = false;
     },
     listDetail: function listDetail(tour) {
+      this.isCreateImage = false;
       this.isCreateDetail = false;
       this.getAllDetail(tour);
     },
@@ -3613,8 +3641,22 @@ __webpack_require__.r(__webpack_exports__);
         _this10.errors = error.response.data.errors.name;
       });
     },
-    CreateDetail: function CreateDetail(tour) {
+    createImage: function createImage(tour) {
+      console.log('aaa');
+      this.getImageDetail(tour);
+      this.isCreateImage = true;
+    },
+    getImageDetail: function getImageDetail(tour) {
       var _this11 = this;
+
+      axios.get('/api/image/' + this.tour.id).then(function (response) {
+        _this11.imageDetails = response.data;
+      })["catch"](function (error) {
+        _this11.errors = error.response.data.errors.name;
+      });
+    },
+    CreateDetailImage: function CreateDetailImage(tour) {
+      var _this12 = this;
 
       this.errorFileMessage = '';
       event.preventDefault();
@@ -3627,24 +3669,49 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('image', this.detail.image);
       formData.append('tour_id', this.tour.id);
+      axios.post('/api/image', formData, config).then(function (response) {
+        _this12.successCreateDetail = 'Tạo Chi Tiết Thành Công';
+      })["catch"](function (error) {
+        _this12.success = '';
+
+        if (error.response.status == 422) {
+          _this12.errors = error.response.data.errors;
+        }
+
+        _this12.errorFileMessage = 'Hình ảnh trống ';
+      });
+    },
+    CreateDetail: function CreateDetail(tour) {
+      var _this13 = this;
+
+      this.errorFileMessage = '';
+      event.preventDefault();
+      var currentObj = this;
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      var formData = new FormData();
+      formData.append('tour_id', this.tour.id);
       formData.append('day_start', this.detail.day_start);
       formData.append('day_end', this.detail.day_end);
       formData.append('amount', this.detail.amount);
       formData.append('account', this.admin_current.user_name);
       formData.append('description', this.admin_current.description);
       axios.post('/api/detail', formData, config).then(function (response) {
-        _this11.detail.day_start = null;
-        _this11.detail.day_end = null;
-        _this11.detail.amount = null;
-        _this11.successCreateDetail = 'Tạo Chi Tiết Thành Công';
+        _this13.detail.day_start = null;
+        _this13.detail.day_end = null;
+        _this13.detail.amount = null;
+        _this13.successCreateDetail = 'Tạo Chi Tiết Thành Công';
       })["catch"](function (error) {
-        _this11.success = '';
+        _this13.success = '';
 
         if (error.response.status == 422) {
-          _this11.errors = error.response.data.errors;
+          _this13.errors = error.response.data.errors;
         }
 
-        _this11.errorFileMessage = 'Hình ảnh trống ';
+        _this13.errorFileMessage = 'Hình ảnh trống ';
       });
     },
     sendDetailUpdate: function sendDetailUpdate(detailID) {
@@ -3656,19 +3723,19 @@ __webpack_require__.r(__webpack_exports__);
       this.detail.image = e.target.files[0];
     },
     deleteDetail: function deleteDetail(detail, index) {
-      var _this12 = this;
+      var _this14 = this;
 
       axios["delete"]('/api/detail/' + detail.id).then(function (response) {
         console.log(response.data.result);
 
-        _this12.list_Detail.splice(index, 1);
+        _this14.list_Detail.splice(index, 1);
       })["catch"](function (error) {
-        _this12.success = '';
-        _this12.errors = error.response.data.errors.name;
+        _this14.success = '';
+        _this14.errors = error.response.data.errors.name;
       });
     },
     updateDetail: function updateDetail() {
-      var _this13 = this;
+      var _this15 = this;
 
       event.preventDefault();
       var currentObj = this;
@@ -3681,12 +3748,12 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('day_end', this.detail.day_end);
       formData.append('amount', this.detail.amount);
       axios.post('/api/detail/' + this.detail.id, formData).then(function (response) {
-        _this13.successUpdateDetail = 'Cập nhập thành công ';
+        _this15.successUpdateDetail = 'Cập nhập thành công ';
       })["catch"](function (error) {
-        _this13.success = '';
+        _this15.success = '';
 
         if (error.response.status == 422) {
-          _this13.errors = error.response.data.errors;
+          _this15.errors = error.response.data.errors;
         }
       });
     },
@@ -74367,27 +74434,47 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "api-calling" }, [
-                  !_vm.isCreateDetail
+                  !_vm.isCreateDetail & !_vm.isCreateImage
                     ? _c("div", [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary",
-                              on: {
-                                click: function($event) {
-                                  _vm.isCreateDetail = true
-                                }
+                        _vm.list_Detail == null
+                          ? _c("div", { staticClass: "form-group" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.isCreateDetail = true
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Thêm\n                                "
+                                  ),
+                                  _c("i", { staticClass: "fas fa-plus fa-fw" })
+                                ]
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                _vm.isCreateImage = true
                               }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Thêm\n                                "
-                              ),
-                              _c("i", { staticClass: "fas fa-plus fa-fw" })
-                            ]
-                          )
-                        ]),
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Thêm ảnh\n                                "
+                            ),
+                            _c("i", { staticClass: "fas fa-plus fa-fw" })
+                          ]
+                        ),
                         _vm._v(" "),
                         _vm.success !== ""
                           ? _c("div", { staticClass: "alert alert-success" }, [
@@ -74471,6 +74558,87 @@ var render = function() {
                           2
                         )
                       ])
+                    : _vm.isCreateImage
+                    ? _c(
+                        "div",
+                        [
+                          _vm._l(_vm.imageDetails, function(image) {
+                            return _c(
+                              "div",
+                              {
+                                key: image.id,
+                                staticClass: "d-inline-block ml-2"
+                              },
+                              [
+                                _c("img", {
+                                  attrs: {
+                                    width: "200",
+                                    height: "150",
+                                    src: "/image/detail/" + image.url
+                                  }
+                                })
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "form",
+                            {
+                              attrs: { enctype: "multipart/form-data" },
+                              on: {
+                                submit: function($event) {
+                                  return _vm.CreateDetailImage(_vm.tour)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("Image")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "file" },
+                                  on: { change: _vm.onImageChange }
+                                }),
+                                _vm._v(" "),
+                                _vm.errorFileMessage.length > 0
+                                  ? _c("div", { staticClass: "text-danger" }, [
+                                      _c("span", [
+                                        _vm._v(_vm._s(_vm.errorFileMessage))
+                                      ])
+                                    ])
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "button-create" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [_vm._v("Thêm ảnh")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.listDetail(_vm.tour)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Danh sách\n                                        "
+                                    )
+                                  ]
+                                )
+                              ])
+                            ]
+                          )
+                        ],
+                        2
+                      )
                     : _c("div", [
                         _vm.successCreateDetail !== ""
                           ? _c("div", { staticClass: "alert alert-success" }, [
@@ -74569,24 +74737,6 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Image")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: { type: "file" },
-                                  on: { change: _vm.onImageChange }
-                                }),
-                                _vm._v(" "),
-                                _vm.errorFileMessage.length > 0
-                                  ? _c("div", { staticClass: "text-danger" }, [
-                                      _c("span", [
-                                        _vm._v(_vm._s(_vm.errorFileMessage))
-                                      ])
-                                    ])
-                                  : _vm._e()
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "form-group" }, [
                                 _c("label", [_vm._v("Amount")]),
                                 _vm._v(" "),
                                 _c("input", {
@@ -74680,6 +74830,23 @@ var render = function() {
                                   [
                                     _vm._v(
                                       "\n                                            Danh sách\n                                        "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.createImage(_vm.tour)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Thêm ảnh\n                                        "
                                     )
                                   ]
                                 )

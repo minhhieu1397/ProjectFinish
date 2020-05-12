@@ -27,7 +27,6 @@ class CreateDetailRequest extends FormRequest
             'tour_id' => 'required',
             'day_start' => 'required',
             'day_end' => 'required',
-            'image' => 'required',
             'amount' => 'required|numeric',
             'account' => 'required',
         ];

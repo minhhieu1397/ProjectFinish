@@ -1944,6 +1944,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1956,8 +1994,10 @@ __webpack_require__.r(__webpack_exports__);
         account: '',
         description: ''
       },
+      details: [],
       program: {
         id: '',
+        title: '',
         tour_id: '',
         day: '',
         detail: ''
@@ -1971,7 +2011,8 @@ __webpack_require__.r(__webpack_exports__);
         day_night: '',
         price: '',
         note: ''
-      }
+      },
+      tours: []
     };
   },
   created: function created() {
@@ -1985,8 +2026,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/api/detail/' + this.id).then(function (response) {
-        _this.detail = response.data;
-        console.log(_this.detail);
+        _this.details = response.data;
+        _this.detail = _this.details[0];
       })["catch"](function (error) {
         _this.errors = error.response.data.errors.name;
       });
@@ -1996,7 +2037,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/program/' + this.id).then(function (response) {
         _this2.list_program = response.data;
-        console.log(_this2.list_program);
       })["catch"](function (error) {
         _this2.errors = error.response.data.errors.name;
       });
@@ -2005,8 +2045,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       axios.get('/api/tour/' + this.id).then(function (response) {
-        _this3.list_program = response.data;
-        console.log(_this3.list_program);
+        _this3.tours = response.data;
+        _this3.tour = _this3.tours[0];
+        console.log(_this3.tours[0]);
       })["catch"](function (error) {
         _this3.errors = error.response.data.errors.name;
       });
@@ -70027,13 +70068,110 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-md-10 offset-md-1" }, [
-      _c("h1", { staticClass: "text-center" }, [_vm._v("Chi tiết tour")]),
-      _vm._v("\n        " + _vm._s(_vm.$route.params.id) + "\n\n    ")
-    ])
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-7 detail-tour" }, [
+          _c("div", [
+            _c("strong", [_vm._v("Tour:")]),
+            _vm._v(" " + _vm._s(this.tour.tour_name) + "\n                    ")
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("strong", [_vm._v("Phương tiện di chuyển:")]),
+            _vm._v(" " + _vm._s(_vm.tour.vehicle) + "\n                    ")
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("strong", [_vm._v("Tour sẽ kéo dài trong:")]),
+            _vm._v(" " + _vm._s(_vm.tour.day_night) + "\n                    ")
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("strong", [_vm._v("Phí trên người lớn:")]),
+            _vm._v(" " + _vm._s(_vm.tour.price) + "\n                    ")
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("strong", [_vm._v(" Ghi chú thêm:")]),
+            _vm._v(" " + _vm._s(_vm.tour.note) + "\n                    ")
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("strong", [_vm._v("Ngày khởi hành:")]),
+            _vm._v(
+              " " + _vm._s(_vm.detail.day_start) + "\n                    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("strong", [_vm._v("Số lượng:")]),
+            _vm._v(
+              " " +
+                _vm._s(_vm.detail.amount) +
+                "/" +
+                _vm._s(_vm.detail.account) +
+                "\n                    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("strong", [_vm._v("Mô tả:")]),
+            _vm._v(
+              " " + _vm._s(_vm.detail.description) + "\n                    "
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-md-8 offset-md-2" },
+      _vm._l(_vm.list_program, function(program) {
+        return _c("div", { key: program.id }, [
+          _c("strong", [
+            _vm._v(
+              " Ngày thứ " +
+                _vm._s(program.day) +
+                " " +
+                _vm._s(program.title) +
+                ": "
+            )
+          ]),
+          _vm._v(" " + _vm._s(program.detail) + "\n        ")
+        ])
+      }),
+      0
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-10 offset-md-2" }, [
+      _c("h1", { staticClass: "text-center" }, [_vm._v("Chi tiết tour")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3 offset-md-2 detail-tour" }, [
+      _c("div", { staticClass: "inline-block" }, [
+        _c("img", {
+          staticClass: "d-inline",
+          attrs: { height: "350px", width: "400px", src: "/img/dalat.jpg" }
+        })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

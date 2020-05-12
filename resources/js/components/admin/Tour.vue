@@ -289,13 +289,17 @@
                     </div>
                     <div class="modal-body">
                         <div class="api-calling">
-                            <div v-if="!isCreateDetail">
-                                <div class="form-group">
+                            <div v-if="!isCreateDetail & !isCreateImage">
+                                <div v-if="list_Detail == null" class="form-group">
                                     <button class="btn btn-primary" @click="isCreateDetail = true">
                                     Thêm
                                     <i class="fas fa-plus fa-fw"></i>
                                     </button>
                                 </div>
+                                <button class="btn btn-primary" @click="isCreateImage = true">
+                                    Thêm ảnh
+                                    <i class="fas fa-plus fa-fw"></i>
+                                    </button>
                                 <div v-if="success !== ''" class="alert alert-success"> {{success}}</div>
                                 <table class="table table-condensed" >
                                     <thead>
@@ -327,6 +331,28 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div v-else-if="isCreateImage">
+                                <div class="d-inline-block ml-2" v-for="(image) in imageDetails" :key="image.id">
+                                    <img width="200" height="150" v-bind:src="'/image/detail/'+image.url" />
+                                </div>
+                                
+                                <form @submit="CreateDetailImage(tour)" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label>Image</label>
+                                            <input type="file" v-on:change="onImageChange" class="form-control">
+                                            
+                                            <div  class="text-danger" v-if="errorFileMessage.length > 0">
+                                                <span>{{ errorFileMessage }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="button-create">
+                                            <button class="btn btn-primary">Thêm ảnh</button>
+                                            <button class="btn btn-success" @click="listDetail(tour)">
+                                                Danh sách
+                                            </button>
+                                        </div>
+                                    </form>
+                            </div>
                             <div v-else>
                                 <div v-if="successCreateDetail !== ''" class="alert alert-success"> {{successCreateDetail}}</div>
                                 <div class="create-form">
@@ -346,14 +372,6 @@
                                             <span v-if="errors.day_end" class="text-danger"> {{ errors.day_end[0] }}</span>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label>Image</label>
-                                            <input type="file" v-on:change="onImageChange" class="form-control">
-                                            
-                                            <div  class="text-danger" v-if="errorFileMessage.length > 0">
-                                                <span>{{ errorFileMessage }}</span>
-                                            </div>
-                                        </div>
 
                                         <div class="form-group">
                                             <label>Amount</label>
@@ -373,6 +391,9 @@
                                             <button class="btn btn-primary">Create</button>
                                             <button class="btn btn-success" @click="listDetail(tour)">
                                                 Danh sách
+                                            </button>
+                                            <button class="btn btn-success" @click="createImage(tour)">
+                                                Thêm ảnh
                                             </button>
                                         </div>
                                     </form>
@@ -532,7 +553,13 @@
                 successCreateDetail: '',
                 adminCurrent: '',
                 jwt: '',
-                myCookie: ''
+                myCookie: '',
+                isCreateImage: false,
+                imageDetails: [],
+                image: {
+                    url: '',
+                    tour_id: ''
+                }
             }
         },
         created() {
@@ -696,6 +723,7 @@
                 this.isCreateDetail = false
             },
             listDetail(tour) {
+                this.isCreateImage = false;
                 this.isCreateDetail = false;
                 this.getAllDetail(tour);
             },
@@ -717,7 +745,22 @@
                     this.errors = error.response.data.errors.name
                 })
             },
-            CreateDetail(tour) {
+            createImage(tour) {
+                console.log('aaa');
+                this.getImageDetail(tour);
+                this.isCreateImage = true;
+                
+            },
+            getImageDetail(tour) {
+                axios.get('/api/image/' + this.tour.id)
+                .then(response => {
+                    this.imageDetails = response.data
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors.name
+                })
+            },
+            CreateDetailImage(tour) {
                 this.errorFileMessage ='';
                 event.preventDefault();
                 let currentObj = this;
@@ -728,6 +771,31 @@
 
                 let formData = new FormData();
                 formData.append('image', this.detail.image);
+                formData.append('tour_id', this.tour.id);
+
+                axios.post('/api/image', formData, config)
+                .then(response => {
+                    this.successCreateDetail = 'Tạo Chi Tiết Thành Công'
+                })
+               .catch(error => {
+                    this.success = ''
+                    if (error.response.status == 422) {
+                        this.errors = error.response.data.errors
+                    }
+
+                    this.errorFileMessage = 'Hình ảnh trống ';
+                })
+            },
+            CreateDetail(tour) {
+                this.errorFileMessage ='';
+                event.preventDefault();
+                let currentObj = this;
+ 
+                const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                }
+
+                let formData = new FormData();
                 formData.append('tour_id', this.tour.id);
                 formData.append('day_start', this.detail.day_start);
                 formData.append('day_end', this.detail.day_end);
