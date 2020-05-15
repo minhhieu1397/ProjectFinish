@@ -1,39 +1,5 @@
 <template>
     <div class="row">
-        <div class="row">
-            <div class="col-md-6 pl-0 pr-0">
-                <span>
-                    <img class="d-inline-block pl-2" src="/img/logo.jpg" width="200px" height="150px">
-                    <div class="d-inline-block pl-5 text-home">
-                        <h3 class="text-center the-travel ">Lên kế hoạch ngay!</h3>
-                        <h5 class="text-center the-travel ">Du lịch tận hưởng, trải nghiệm du lịch giá rẻ chưa từng thấy</h5>
-                    </div>
-            </span>
-            </div>
-            <div class="col-md-4 offset-md-2 pl-0 pr-0">
-                <h5 class=" the-travel ">Tìm kiếm khu du lịch: </h5>
-                <div class="md-form active-pink active-pink-2 mb-3 mt-0 d-inline-block pl-5">
-                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-                </div>
-                <button type="button" class="btn btn-outline-success ml-3 mb-1 mt-0 ">Success</button>
-                <div class="icoin-home">
-                    <ul class="list-unstyled">
-                        <li class="d-inline-block pl-5">
-                            <a href="#!"><i class="fa fa-facebook-official" style="font-size:40px"></i>
-                            </a>
-                        </li>
-                        <li class="d-inline-block pl-3">
-                            <a href="#!"><i class="fa fa-instagram " aria-hidden="true" style="font-size:40px"></i>
-                            </a>
-                        </li>
-                        <li class="d-inline-block pl-3">
-                            <a href="#!"><i class="fa fa-twitch" aria-hidden="true" style="font-size:40px"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <h5 class=" the-travel ">Theo dõi để nhận ưu đãi !!!</h5>
-            </div>
             <div class="col-md-12 pl-0 pr-0">
                 <div id="slides" class="carousel slide" data-ride="carousel">
                     <ul class="carousel-indicators">
@@ -69,7 +35,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         
         <div class="col-md-12 pl-0 pr-0">
             <hr class="mt-2">

@@ -57,6 +57,7 @@
     color: #FF0000;
 }
 
+
 .footer-home {
     font-size: 17px;
 }
@@ -96,11 +97,31 @@
 }
 
 .detail-tour {
-    font-size: 18px;
-    color: blue;
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
 }
 
 .detail-tour strong {
+    font-size: 20px;
+    color: #0000FF;
+}
+
+.list-program {
     font-size: 18px;
+}
+
+.center-img {
+  padding: 10px;
+  text-align: center;
+}
+.headeing {
+    font-family: "Times New Roman", Times, serif;
+}
+
+.TNR {
+    font-family: "Times New Roman", Times, serif;
+}
+
+.headeing {
     color: #FF0000;
 }

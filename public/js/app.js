@@ -3380,6 +3380,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       tour: {
+        id: '',
         tour_name: '',
         vehicle: '',
         departure: '',
@@ -74465,6 +74466,7 @@ var render = function() {
                             on: {
                               click: function($event) {
                                 _vm.isCreateImage = true
+                                _vm.getImageDetail(_vm.tour)
                               }
                             }
                           },

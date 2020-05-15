@@ -12,6 +12,6 @@ class Tour extends Model
     protected $table = 'tour';
 
     protected $fillable = [
-        'tour_name', 'vehicle', 'departure','day_night', 'price', 'note',
+        'tour_name', 'vehicle', 'departure','day_night', 'price', 'note','img'
     ];
 }

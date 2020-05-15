@@ -29,14 +29,13 @@ const router = new VueRouter({
             component: require('./components/tour/home.vue').default,
         },
         {
-            path: '/Admin/Login',
-            component: require('./components/login.vue').default
-        },
-        {
             path: '/Detail/:id',
             component: require('./components/tour/detail.vue').default
         },
-        
+        {
+            path: '/listTour',
+            component: require('./components/tour/listTour.vue').default
+        },
     ],
 })
 /**

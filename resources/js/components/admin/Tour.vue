@@ -296,7 +296,7 @@
                                     <i class="fas fa-plus fa-fw"></i>
                                     </button>
                                 </div>
-                                <button class="btn btn-primary" @click="isCreateImage = true">
+                                <button class="btn btn-primary" @click="isCreateImage = true ; getImageDetail(tour)">
                                     Thêm ảnh
                                     <i class="fas fa-plus fa-fw"></i>
                                     </button>
@@ -513,6 +513,7 @@
         data() {
             return {
                 tour: {
+                    id: '',
                     tour_name: '',
                     vehicle: '',
                     departure: '',
