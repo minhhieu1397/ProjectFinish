@@ -11,7 +11,7 @@
                             <div class="h3 pl-5 ml-5">
                                 Du Lịch {{tour.tour_name}}
                             </div>
-                                <img class="h3 pl-5 ml-5" height="200px" width="250px" src="/img/pic3.jpg">
+                                <img class="h3 pl-5 ml-5" height="200px" width="250px"  v-bind:src="'/image/tour/'+tour.img">
                         </div>
                         <div class="d-inline-block ml-3 detai-highlight">
                             <div class="">

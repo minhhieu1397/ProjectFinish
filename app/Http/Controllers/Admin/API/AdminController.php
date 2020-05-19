@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\ApiCreateRequest;
 use App\Http\Requests\Admin\UpdateAdminRequest;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -29,15 +30,9 @@ class AdminController extends Controller
      */
     public function store(ApiCreateRequest $request)
     {
-        $s = $request->input('user_name');
-        $admin = Auth::guard('admin')->user();
-        
-        $admin = Admin::find(1);
-        $abc = $this->base64($s, $admin);
-        
         return Admin::create([
             'user_name' => $request->input('user_name'),
-            'password' => \Hash::make($request->input('password')),
+            'password' => Hash::make($request->input('password')),
             'is_super_manager' => $request->input('is_super_manager'),
         ]);
     }

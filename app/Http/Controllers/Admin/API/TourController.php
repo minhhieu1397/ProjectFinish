@@ -47,17 +47,26 @@ class TourController extends Controller
         $admin = $request->input('jwt');
         $jwt = $request->input('admin');
         if($this->checkJwt->checkJwt($admin, $jwt)) {
-            Tour::create([
-                'tour_name' => $request->input('tour_name'),
-                'vehicle' => $request->input('vehicle'),
-                'departure' => $request->input('departure'),
-                'day_night' => $request->input('day_night'),
-                'price' => $request->input('price'),
-                'note' => $request->input('note'),
-            ]);
-            return response([
-                'auth' => true
-            ], 200);
+            if ($request->hasFile('img')) {
+                $imageName = time().'.'.$request->img->getClientOriginalExtension();
+                $request->img->move(public_path('image\tour'), $imageName);
+
+                Tour::create([
+                    'tour_name' => $request->input('tour_name'),
+                    'vehicle' => $request->input('vehicle'),
+                    'departure' => $request->input('departure'),
+                    'day_night' => $request->input('day_night'),
+                    'price' => $request->input('price'),
+                    'note' => $request->input('note'),
+                    'img' => $imageName
+                ]);
+
+                return response([
+                    'auth' => true
+                ], 200);
+            } else {
+                return response()->json(['errorsFile' => 'Have errors'], 500);
+            }
         } else {
             return response([
                 'auth' => false

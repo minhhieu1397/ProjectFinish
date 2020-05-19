@@ -22,19 +22,33 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
-            redirect: '/home'
+            redirect: '/tour'
         },
         {
-            path: '/home',
-            component: require('./components/tour/home.vue').default,
-        },
-        {
-            path: '/Detail/:id',
-            component: require('./components/tour/detail.vue').default
-        },
-        {
-            path: '/listTour',
-            component: require('./components/tour/listTour.vue').default
+            path: '/tour',
+            component: require('./components/tour.vue').default,
+            children: [
+                {
+                    path: '/',
+                    redirect: '/home'
+                },
+                {
+                    path: '/home',
+                    component: require('./components/tour/home.vue').default,
+                },
+                {
+                    path: '/Detail/:id',
+                    component: require('./components/tour/detail.vue').default
+                },
+                {
+                    path: '/listTour',
+                    component: require('./components/tour/listTour.vue').default
+                },
+                {
+                    path: '/Reserve/:id',
+                    component: require('./components/tour/reserve.vue').default
+                },
+            ]
         },
     ],
 })

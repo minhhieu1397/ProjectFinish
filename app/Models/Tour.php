@@ -11,7 +11,12 @@ class Tour extends Model
 
     protected $table = 'tour';
 
+    public function Space()
+    {
+        return $this->belongsTo('App\Models\Space');
+    }
+
     protected $fillable = [
-        'tour_name', 'vehicle', 'departure','day_night', 'price', 'note','img'
+        'tour_name', 'vehicle', 'departure','day_night', 'price', 'note','img','tour_hot','place_id'
     ];
 }

@@ -5,18 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Space extends Model
+class Reserve extends Model
 {
     use Notifiable;
 
-    protected $table = 'place';
-
-    public function tour()
-    {
-        return $this->hasMany('App\Models\Tour');
-    }
+    protected $table = 'reservation_list';
 
     protected $fillable = [
-        'place',
+        'tour_id', 'booking_date', 'children','adults', 'phone', 'note'
     ];
 }

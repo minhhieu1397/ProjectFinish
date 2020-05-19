@@ -117,6 +117,15 @@
                                     
                                     <span v-if="errors.note" class="text-danger"> {{ errors.note[0] }}</span>
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Image</label>
+                                    <input type="file" v-on:change="onImageChangeTour" class="form-control">
+                                    
+                                    <div  class="text-danger" v-if="errorFileMessage.length > 0">
+                                        <span>{{ errorFileMessage }}</span>
+                                    </div>
+                                </div>
                                 <div class="button-create">
                                     <button @click="createTour" class="btn btn-primary">Tạo</button>
                                 </div>
@@ -229,7 +238,6 @@
                                     <label>Tour</label>
                                     <input v-model="tour.tour_name" type="text" name="user_name"
                                     class="form-control">
-                                    
                                     <span v-if="errors.tour_name" class="text-danger"> {{ errors.tour_name[0] }} </span>
                                 </div>
                                 <div class="form-group">
@@ -337,21 +345,21 @@
                                 </div>
                                 
                                 <form @submit="CreateDetailImage(tour)" enctype="multipart/form-data">
-                                        <div class="form-group">
-                                            <label>Image</label>
-                                            <input type="file" v-on:change="onImageChange" class="form-control">
-                                            
-                                            <div  class="text-danger" v-if="errorFileMessage.length > 0">
-                                                <span>{{ errorFileMessage }}</span>
-                                            </div>
+                                    <div class="form-group">
+                                        <label>Image</label>
+                                        <input type="file" v-on:change="onImageChange" class="form-control">
+                                        
+                                        <div  class="text-danger" v-if="errorFileMessage.length > 0">
+                                            <span>{{ errorFileMessage }}</span>
                                         </div>
-                                        <div class="button-create">
-                                            <button class="btn btn-primary">Thêm ảnh</button>
-                                            <button class="btn btn-success" @click="listDetail(tour)">
-                                                Danh sách
-                                            </button>
-                                        </div>
-                                    </form>
+                                    </div>
+                                    <div class="button-create">
+                                        <button class="btn btn-primary">Thêm ảnh</button>
+                                        <button class="btn btn-success" @click="listDetail(tour)">
+                                            Danh sách
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                             <div v-else>
                                 <div v-if="successCreateDetail !== ''" class="alert alert-success"> {{successCreateDetail}}</div>
@@ -520,6 +528,7 @@
                     day_night: '',
                     price: '',
                     note: '',
+                    img: ''
                 },
                 errors: [],
                 success: '',
@@ -580,12 +589,33 @@
                     note: '',
                 }
             },
+            onImageChangeTour(e){
+                console.log(e.target.files[0]);
+                this.tour.img = e.target.files[0];
+            },
             createTour(tour) {
                 console.log(this.jwt);
                 console.log(this.adminCurrent);
 
-                axios.post('/api/tour', {tour_name: this.tour.tour_name, vehicle: this.tour.vehicle, departure: this.tour.departure, 
-                    day_night: this.tour.day_night, price: this.tour.price, note: this.tour.note, jwt: this.jwt, admin: this.adminCurrent})
+                event.preventDefault();
+                let currentObj = this;
+ 
+                const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                }
+
+                let formData = new FormData();
+                formData.append('tour_name', this.tour.tour_name);
+                formData.append('vehicle', this.tour.vehicle);
+                formData.append('departure', this.tour.departure);
+                formData.append('day_night', this.tour.day_night);
+                formData.append('price', this.tour.price);
+                formData.append('note', this.tour.note);
+                formData.append('img', this.tour.img);
+                formData.append('jwt', this.jwt);
+                formData.append('admin', this.admin);
+
+                axios.post('/api/tour', formData, config)
                     .then(response => {
                         this.tour.tour_name = null;
                         this.tour.vehicle = null;

@@ -10,6 +10,6 @@ class HightLightTourController extends Controller
 {
     public function showTourHighLight()
     {
-        return Tour::all();
+        return Tour::where('tour_hot', 1)->get();
     }
 }

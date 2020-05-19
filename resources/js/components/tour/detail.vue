@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 text-center">
-                    <button type="button" class="btn btn-outline-success">Đặt Tour Ngay >></button>
+                    <button type="button" @click="reserve(tour)" class="btn btn-outline-success">Đặt Tour Ngay >></button>
                 </div>
             </div>
             <hr>
@@ -150,6 +150,9 @@
                 .catch(error => {
                     this.errors = error.response.data.errors.name
                 })
+            },
+            reserve(tour) {
+                this.$router.push({ path: '/Reserve/' + tour.id})
             }
         },
         mounted() {

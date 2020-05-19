@@ -3376,6 +3376,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3386,7 +3394,8 @@ __webpack_require__.r(__webpack_exports__);
         departure: '',
         day_night: '',
         price: '',
-        note: ''
+        note: '',
+        img: ''
       },
       errors: [],
       success: '',
@@ -3447,21 +3456,33 @@ __webpack_require__.r(__webpack_exports__);
         note: ''
       };
     },
+    onImageChangeTour: function onImageChangeTour(e) {
+      console.log(e.target.files[0]);
+      this.tour.img = e.target.files[0];
+    },
     createTour: function createTour(tour) {
       var _this = this;
 
       console.log(this.jwt);
       console.log(this.adminCurrent);
-      axios.post('/api/tour', {
-        tour_name: this.tour.tour_name,
-        vehicle: this.tour.vehicle,
-        departure: this.tour.departure,
-        day_night: this.tour.day_night,
-        price: this.tour.price,
-        note: this.tour.note,
-        jwt: this.jwt,
-        admin: this.adminCurrent
-      }).then(function (response) {
+      event.preventDefault();
+      var currentObj = this;
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      var formData = new FormData();
+      formData.append('tour_name', this.tour.tour_name);
+      formData.append('vehicle', this.tour.vehicle);
+      formData.append('departure', this.tour.departure);
+      formData.append('day_night', this.tour.day_night);
+      formData.append('price', this.tour.price);
+      formData.append('note', this.tour.note);
+      formData.append('img', this.tour.img);
+      formData.append('jwt', this.jwt);
+      formData.append('admin', this.admin);
+      axios.post('/api/tour', formData, config).then(function (response) {
         _this.tour.tour_name = null;
         _this.tour.vehicle = null;
         _this.tour.departune = null;
@@ -73837,6 +73858,22 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Image")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "file" },
+                        on: { change: _vm.onImageChangeTour }
+                      }),
+                      _vm._v(" "),
+                      _vm.errorFileMessage.length > 0
+                        ? _c("div", { staticClass: "text-danger" }, [
+                            _c("span", [_vm._v(_vm._s(_vm.errorFileMessage))])
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
                     _c("div", { staticClass: "button-create" }, [
                       _c(
                         "button",
@@ -74631,7 +74668,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                            Danh sách\n                                        "
+                                      "\n                                        Danh sách\n                                    "
                                     )
                                   ]
                                 )

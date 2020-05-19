@@ -28,6 +28,8 @@ Route::apiResource('/checkJwt', 'Admin\API\checkJwtController');
 Route::apiResource('/image', 'Admin\API\ImageController');
 Route::get('/tourhighlight', 'Admin\API\HightLightTourController@showTourHighLight');
 Route::post('get', 'Admin\API\TestController@get');
+Route::post('/reserve', 'Admin\API\ReserveController@store');
+Route::post('/searchSpace', 'Tour\API\SpaceController@search');
 Route::get('/current_admin', function() {
     return Auth::guard('admin')->user();
 });
