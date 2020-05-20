@@ -132,3 +132,11 @@
     color: blue;
     font-size: 35px;
 }
+
+.textError {
+    color: red;
+}
+
+.home {
+    font-size: 25px;
+}

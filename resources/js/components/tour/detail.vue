@@ -106,15 +106,20 @@
         },
         created() {
             this.id = this.$route.params.id;
+            console.log(this.id)
             this.getDetail();
             this.getListProgram();
             this.getTour();
             this.getImageDetail();
+            console.log(this.details);
+            console.log(this.list_program);
+            console.log(this.tours);
         },
         methods: {
            getDetail() {
                 axios.get('/api/detail/' + this.id)
                 .then(response => {
+                    console.log('detail');
                    this.details = response.data;
                    this.detail  = this.details[0];
                 })
@@ -125,7 +130,10 @@
             getListProgram() {
                 axios.get('/api/program/' + this.id)
                 .then(response => {
-                   this.list_program = response.data;
+                    this.list_program = response.data;
+                    console.log(this.list_program);
+                    console.log('program');
+
                 })
                 .catch(error => {
                    this.errors = error.response.data.errors.name
@@ -152,7 +160,7 @@
                 })
             },
             reserve(tour) {
-                this.$router.push({ path: '/Reserve/' + tour.id})
+                this.$router.push({ path: '/Reserve/' + tour.id});
             }
         },
         mounted() {

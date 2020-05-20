@@ -1982,10 +1982,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      search: ''
+      search: '',
+      data: [],
+      errorsSearch: ''
     };
   },
   methods: {
@@ -1995,11 +2002,24 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/searchSpace', {
         search: this.search
       }).then(function (response) {
-        console.log(response.data);
+        _this.data = response.data;
+
+        if (_this.data.length) {
+          _this.$router.push({
+            path: '/tourSearch/' + _this.search
+          });
+        } else {
+          _this.errorsSearch = 'Vui lòng nhập lại địa điểm';
+          console.log(_this.errorsSearch);
+        }
+
+        console.log(_this.data.length);
       })["catch"](function (error) {
         if (error.response.status == 422) {
           _this.errors = error.response.data.errors;
         }
+
+        _this.errorsSearch = 'Vui lòng nhập lại địa điểm';
       });
     }
   },
@@ -2126,16 +2146,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.id = this.$route.params.id;
+    console.log(this.id);
     this.getDetail();
     this.getListProgram();
     this.getTour();
     this.getImageDetail();
+    console.log(this.details);
+    console.log(this.list_program);
+    console.log(this.tours);
   },
   methods: {
     getDetail: function getDetail() {
       var _this = this;
 
       axios.get('/api/detail/' + this.id).then(function (response) {
+        console.log('detail');
         _this.details = response.data;
         _this.detail = _this.details[0];
       })["catch"](function (error) {
@@ -2147,6 +2172,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/program/' + this.id).then(function (response) {
         _this2.list_program = response.data;
+        console.log(_this2.list_program);
+        console.log('program');
       })["catch"](function (error) {
         _this2.errors = error.response.data.errors.name;
       });
@@ -2536,6 +2563,241 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this2.tours[0].tour_name);
       })["catch"](function (error) {
         _this2.errors = error.response.data.errors.name;
+      });
+    }
+  },
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tourSearch.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tourSearch.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      search: '',
+      data: [],
+      errorsSearch: '',
+      list_Tours: [],
+      tour: {
+        id: '',
+        tour_name: '',
+        vehicle: '',
+        departure: '',
+        day_night: '',
+        price: '',
+        note: ''
+      },
+      id: ''
+    };
+  },
+  created: function created() {
+    this.search = this.$route.params.search;
+    this.searchSpace(this.search);
+  },
+  methods: {
+    searchSpace: function searchSpace(search) {
+      var _this = this;
+
+      axios.post('/api/searchSpace', {
+        search: this.search
+      }).then(function (response) {
+        _this.list_Tours = response.data;
+      })["catch"](function (error) {
+        if (error.response.status == 422) {
+          _this.errors = error.response.data.errors;
+        }
+
+        _this.errorsSearch = 'Vui lòng nhập lại địa điểm';
+      });
+    },
+    viewDetail: function viewDetail(tour) {
+      console.log(tour.id);
+      this.$router.push({
+        path: '/Detail/' + tour.id
       });
     }
   },
@@ -70289,34 +70551,41 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c("nav", { staticClass: "navbar navbar-expand-sm header-home" }, [
-      _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-        _vm._v("Tour Du Lịch")
-      ]),
-      _vm._v(" "),
-      _c("ul", { staticClass: "navbar-nav" }, [
-        _vm._m(1),
-        _vm._v(" "),
+    _c(
+      "nav",
+      { staticClass: "navbar navbar-expand-sm header-home" },
+      [
         _c(
-          "li",
-          { staticClass: "nav-item" },
-          [
-            _c(
-              "router-link",
-              { staticClass: "nav-link", attrs: { to: "/listTour" } },
-              [_c("p", [_vm._v("Danh sách Tour")])]
-            )
-          ],
-          1
+          "router-link",
+          { staticClass: "nav-link home", attrs: { to: "/home" } },
+          [_c("p", [_vm._v("Tour Du Lịch")])]
         ),
         _vm._v(" "),
-        _vm._m(2),
+        _c("ul", { staticClass: "navbar-nav" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "li",
+            { staticClass: "nav-item" },
+            [
+              _c(
+                "router-link",
+                { staticClass: "nav-link", attrs: { to: "/listTour" } },
+                [_c("p", [_vm._v("Danh sách Tour")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _vm._m(3)
+        ]),
         _vm._v(" "),
-        _vm._m(3)
-      ]),
-      _vm._v(" "),
-      _vm._m(4)
-    ]),
+        _vm._m(4)
+      ],
+      1
+    ),
     _vm._v(" "),
     _c("hr"),
     _vm._v(" "),
@@ -70385,6 +70654,14 @@ var render = function() {
               ])
             ]
           ),
+          _vm._v(" "),
+          _c("div", { staticClass: "textError mb-1 mt-0 pl-5" }, [
+            _vm._v(
+              "\n                    " +
+                _vm._s(this.errorsSearch) +
+                "\n                "
+            )
+          ]),
           _vm._v(" "),
           _vm._m(7),
           _vm._v(" "),
@@ -71294,6 +71571,488 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tourSearch.vue?vue&type=template&id=ada92aaa&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tourSearch.vue?vue&type=template&id=ada92aaa& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "nav",
+      { staticClass: "navbar navbar-expand-sm header-home" },
+      [
+        _c("router-link", { staticClass: "nav-link", attrs: { to: "/home" } }, [
+          _c("p", [_vm._v("Tour Du Lịch")])
+        ]),
+        _vm._v(" "),
+        _c("ul", { staticClass: "navbar-nav" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "li",
+            { staticClass: "nav-item" },
+            [
+              _c(
+                "router-link",
+                { staticClass: "nav-link", attrs: { to: "/listTour" } },
+                [_c("p", [_vm._v("Danh sách Tour")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _vm._m(3)
+        ]),
+        _vm._v(" "),
+        _vm._m(4)
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm._m(5),
+        _vm._v(" "),
+        _vm._m(6),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4 offset-md-2 pl-0 pr-0" }, [
+          _c("h5", { staticClass: " the-travel " }, [
+            _vm._v("Tìm kiếm khu du lịch: ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "md-form active-pink active-pink-2 mb-1 mt-0 d-inline-block pl-5"
+            },
+            [
+              _c("div", { staticClass: "d-inline-block" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.search,
+                      expression: "search"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Search",
+                    "aria-label": "Search"
+                  },
+                  domProps: { value: _vm.search },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.search = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "d-inline-block" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-success ml-2",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.searchSpace(_vm.search)
+                      }
+                    }
+                  },
+                  [_vm._v("Success")]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "textError mb-1 mt-0 pl-5" }, [
+            _vm._v(
+              "\n                    " +
+                _vm._s(this.errorsSearch) +
+                "\n                "
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(7),
+          _vm._v(" "),
+          _c("h5", { staticClass: " the-travel " }, [
+            _vm._v("Theo dõi để nhận ưu đãi !!!")
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("hr", { staticClass: "my-4" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _vm._m(8),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-12 mt-5" },
+          _vm._l(_vm.list_Tours, function(tour) {
+            return _c("div", { key: tour.id }, [
+              _c("hr", { staticClass: "hrhome" }),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "pl-5 ml-5 d-inline-block" }, [
+                  _c("div", { staticClass: "h3 pl-5 ml-5" }, [
+                    _vm._v(
+                      "\n                                    Du Lịch " +
+                        _vm._s(tour.tour_name) +
+                        "\n                                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("img", {
+                    staticClass: "h3 pl-5 ml-5",
+                    attrs: {
+                      height: "200px",
+                      width: "250px",
+                      src: "/image/tour/" + tour.img
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "d-inline-block ml-3 detai-highlight" },
+                  [
+                    _c("div", {}, [
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("strong", [_vm._v("Phương tiện:")]),
+                      _vm._v(
+                        " " +
+                          _vm._s(tour.vehicle) +
+                          "\n                                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("strong", [_vm._v("Ngày khởi hành:")]),
+                      _vm._v(
+                        " " +
+                          _vm._s(tour.departure) +
+                          "\n                                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("strong", [_vm._v("Thời gian:")]),
+                      _vm._v(
+                        " " +
+                          _vm._s(tour.day_night) +
+                          "\n                                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("strong", [_vm._v("Giá:")]),
+                      _vm._v(
+                        " " +
+                          _vm._s(tour.price) +
+                          "\n                                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _vm._v(
+                        "\n                                    " +
+                          _vm._s(tour.note) +
+                          "\n                                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success",
+                          on: {
+                            click: function($event) {
+                              return _vm.viewDetail(tour)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                        Xem chi tiết >>\n                                    "
+                          )
+                        ]
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(9)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "top-header" }, [
+      _c("h5", { staticClass: "text-right" }, [
+        _vm._v("Liên hệ: Đại học Bách khoa Hà Nội, số 1 Đại Cồ Việt - Hà Nội")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+        _vm._v("Loại Tour")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+        _vm._v("Tour Nổi Bật")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+        _vm._v("Link 2")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+      _c("li", { staticClass: "nav-item " }, [
+        _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+          _vm._v("Đăng kí")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item " }, [
+        _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+          _vm._v("Đăng nhập")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 text-center" }, [
+      _c("h2", { staticClass: "title-home" }, [_vm._v("Du Lịch Tận Hưởng")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6 pl-0 pr-0 mt-5" }, [
+      _c("span", [
+        _c("img", {
+          staticClass: "d-inline-block pl-2",
+          attrs: { src: "/img/logo.jpg", width: "200px", height: "150px" }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "d-inline-block pl-5 text-home" }, [
+          _c("h3", { staticClass: "text-center the-travel " }, [
+            _vm._v("Lên kế hoạch ngay!")
+          ]),
+          _vm._v(" "),
+          _c("h5", { staticClass: "text-center the-travel " }, [
+            _vm._v(
+              "Du lịch tận hưởng, trải nghiệm du lịch giá rẻ chưa từng thấy"
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icoin-home mt-4" }, [
+      _c("ul", { staticClass: "list-unstyled" }, [
+        _c("li", { staticClass: "d-inline-block pl-5" }, [
+          _c("a", { attrs: { href: "#!" } }, [
+            _c("i", {
+              staticClass: "fa fa-facebook-official",
+              staticStyle: { "font-size": "40px" }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "d-inline-block pl-3" }, [
+          _c("a", { attrs: { href: "#!" } }, [
+            _c("i", {
+              staticClass: "fa fa-instagram ",
+              staticStyle: { "font-size": "40px" },
+              attrs: { "aria-hidden": "true" }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "d-inline-block pl-3" }, [
+          _c("a", { attrs: { href: "#!" } }, [
+            _c("i", {
+              staticClass: "fa fa-twitch",
+              staticStyle: { "font-size": "40px" },
+              attrs: { "aria-hidden": "true" }
+            })
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("h2", { staticClass: "headeing text-center" }, [
+        _vm._v("Tour Du Lịch")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "footer",
+      { staticClass: "page-footer font-small blue pt-4 footer-home" },
+      [
+        _c("div", { staticClass: "container-fluid text-center text-md-left" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6 mt-md-0 mt-3" }, [
+              _c("h5", { staticClass: "text-uppercase" }, [
+                _vm._v("Du lịch mọi lúc mọi nơi")
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Bạn có câu hỏi hay thắc mắc, có thể liên hệ với chúng tôi"
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "clearfix w-100 d-md-none pb-3" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3 mb-md-0 mb-3" }, [
+              _c("h5", { staticClass: "text-uppercase" }, [_vm._v("Liên hệ")]),
+              _vm._v(" "),
+              _c("ul", { staticClass: "list-unstyled" }, [
+                _c("li", [
+                  _vm._v(
+                    "\n                            Số điện thoại: 0123456789\n                        "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm._v(
+                    "\n                            Email: Minhhieu97.hust@gmail.com\n                        "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm._v(
+                    "\n                            Địa chỉ: Số 1, Đại Cồ Việt\n                        "
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3 mb-md-0 mb-3" }, [
+              _c("h5", { staticClass: "text-uppercase" }, [
+                _vm._v("Mạng xã hội")
+              ]),
+              _vm._v(" "),
+              _c("ul", { staticClass: "list-unstyled" }, [
+                _c("li", [
+                  _c("i", {
+                    staticClass: "fa fa-facebook-official",
+                    staticStyle: { "font-size": "24px" }
+                  }),
+                  _vm._v(" :\n                            "),
+                  _c("a", { attrs: { href: "#!" } }, [_vm._v("Facebook")])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("i", {
+                    staticClass: "fa fa-instagram",
+                    staticStyle: { "font-size": "24px" },
+                    attrs: { "aria-hidden": "true" }
+                  }),
+                  _vm._v(" :\n                            "),
+                  _c("a", { attrs: { href: "#!" } }, [_vm._v("Instagram")])
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "footer-copyright text-center py-3" }, [
+          _vm._v("© 2020 create by:\n            Hieu20151340\n        ")
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -86744,6 +87503,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/tourSearch.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/tourSearch.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _tourSearch_vue_vue_type_template_id_ada92aaa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tourSearch.vue?vue&type=template&id=ada92aaa& */ "./resources/js/components/tourSearch.vue?vue&type=template&id=ada92aaa&");
+/* harmony import */ var _tourSearch_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tourSearch.vue?vue&type=script&lang=js& */ "./resources/js/components/tourSearch.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _tourSearch_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _tourSearch_vue_vue_type_template_id_ada92aaa___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _tourSearch_vue_vue_type_template_id_ada92aaa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/tourSearch.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tourSearch.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/tourSearch.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tourSearch_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./tourSearch.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tourSearch.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tourSearch_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tourSearch.vue?vue&type=template&id=ada92aaa&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/tourSearch.vue?vue&type=template&id=ada92aaa& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tourSearch_vue_vue_type_template_id_ada92aaa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./tourSearch.vue?vue&type=template&id=ada92aaa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tourSearch.vue?vue&type=template&id=ada92aaa&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tourSearch_vue_vue_type_template_id_ada92aaa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tourSearch_vue_vue_type_template_id_ada92aaa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/main.js":
 /*!******************************!*\
   !*** ./resources/js/main.js ***!
@@ -86798,6 +87626,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: '/Reserve/:id',
       component: __webpack_require__(/*! ./components/tour/reserve.vue */ "./resources/js/components/tour/reserve.vue")["default"]
     }]
+  }, {
+    path: '/tourSearch/:search',
+    component: __webpack_require__(/*! ./components/tourSearch.vue */ "./resources/js/components/tourSearch.vue")["default"]
   }]
 });
 /**

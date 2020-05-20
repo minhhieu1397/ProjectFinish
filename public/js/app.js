@@ -2577,7 +2577,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       space: {
-        space: ''
+        place: ''
       },
       errors: [],
       listSpace: [],
@@ -2602,9 +2602,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.post('/api/space', {
-        space: this.space.space
+        place: this.space.place
       }).then(function (response) {
-        _this2.space.space = '';
+        _this2.space.place = '';
 
         _this2.getAllSpace();
 
@@ -2650,7 +2650,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       axios.put('/api/space/' + this.space.id, {
-        space: this.space.space
+        place: this.space.place
       }).then(function (response) {
         _this4.successUpdateSpace = "Cập nhập địa điểm thành công";
       })["catch"](function (error) {
@@ -72837,7 +72837,7 @@ var render = function() {
             _vm._l(_vm.listSpace, function(space, index) {
               return _c("tbody", { key: space.id }, [
                 _c("tr", { staticClass: "table__content" }, [
-                  _c("td", [_vm._v(_vm._s(space.space))]),
+                  _c("td", [_vm._v(_vm._s(space.place))]),
                   _vm._v(" "),
                   _vm._m(2, true),
                   _vm._v(" "),
@@ -72963,26 +72963,26 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.space.space,
-                              expression: "space.space"
+                              value: _vm.space.place,
+                              expression: "space.place"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "text", name: "space" },
-                          domProps: { value: _vm.space.space },
+                          attrs: { type: "text", name: "place" },
+                          domProps: { value: _vm.space.place },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.space, "space", $event.target.value)
+                              _vm.$set(_vm.space, "place", $event.target.value)
                             }
                           }
                         }),
                         _vm._v(" "),
-                        _vm.errors.space
+                        _vm.errors.place
                           ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(" " + _vm._s(_vm.errors.space[0]) + " ")
+                              _vm._v(" " + _vm._s(_vm.errors.place[0]) + " ")
                             ])
                           : _vm._e()
                       ]),
@@ -73083,26 +73083,26 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.space.space,
-                              expression: "space.space"
+                              value: _vm.space.place,
+                              expression: "space.place"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "text", name: "space" },
-                          domProps: { value: _vm.space.space },
+                          attrs: { type: "text", name: "place" },
+                          domProps: { value: _vm.space.place },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.space, "space", $event.target.value)
+                              _vm.$set(_vm.space, "place", $event.target.value)
                             }
                           }
                         }),
                         _vm._v(" "),
-                        _vm.errors.space
+                        _vm.errors.place
                           ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(" " + _vm._s(_vm.errors.space[0]) + " ")
+                              _vm._v(" " + _vm._s(_vm.errors.place[0]) + " ")
                             ])
                           : _vm._e()
                       ]),

@@ -11,9 +11,9 @@ class Tour extends Model
 
     protected $table = 'tour';
 
-    public function Space()
+    public function Place()
     {
-        return $this->belongsTo('App\Models\Space');
+        return $this->belongsTo('App\Models\Place');
     }
 
     protected $fillable = [

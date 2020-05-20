@@ -50,6 +50,10 @@ const router = new VueRouter({
                 },
             ]
         },
+        {
+            path: '/tourSearch/:search',
+            component: require('./components/tourSearch.vue').default,
+        },
     ],
 })
 /**

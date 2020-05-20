@@ -63,7 +63,7 @@
             this.getAllTours();
         },
         methods: {
-           getAllTours() {
+            getAllTours() {
                 axios.get('/api/tour')
                 .then(response => {
                    this.list_Tours = response.data
@@ -71,11 +71,11 @@
                 .catch(error => {
                    this.errors = error.response.data.errors.name
                 })
-           },
-           viewDetail(tour) {
-               console.log(tour.id);
+            },
+            viewDetail(tour) {
+                console.log(tour.id);
                 this.$router.push({ path: '/Detail/' + tour.id})
-           }
+            }
         },
         mounted() {
             console.log('Component mounted.')

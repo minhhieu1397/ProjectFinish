@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Space;
+use App\Models\Place;
 
 class SpaceController extends Controller
 {
@@ -15,7 +15,7 @@ class SpaceController extends Controller
      */
     public function index()
     {
-        return Space::all();
+        return Place::all();
     }
 
     /**
@@ -36,8 +36,8 @@ class SpaceController extends Controller
      */
     public function store(Request $request)
     {
-        return Space::create([
-            'space' => $request->input('space'),
+        return Place::create([
+            'place' => $request->input('place'),
         ]);
     }
 
@@ -72,9 +72,9 @@ class SpaceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $space = Space::find($id);
+        $space = Place::find($id);
         $space->update([
-            'space' => $request->input('space')
+            'space' => $request->input('place')
         ]);
         
         return $space;
@@ -88,7 +88,7 @@ class SpaceController extends Controller
      */
     public function destroy($id)
     {
-        $space = Space::find($id);
+        $space = Place::find($id);
         $space->delete();
         
         return response([

@@ -4,7 +4,7 @@
             <h5 class="text-right">Liên hệ: Đại học Bách khoa Hà Nội, số 1 Đại Cồ Việt - Hà Nội</h5>
         </div>
         <nav class="navbar navbar-expand-sm header-home">
-            <router-link to="/home" class="nav-link home">
+            <router-link to="/home" class="nav-link">
                 <p>Tour Du Lịch</p>
             </router-link>
             <ul class="navbar-nav">
@@ -84,7 +84,48 @@
         </div>
         <div class="container-fluid">
             <hr class="my-4">
-            <router-view></router-view>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="headeing text-center">Tour Du Lịch</h2>
+                </div>
+                <div class="col-md-12 mt-5">
+                    <div v-for="(tour) in list_Tours" :key="tour.id">
+                        <hr class="hrhome">
+                            <div>
+                                <div class="pl-5 ml-5 d-inline-block">
+                                    <div class="h3 pl-5 ml-5">
+                                        Du Lịch {{tour.tour_name}}
+                                    </div>
+                                        <img class="h3 pl-5 ml-5" height="200px" width="250px"  v-bind:src="'/image/tour/'+tour.img">
+                                </div>
+                                <div class="d-inline-block ml-3 detai-highlight">
+                                    <div class="">
+                                        <br>
+                                        <br>
+                                        <strong>Phương tiện:</strong> {{tour.vehicle}}
+                                    </div>
+                                    <div>
+                                        <strong>Ngày khởi hành:</strong> {{tour.departure}}
+                                    </div>
+                                    <div>
+                                        <strong>Thời gian:</strong> {{tour.day_night}}
+                                    </div>
+                                    <div>
+                                        <strong>Giá:</strong> {{tour.price}}
+                                    </div>
+                                    <div>
+                                        {{tour.note}}
+                                    </div>
+                                    <div>
+                                        <button @click="viewDetail(tour)" class="btn btn-success">
+                                            Xem chi tiết >>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <footer class="page-footer font-small blue pt-4 footer-home">
             <div class="container-fluid text-center text-md-left">
@@ -136,21 +177,29 @@
             return {
                 search: '',
                 data: [],
-                errorsSearch: ''
+                errorsSearch: '',
+                list_Tours: [],
+                tour: {
+                    id: '',
+                    tour_name: '',
+                    vehicle: '',
+                    departure: '',
+                    day_night: '',
+                    price: '',
+                    note: '',
+               },
+               id: ''
             }
+        },
+        created() {
+            this.search = this.$route.params.search;
+            this.searchSpace(this.search);
         },
         methods: {
             searchSpace(search) {
                 axios.post('/api/searchSpace', {search: this.search})
                 .then(response => {
-                    this.data = response.data;
-                    if (this.data.length) {
-                        this.$router.push({ path: '/tourSearch/' + this.search})
-                    } else {
-                        this.errorsSearch = 'Vui lòng nhập lại địa điểm';
-                        console.log(this.errorsSearch);
-                    }
-                    console.log(this.data.length);
+                    this.list_Tours = response.data;
                 })
                 .catch(error => {
                     if (error.response.status == 422) {
@@ -159,6 +208,10 @@
                     }
                     this.errorsSearch = 'Vui lòng nhập lại địa điểm';
                 })
+            },
+            viewDetail(tour) {
+                console.log(tour.id);
+                this.$router.push({ path: '/Detail/' + tour.id})
             }
         },
         mounted() {

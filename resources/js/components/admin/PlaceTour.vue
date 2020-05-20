@@ -26,7 +26,7 @@
                     </thead>
                     <tbody v-for="(space, index) in listSpace" :key="space.id">
                         <tr class="table__content">
-                            <td>{{ space.space }}</td>
+                            <td>{{ space.place }}</td>
                             <td>
                                 <a class="nav-link" data-toggle="modal" data-target="#ViewTourWithSpace">
                                     Tour
@@ -64,9 +64,9 @@
                                 <div class="create-form">
                                     <div class="form-group">
                                         <label>Title</label>
-                                        <input v-model="space.space" type="text" name="space"
+                                        <input v-model="space.place" type="text" name="place"
                                         class="form-control">
-                                        <span v-if="errors.space" class="text-danger"> {{ errors.space[0] }} </span>
+                                        <span v-if="errors.place" class="text-danger"> {{ errors.place[0] }} </span>
                                     </div>
                                     <div class="button-create">
                                         <button class="btn btn-primary" @click="createSpace(space)">Update</button>
@@ -96,9 +96,9 @@
                                 <div class="create-form">
                                     <div class="form-group">
                                         <label>Title</label>
-                                        <input v-model="space.space" type="text" name="space"
+                                        <input v-model="space.place" type="text" name="place"
                                         class="form-control">
-                                        <span v-if="errors.space" class="text-danger"> {{ errors.space[0] }} </span>
+                                        <span v-if="errors.place" class="text-danger"> {{ errors.place[0] }} </span>
                                     </div>
                                     <div class="button-create">
                                         <button @click="updateSpace(space)" class="btn btn-primary">Update</button>
@@ -118,7 +118,7 @@
         data() {
             return {
                 space: {
-                    space: '',
+                    place: '',
                 },
                 errors: [],
                 listSpace: [],
@@ -140,9 +140,9 @@
                 })
             },
             createSpace(space) {
-                axios.post('/api/space', {space: this.space.space})
+                axios.post('/api/space', {place: this.space.place})
                 .then(response => {
-                    this.space.space = '';
+                    this.space.place = '';
                     this.getAllSpace();
                     this.successCreateSpace = 'Tạo thành công'
                 })
@@ -189,7 +189,7 @@
                 this.space = space;
             },
             updateSpace(space) {
-                axios.put('/api/space/' + this.space.id, {space: this.space.space} )
+                axios.put('/api/space/' + this.space.id, {place: this.space.place} )
                 .then(response => {
                     this.successUpdateSpace = "Cập nhập địa điểm thành công";
                 })
