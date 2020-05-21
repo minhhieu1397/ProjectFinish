@@ -20,7 +20,9 @@
                     <a class="nav-link" href="#">Tour Nổi Bật</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link 2</a>
+                    <router-link to="/introduce" class="nav-link">
+                        <p>Giới thiệu</p>
+                    </router-link>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

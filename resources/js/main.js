@@ -48,6 +48,10 @@ const router = new VueRouter({
                     path: '/Reserve/:id',
                     component: require('./components/tour/reserve.vue').default
                 },
+                {
+                    path: '/introduce',
+                    component: require('./components/tour/introduce.vue').default
+                },
             ]
         },
         {

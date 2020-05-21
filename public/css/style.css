@@ -140,3 +140,12 @@
 .home {
     font-size: 25px;
 }
+
+.introduce-list {
+    font-size: 15px;
+}
+
+.introduce-body {
+    font-size: 17px;
+    padding-left: 50px;
+}

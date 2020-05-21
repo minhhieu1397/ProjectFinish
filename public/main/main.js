@@ -1987,6 +1987,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2341,6 +2343,80 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tour/introduce.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tour/introduce.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  created: function created() {},
+  methods: {},
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -70579,10 +70655,21 @@ var render = function() {
           _vm._v(" "),
           _vm._m(2),
           _vm._v(" "),
-          _vm._m(3)
+          _c(
+            "li",
+            { staticClass: "nav-item" },
+            [
+              _c(
+                "router-link",
+                { staticClass: "nav-link", attrs: { to: "/introduce" } },
+                [_c("p", [_vm._v("Giới thiệu")])]
+              )
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
-        _vm._m(4)
+        _vm._m(3)
       ],
       1
     ),
@@ -70593,9 +70680,9 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "row" }, [
-        _vm._m(5),
+        _vm._m(4),
         _vm._v(" "),
-        _vm._m(6),
+        _vm._m(5),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-4 offset-md-2 pl-0 pr-0" }, [
           _c("h5", { staticClass: " the-travel " }, [
@@ -70663,7 +70750,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(7),
+          _vm._m(6),
           _vm._v(" "),
           _c("h5", { staticClass: " the-travel " }, [
             _vm._v("Theo dõi để nhận ưu đãi !!!")
@@ -70679,7 +70766,7 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _vm._m(8)
+    _vm._m(7)
   ])
 }
 var staticRenderFns = [
@@ -70710,16 +70797,6 @@ var staticRenderFns = [
     return _c("li", { staticClass: "nav-item" }, [
       _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
         _vm._v("Tour Nổi Bật")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Link 2")
       ])
     ])
   },
@@ -71281,6 +71358,193 @@ var staticRenderFns = [
     return _c("div", [
       _c("h3", { staticClass: "text-center" }, [_vm._v("Tour Nổi Bật")])
     ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tour/introduce.vue?vue&type=template&id=73a00533&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tour/introduce.vue?vue&type=template&id=73a00533& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-6 text-center" }, [
+      _c("h1", { staticClass: "text-center headeing" }, [_vm._v("GIỚI THIỆU")]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "pl-3",
+        attrs: {
+          height: "600px",
+          width: "950px",
+          src: "/image/introduce/hust1.jpg"
+        }
+      }),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br")
+    ]),
+    _vm._v(" "),
+    _vm._m(1)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "col-md-2 offset-md-1 pl-3 TNR introduce-list" },
+      [
+        _c("hr"),
+        _vm._v(" "),
+        _c("h5", [_vm._v("NHỮNG CON SỐ THỐNG KÊ")]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("h5", [
+          _c("i", { staticClass: "nav-icon fas fa-archway" }),
+          _vm._v(" THÀNH LẬP NĂM 1956")
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("h5", [
+          _c("i", { staticClass: "nav-icon fas fa-graduation-cap" }),
+          _vm._v(" ĐÀO TẠO")
+        ]),
+        _vm._v(
+          "\n            ●  Đào tạo trên 40.000 sinh viên, học viên cao học và nghiên cứu sinh. "
+        ),
+        _c("br"),
+        _vm._v(
+          "\n            ●  67 chuyên ngành đại học, 33 chuyên ngành cao học và 57 chuyên ngành tiến sĩ.\n        "
+        ),
+        _c("hr"),
+        _vm._v(" "),
+        _c("h5", [
+          _c("i", { staticClass: "nav-icon fas fa-hands-helping" }),
+          _vm._v(" HỢP TÁC")
+        ]),
+        _vm._v(
+          "\n            ●  Hợp tác với trên 200 trường Đại học, Trung tâm nghiên cứu khoa học và tổ chức Giáo dục của 32 quốc gia."
+        ),
+        _c("br"),
+        _vm._v(
+          "\n            ●  500 cán bộ, sinh viên học tập, nghiên cứu, trao đổi quốc tế.\n    "
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "col-md-6 offset-md-3 TNR introduce-body" },
+      [
+        _c("div", [
+          _c("span", [
+            _vm._v(
+              "    Trường Đại học Bách khoa Hà Nội là trường đại học đa ngành về kỹ thuật được thành lập ngày 15 tháng 10 năm 1956.\n                 Trường luôn là một trong những trường đại học kỹ thuật hàng đầu của nền giáo dục Việt Nam.\n                  Với nhiều đóng góp cho công cuộc xây dựng và bảo vệ Tổ quốc,\n                 Trường đã được Đảng và Nhà nước tặng nhiều danh hiệu và phần thưởng quý giá cho các cá nhân và tập thể Trường."
+            )
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", [
+            _vm._v("Tên tiếng Việt: "),
+            _c("strong", [_vm._v("Trường Đại học Bách khoa Hà Nội.")])
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", [
+            _vm._v("Tên tiếng Anh: "),
+            _c("strong", [
+              _vm._v("Hanoi University of Science and Technology.")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", [
+            _vm._v("Địa chỉ: "),
+            _c("strong", [_vm._v("Số 01, Đại Cồ Việt, Hai Bà Trưng, Hà Nội.")])
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", [
+            _vm._v("Tên tiếng Việt: "),
+            _c("strong", [_vm._v("Trường Đại học Bách khoa Hà Nội.")])
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _c("br"),
+          _vm._v(" "),
+          _c("strong", [_vm._v("Cơ sở vật chất:")]),
+          _c("br"),
+          _vm._v(
+            "\n            \t    ●   Khuôn viên Trường có tổng diện tích 26 ha (lớn nhất trong các trường đại học khu vực nội thành Hà Nội) "
+          ),
+          _c("br"),
+          _vm._v(
+            "\n            \t    ●   Thư viện điện tử Tạ Quang Bửu với diện tích 37.000 m2, có thể phục vụ đồng thời 2.000 sinh viên với 600.000 cuốn sách, 130.000 đầu sách điện tử. Sinh viên được  truy cập miễn phí  CSDL từ các nguồn như Science Driect, Scopus…"
+          ),
+          _c("br"),
+          _vm._v(
+            "\n            \t    ●   Hệ thống 400 phòng học và phòng thí nghiệm, trong đó có 12 phòng thí nghiệm trọng điểm và đầu tư tập trung, phục vụ hiệu quả công tác đào tạo và nghiên cứu."
+          ),
+          _c("br"),
+          _vm._v(
+            "\n            \t    ●   Toàn bộ giảng đường được trang bị đầy đủ điều hòa và thiết bị giảng dạy cùng với hệ thống wifi miễn phí trong khuôn viên Trường."
+          ),
+          _c("br"),
+          _vm._v(
+            "\n            \t    ●   Trung tâm ký túc xá khang trang đáp ứng nhu cầu lưu trú của gần 4.500 sinh viên."
+          ),
+          _c("br"),
+          _vm._v(
+            "\n            \t    ●   Khu liên hợp thể thao có diện tích 20.000 m2 với hệ thống cơ sở vật chất hiện đại, bao gồm: sân bóng, bể bơi, sân tennis tiêu chuẩn quốc gia và nhà thi đấu đa năng tiêu chuẩn Đông Nam Á."
+          ),
+          _c("br"),
+          _vm._v(
+            "\n            \t    ●   Trung tâm Y tế hoạt động theo mô hình phòng khám đa khoa chăm sóc sức khỏe thường xuyên cho các cán bộ và sinh viên Trường."
+          ),
+          _c("br"),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("br")
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -87365,6 +87629,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/tour/introduce.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/tour/introduce.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _introduce_vue_vue_type_template_id_73a00533___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./introduce.vue?vue&type=template&id=73a00533& */ "./resources/js/components/tour/introduce.vue?vue&type=template&id=73a00533&");
+/* harmony import */ var _introduce_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./introduce.vue?vue&type=script&lang=js& */ "./resources/js/components/tour/introduce.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _introduce_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _introduce_vue_vue_type_template_id_73a00533___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _introduce_vue_vue_type_template_id_73a00533___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/tour/introduce.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tour/introduce.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/tour/introduce.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_introduce_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./introduce.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tour/introduce.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_introduce_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tour/introduce.vue?vue&type=template&id=73a00533&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/tour/introduce.vue?vue&type=template&id=73a00533& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_introduce_vue_vue_type_template_id_73a00533___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./introduce.vue?vue&type=template&id=73a00533& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tour/introduce.vue?vue&type=template&id=73a00533&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_introduce_vue_vue_type_template_id_73a00533___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_introduce_vue_vue_type_template_id_73a00533___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/tour/listTour.vue":
 /*!***************************************************!*\
   !*** ./resources/js/components/tour/listTour.vue ***!
@@ -87625,6 +87958,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     }, {
       path: '/Reserve/:id',
       component: __webpack_require__(/*! ./components/tour/reserve.vue */ "./resources/js/components/tour/reserve.vue")["default"]
+    }, {
+      path: '/introduce',
+      component: __webpack_require__(/*! ./components/tour/introduce.vue */ "./resources/js/components/tour/introduce.vue")["default"]
     }]
   }, {
     path: '/tourSearch/:search',

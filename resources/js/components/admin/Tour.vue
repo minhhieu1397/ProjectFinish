@@ -780,7 +780,6 @@
                 console.log('aaa');
                 this.getImageDetail(tour);
                 this.isCreateImage = true;
-                
             },
             getImageDetail(tour) {
                 axios.get('/api/image/' + this.tour.id)
