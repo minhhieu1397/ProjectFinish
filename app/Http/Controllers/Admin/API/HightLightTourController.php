@@ -12,4 +12,13 @@ class HightLightTourController extends Controller
     {
         return Tour::where('tour_hot', 1)->get();
     }
+
+    public function setTourHot($id, Request $request)
+    {   
+        $tour = Tour::find($id);
+        $tour->update([
+            
+            'tour_hot' => $request->input('tour_hot'),
+        ]);
+    }
 }

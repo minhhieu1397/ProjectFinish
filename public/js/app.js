@@ -3384,6 +3384,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3395,7 +3430,9 @@ __webpack_require__.r(__webpack_exports__);
         day_night: '',
         price: '',
         note: '',
-        img: ''
+        img: '',
+        place_id: '',
+        tour_hot: ''
       },
       errors: [],
       success: '',
@@ -3436,13 +3473,19 @@ __webpack_require__.r(__webpack_exports__);
       image: {
         url: '',
         tour_id: ''
-      }
+      },
+      place: {
+        place: ''
+      },
+      listPlaces: [],
+      selected: ''
     };
   },
   created: function created() {
     this.getAllTours();
     this.getAdminCurrent();
     this.setJwt();
+    this.getAllPlace();
   },
   methods: {
     handleClickNewTour: function handleClickNewTour() {
@@ -3456,12 +3499,21 @@ __webpack_require__.r(__webpack_exports__);
         note: ''
       };
     },
+    getAllPlace: function getAllPlace() {
+      var _this = this;
+
+      axios.get('/api/space').then(function (response) {
+        _this.listPlaces = response.data;
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors.name;
+      });
+    },
     onImageChangeTour: function onImageChangeTour(e) {
       console.log(e.target.files[0]);
       this.tour.img = e.target.files[0];
     },
     createTour: function createTour(tour) {
-      var _this = this;
+      var _this2 = this;
 
       console.log(this.jwt);
       console.log(this.adminCurrent);
@@ -3480,64 +3532,65 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('price', this.tour.price);
       formData.append('note', this.tour.note);
       formData.append('img', this.tour.img);
+      formData.append('place_id', this.tour.place_id);
       formData.append('jwt', this.jwt);
       formData.append('admin', this.admin);
       axios.post('/api/tour', formData, config).then(function (response) {
-        _this.tour.tour_name = null;
-        _this.tour.vehicle = null;
-        _this.tour.departune = null;
-        _this.tour.day_night = null;
-        _this.tour.price = null;
-        _this.tour.note = null;
-        _this.successCreateTour = 'Tạo Tour thành công';
+        _this2.tour.tour_name = null;
+        _this2.tour.vehicle = null;
+        _this2.tour.departune = null;
+        _this2.tour.day_night = null;
+        _this2.tour.price = null;
+        _this2.tour.note = null;
+        _this2.successCreateTour = 'Tạo Tour thành công';
 
-        _this.getAllTours();
+        _this2.getAllTours();
       })["catch"](function (error) {
-        _this.success = '';
+        _this2.success = '';
 
         if (error.response.status == 422) {
-          _this.errors = error.response.data.errors;
+          _this2.errors = error.response.data.errors;
         }
       });
     },
     getAllTours: function getAllTours() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.successUpdateTour = '';
       axios.get('/api/tour').then(function (response) {
-        _this2.list_Tours = response.data;
+        _this3.list_Tours = response.data;
       })["catch"](function (error) {
-        _this2.errors = error.response.data.errors.name;
+        _this3.errors = error.response.data.errors.name;
       });
     },
     getAdminCurrent: function getAdminCurrent() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get('/Admin/admin').then(function (response) {
-        _this3.admin_current = response.data;
-        console.log(_this3.admin_current.user_name);
+        _this4.admin_current = response.data;
+        console.log(_this4.admin_current.user_name);
       })["catch"](function (error) {
-        _this3.errors = error.response.data.errors.name;
+        _this4.errors = error.response.data.errors.name;
         console.log('errors get admin current');
       });
     },
     deleteTour: function deleteTour(tour, index) {
-      var _this4 = this;
+      var _this5 = this;
 
       axios["delete"]('/api/tour/' + tour.id).then(function (response) {
         console.log(response.data.result);
 
-        _this4.list_Tours.splice(index, 1);
+        _this5.list_Tours.splice(index, 1);
       })["catch"](function (error) {
-        _this4.success = '';
-        _this4.errors = error.response.data.errors.name;
+        _this5.success = '';
+        _this5.errors = error.response.data.errors.name;
       });
     },
     sendTourUpdate: function sendTourUpdate(tour) {
       this.tour = tour;
     },
     updateTour: function updateTour() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.put('/api/tour/' + this.tour.id, {
         tour_name: this.tour.tour_name,
@@ -3546,13 +3599,14 @@ __webpack_require__.r(__webpack_exports__);
         day_night: this.tour.day_night,
         price: this.tour.price,
         note: this.tour.note,
+        place_id: this.tour.place_id,
         jwt: this.jwt,
         admin: this.adminCurrent
       }).then(function (response) {
-        _this5.successUpdateTour = 'Cập nhập Tour thành công';
+        _this6.successUpdateTour = 'Cập nhập Tour thành công';
       })["catch"](function (error) {
-        _this5.success = '';
-        _this5.errors = error.response.data.errors.name;
+        _this6.success = '';
+        _this6.errors = error.response.data.errors.name;
       });
     },
     sendTourProgram: function sendTourProgram(tour) {
@@ -3564,7 +3618,7 @@ __webpack_require__.r(__webpack_exports__);
       this.iscreateProgram = true;
     },
     createProgram: function createProgram() {
-      var _this6 = this;
+      var _this7 = this;
 
       axios.post('/api/program', {
         tour_id: this.tour.id,
@@ -3572,29 +3626,29 @@ __webpack_require__.r(__webpack_exports__);
         day: this.program.day,
         detail: this.program.detail
       }).then(function (response) {
-        _this6.successCreateProgram = 'Tạo program thành công';
+        _this7.successCreateProgram = 'Tạo program thành công';
       })["catch"](function (error) {
-        _this6.successCreateProgram = '';
+        _this7.successCreateProgram = '';
 
         if (error.response.status == 422) {
-          _this6.errors = error.response.data.errors;
+          _this7.errors = error.response.data.errors;
         }
       });
     },
     deleteProgram: function deleteProgram(program, index) {
-      var _this7 = this;
+      var _this8 = this;
 
       axios["delete"]('/api/program/' + program.id).then(function (response) {
         console.log(response.data.result);
 
-        _this7.list_Program.splice(index, 1);
+        _this8.list_Program.splice(index, 1);
       })["catch"](function (error) {
-        _this7.success = '';
-        _this7.errors = error.response.data.errors.name;
+        _this8.success = '';
+        _this8.errors = error.response.data.errors.name;
       });
     },
     getAllprogram: function getAllprogram(tour) {
-      var _this8 = this;
+      var _this9 = this;
 
       this.successCreateProgram = '';
       this.successUpdateProgram = '';
@@ -3606,9 +3660,9 @@ __webpack_require__.r(__webpack_exports__);
         detail: ''
       };
       axios.get('/api/program/' + this.tour.id).then(function (response) {
-        _this8.list_Program = response.data;
+        _this9.list_Program = response.data;
       })["catch"](function (error) {
-        _this8.errors = error.response.data.errors.name;
+        _this9.errors = error.response.data.errors.name;
       });
     },
     listProgram: function listProgram(tour) {
@@ -3619,19 +3673,19 @@ __webpack_require__.r(__webpack_exports__);
       this.program = program;
     },
     updateProgram: function updateProgram() {
-      var _this9 = this;
+      var _this10 = this;
 
       axios.put('/api/program/' + this.program.id, {
         title: this.program.title,
         day: this.program.day,
         detail: this.program.detail
       }).then(function (response) {
-        _this9.successUpdateProgram = 'Cập nhập thành công';
+        _this10.successUpdateProgram = 'Cập nhập thành công';
       })["catch"](function (error) {
-        _this9.success = '';
+        _this10.success = '';
 
         if (error.response.status == 422) {
-          _this9.errors = error.response.data.errors;
+          _this10.errors = error.response.data.errors;
         }
       });
     },
@@ -3646,7 +3700,7 @@ __webpack_require__.r(__webpack_exports__);
       this.getAllDetail(tour);
     },
     getAllDetail: function getAllDetail(tour) {
-      var _this10 = this;
+      var _this11 = this;
 
       this.tour = tour;
       this.successCreateDetail = '';
@@ -3658,9 +3712,9 @@ __webpack_require__.r(__webpack_exports__);
         account: ''
       };
       axios.get('/api/detail/' + this.tour.id).then(function (response) {
-        _this10.list_Detail = response.data;
+        _this11.list_Detail = response.data;
       })["catch"](function (error) {
-        _this10.errors = error.response.data.errors.name;
+        _this11.errors = error.response.data.errors.name;
       });
     },
     createImage: function createImage(tour) {
@@ -3669,16 +3723,16 @@ __webpack_require__.r(__webpack_exports__);
       this.isCreateImage = true;
     },
     getImageDetail: function getImageDetail(tour) {
-      var _this11 = this;
+      var _this12 = this;
 
       axios.get('/api/image/' + this.tour.id).then(function (response) {
-        _this11.imageDetails = response.data;
+        _this12.imageDetails = response.data;
       })["catch"](function (error) {
-        _this11.errors = error.response.data.errors.name;
+        _this12.errors = error.response.data.errors.name;
       });
     },
     CreateDetailImage: function CreateDetailImage(tour) {
-      var _this12 = this;
+      var _this13 = this;
 
       this.errorFileMessage = '';
       event.preventDefault();
@@ -3692,19 +3746,19 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('image', this.detail.image);
       formData.append('tour_id', this.tour.id);
       axios.post('/api/image', formData, config).then(function (response) {
-        _this12.successCreateDetail = 'Tạo Chi Tiết Thành Công';
+        _this13.successCreateDetail = 'Tạo Chi Tiết Thành Công';
       })["catch"](function (error) {
-        _this12.success = '';
+        _this13.success = '';
 
         if (error.response.status == 422) {
-          _this12.errors = error.response.data.errors;
+          _this13.errors = error.response.data.errors;
         }
 
-        _this12.errorFileMessage = 'Hình ảnh trống ';
+        _this13.errorFileMessage = 'Hình ảnh trống ';
       });
     },
     CreateDetail: function CreateDetail(tour) {
-      var _this13 = this;
+      var _this14 = this;
 
       this.errorFileMessage = '';
       event.preventDefault();
@@ -3722,18 +3776,18 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('account', this.admin_current.user_name);
       formData.append('description', this.admin_current.description);
       axios.post('/api/detail', formData, config).then(function (response) {
-        _this13.detail.day_start = null;
-        _this13.detail.day_end = null;
-        _this13.detail.amount = null;
-        _this13.successCreateDetail = 'Tạo Chi Tiết Thành Công';
+        _this14.detail.day_start = null;
+        _this14.detail.day_end = null;
+        _this14.detail.amount = null;
+        _this14.successCreateDetail = 'Tạo Chi Tiết Thành Công';
       })["catch"](function (error) {
-        _this13.success = '';
+        _this14.success = '';
 
         if (error.response.status == 422) {
-          _this13.errors = error.response.data.errors;
+          _this14.errors = error.response.data.errors;
         }
 
-        _this13.errorFileMessage = 'Hình ảnh trống ';
+        _this14.errorFileMessage = 'Hình ảnh trống ';
       });
     },
     sendDetailUpdate: function sendDetailUpdate(detailID) {
@@ -3745,19 +3799,19 @@ __webpack_require__.r(__webpack_exports__);
       this.detail.image = e.target.files[0];
     },
     deleteDetail: function deleteDetail(detail, index) {
-      var _this14 = this;
+      var _this15 = this;
 
       axios["delete"]('/api/detail/' + detail.id).then(function (response) {
         console.log(response.data.result);
 
-        _this14.list_Detail.splice(index, 1);
+        _this15.list_Detail.splice(index, 1);
       })["catch"](function (error) {
-        _this14.success = '';
-        _this14.errors = error.response.data.errors.name;
+        _this15.success = '';
+        _this15.errors = error.response.data.errors.name;
       });
     },
     updateDetail: function updateDetail() {
-      var _this15 = this;
+      var _this16 = this;
 
       event.preventDefault();
       var currentObj = this;
@@ -3770,12 +3824,12 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('day_end', this.detail.day_end);
       formData.append('amount', this.detail.amount);
       axios.post('/api/detail/' + this.detail.id, formData).then(function (response) {
-        _this15.successUpdateDetail = 'Cập nhập thành công ';
+        _this16.successUpdateDetail = 'Cập nhập thành công ';
       })["catch"](function (error) {
-        _this15.success = '';
+        _this16.success = '';
 
         if (error.response.status == 422) {
-          _this15.errors = error.response.data.errors;
+          _this16.errors = error.response.data.errors;
         }
       });
     },
@@ -3801,6 +3855,27 @@ __webpack_require__.r(__webpack_exports__);
           console.log(this.adminCurrent);
         }
       }
+    },
+    setTourHot: function setTourHot(tour) {
+      var _this17 = this;
+
+      if (tour.tour_hot != null) {
+        tour.tour_hot = !tour.tour_hot;
+      } else {
+        tour.tour_hot = true;
+      }
+
+      axios.put('/api/setTourHot/' + tour.id, {
+        tour_hot: tour.tour_hot
+      }).then(function (response) {
+        console.log(_this17.tour.tour_hot);
+      })["catch"](function (error) {
+        _this17.success = '';
+
+        if (error.response.status == 422) {
+          _this17.errors = error.response.data.errors;
+        }
+      });
     }
   },
   mounted: function mounted() {
@@ -73594,6 +73669,54 @@ var render = function() {
                         ]
                       )
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("ul", { staticClass: "nav nav-treeview" }, [
+                      tour.tour_hot
+                        ? _c("div", [
+                            _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(" Tour hot")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "nav-link",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.setTourHot(tour)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "fas fa-external-link-square-alt nav-icon text-blue"
+                                })
+                              ]
+                            )
+                          ])
+                        : _c("div", [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "nav-link",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.setTourHot(tour)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "fas fa-external-link-square-alt nav-icon text-blue"
+                                })
+                              ]
+                            )
+                          ])
+                    ])
                   ])
                 ])
               ])
@@ -73872,6 +73995,57 @@ var render = function() {
                             _c("span", [_vm._v(_vm._s(_vm.errorFileMessage))])
                           ])
                         : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Địa Điểm:")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tour.place_id,
+                              expression: "tour.place_id"
+                            }
+                          ],
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.tour,
+                                "place_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.listPlaces, function(place) {
+                          return _c(
+                            "option",
+                            { key: place.key, domProps: { value: place.id } },
+                            [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(place.place) +
+                                  "\n                                    "
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "button-create" }, [
@@ -74422,6 +74596,57 @@ var render = function() {
                             _vm._v(" " + _vm._s(_vm.errors.note[0]))
                           ])
                         : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Địa Điểm:")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tour.place_id,
+                              expression: "tour.place_id"
+                            }
+                          ],
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.tour,
+                                "place_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.listPlaces, function(place) {
+                          return _c(
+                            "option",
+                            { key: place.key, domProps: { value: place.id } },
+                            [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(place.place) +
+                                  "\n                                    "
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "button-create" }, [
@@ -75323,7 +75548,9 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Chi tiết")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Thao tác")])
+      _c("th", [_vm._v("Thao tác")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Tour Hot")])
     ])
   },
   function() {

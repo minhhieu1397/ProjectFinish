@@ -58,7 +58,8 @@ class TourController extends Controller
                     'day_night' => $request->input('day_night'),
                     'price' => $request->input('price'),
                     'note' => $request->input('note'),
-                    'img' => $imageName
+                    'img' => $imageName,
+                    'place_id' => $request->input('place_id'),
                 ]);
 
                 return response([
@@ -108,23 +109,22 @@ class TourController extends Controller
         $admin = $request->input('jwt');
         $jwt = $request->input('admin');
         if($this->checkJwt->checkJwt($admin, $jwt)) {
-            return Tour::all();
+            $tour = Tour::find($id);
+            $tour->update([
+                'tour_name' => $request->input('tour_name'),
+                'vehicle' => $request->input('vehicle'),
+                'departune' => $request->input('departune'),
+                'day_night' => $request->input('day_night'),
+                'price' => $request->input('price'),
+                'note' => $request->input('note'),
+                'place_id' => $request->input('place_id'),
+            ]);
         } else {
             return response([
                 'auth' => false
             ], 200);
         }
-        $tour = Tour::find($id);
         
-        $tour->update([
-            'tour_name' => $request->input('tour_name'),
-            'vehicle' => $request->input('vehicle'),
-            'departune' => $request->input('departune'),
-            'day_night' => $request->input('day_night'),
-            'price' => $request->input('price'),
-            'note' => $request->input('note'),
-        ]);
-
         return response([
             'tour' => $tour
         ], 200);

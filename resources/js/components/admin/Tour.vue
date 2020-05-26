@@ -25,6 +25,7 @@
                             <th>Ghi chú</th>
                             <th>Chi tiết</th>
                             <th>Thao tác</th>
+                            <th>Tour Hot</th>
                         </tr>
                     </thead>
                     <tbody v-for="(tour, index) in list_Tours" :key="tour.id">
@@ -49,6 +50,22 @@
                                     <a class="nav-link" data-toggle="modal" data-target="#UpdateTour" @click="sendTourUpdate(tour)">
                                         <i class="fas fa-edit nav-icon text-blue"></i>
                                     </a>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="nav nav-treeview">
+                                    <div v-if="tour.tour_hot">
+                                        <span class="text-danger"> Tour hot</span>
+                                        <a class="nav-link" @click="setTourHot(tour)">
+                                            <i class="fas fa-external-link-square-alt nav-icon text-blue"></i>
+                                        </a>
+                                    </div>
+                                    <div v-else>
+
+                                        <a class="nav-link" @click="setTourHot(tour)">
+                                            <i class="fas fa-external-link-square-alt nav-icon text-blue"></i>
+                                        </a>
+                                    </div>
                                 </ul>
                             </td>
                         </tr>
@@ -126,6 +143,16 @@
                                         <span>{{ errorFileMessage }}</span>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Địa Điểm:</label>
+                                    <select v-model="tour.place_id">
+                                        <option v-for="(place) in listPlaces" :key="place.key" :value="place.id">
+                                            {{place.place}}
+                                        </option>
+                                    </select>
+                                </div>
+                                
                                 <div class="button-create">
                                     <button @click="createTour" class="btn btn-primary">Tạo</button>
                                 </div>
@@ -274,6 +301,14 @@
                                     class="form-control">
                                     
                                     <span v-if="errors.note" class="text-danger"> {{ errors.note[0] }}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Địa Điểm:</label>
+                                    <select v-model="tour.place_id">
+                                        <option v-for="(place) in listPlaces" :key="place.key" :value="place.id">
+                                            {{place.place}}
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="button-create">
                                     <button @click="updateTour(tour)" class="btn btn-primary">Create</button>
@@ -528,7 +563,9 @@
                     day_night: '',
                     price: '',
                     note: '',
-                    img: ''
+                    img: '',
+                    place_id: '',
+                    tour_hot:'',
                 },
                 errors: [],
                 success: '',
@@ -569,13 +606,19 @@
                 image: {
                     url: '',
                     tour_id: ''
-                }
+                },
+                place: {
+                    place: ''
+                },
+                listPlaces: [],
+                selected: ''
             }
         },
         created() {
             this.getAllTours();
             this.getAdminCurrent();
             this.setJwt();
+            this.getAllPlace();
         },
         methods: {
             handleClickNewTour() {
@@ -589,6 +632,16 @@
                     note: '',
                 }
             },
+            getAllPlace() {
+                axios.get('/api/space')
+                .then(response => {
+                    this.listPlaces = response.data;
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors.name
+                })
+            }
+            ,
             onImageChangeTour(e){
                 console.log(e.target.files[0]);
                 this.tour.img = e.target.files[0];
@@ -612,6 +665,7 @@
                 formData.append('price', this.tour.price);
                 formData.append('note', this.tour.note);
                 formData.append('img', this.tour.img);
+                formData.append('place_id', this.tour.place_id);
                 formData.append('jwt', this.jwt);
                 formData.append('admin', this.admin);
 
@@ -670,7 +724,7 @@
             },
             updateTour() {
                 axios.put('/api/tour/' + this.tour.id, {tour_name: this.tour.tour_name, vehicle: this.tour.vehicle, departune: this.tour.departune, day_night: this.tour.day_night,
-                    price: this.tour.price, note: this.tour.note, jwt: this.jwt, admin: this.adminCurrent})
+                    price: this.tour.price, note: this.tour.note, place_id: this.tour.place_id, jwt: this.jwt, admin: this.adminCurrent})
 				.then(response => {
                     this.successUpdateTour = 'Cập nhập Tour thành công'
 				})
@@ -911,6 +965,23 @@
                     }
                 }
             },
+            setTourHot(tour) {
+                if ( tour.tour_hot != null) {
+                    tour.tour_hot = !tour.tour_hot;
+                } else {
+                    tour.tour_hot  = true;
+                }
+                axios.put('/api/setTourHot/' + tour.id ,{tour_hot: tour.tour_hot})
+				.then(response => {
+                    console.log(this.tour.tour_hot);
+				})
+				.catch(error => {
+                    this.success = ''
+                    if (error.response.status == 422) {
+                        this.errors = error.response.data.errors
+                    }
+				})
+            }
         },
         mounted() {
             console.log('Component mounted.')
