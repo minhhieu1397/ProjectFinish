@@ -11,7 +11,6 @@
                         </button>
                     </div>
                 </div>
-            <!-- /.box-body -->
             </div>
             <div>
                 <table class="table table-condensed" >
@@ -35,7 +34,6 @@
                     </tbody>
                 </table>
             </div>
-          <!-- /.box -->
         </div>
        
             <!-- Modal -->

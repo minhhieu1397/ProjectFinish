@@ -26,6 +26,7 @@
                             <th>Chi tiết</th>
                             <th>Thao tác</th>
                             <th>Tour Hot</th>
+                            <th>Phiếu đặt</th>
                         </tr>
                     </thead>
                     <tbody v-for="(tour, index) in list_Tours" :key="tour.id">
@@ -55,7 +56,7 @@
                             <td>
                                 <ul class="nav nav-treeview">
                                     <div v-if="tour.tour_hot">
-                                        <span class="text-danger"> Tour hot</span>
+                                        <span class="text-danger"> Hot</span>
                                         <a class="nav-link" @click="setTourHot(tour)">
                                             <i class="fas fa-external-link-square-alt nav-icon text-blue"></i>
                                         </a>
@@ -66,6 +67,13 @@
                                             <i class="fas fa-external-link-square-alt nav-icon text-blue"></i>
                                         </a>
                                     </div>
+                                </ul>
+                            </td>
+                             <td>
+                                <ul class="nav nav-treeview">
+                                    <a class="nav-link text-blue" @click="goReserve(tour)">
+                                        <i class="fas fa-book-open nav-icon"></i>
+                                    </a>
                                 </ul>
                             </td>
                         </tr>
@@ -333,7 +341,7 @@
                     <div class="modal-body">
                         <div class="api-calling">
                             <div v-if="!isCreateDetail & !isCreateImage">
-                                <div v-if="list_Detail == null" class="form-group">
+                                <div  class="form-group">
                                     <button class="btn btn-primary" @click="isCreateDetail = true">
                                     Thêm
                                     <i class="fas fa-plus fa-fw"></i>
@@ -417,11 +425,11 @@
 
 
                                         <div class="form-group">
-                                            <label>Amount</label>
-                                            <input v-model="detail.amount" type="text" name="amount"
+                                            <label>Total</label>
+                                            <input v-model="detail.total" type="text" name="amount"
                                             class="form-control">
                                             
-                                            <span v-if="errors.amount" class="text-danger"> {{ errors.amount[0] }}</span>
+                                            <span v-if="errors.total" class="text-danger"> {{ errors.total[0] }}</span>
                                         </div>
                                         <div class="form-group">
                                             <label>description</label>
@@ -532,11 +540,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Amount</label>
-                                        <input v-model="detail.amount" type="text" name="amount"
+                                        <label>Total</label>
+                                        <input v-model="detail.total" type="text" name="amount"
                                         class="form-control">
                                         
-                                        <span v-if="errors.amount" class="text-danger"> {{ errors.amount[0] }}</span>
+                                        <span v-if="errors.total" class="text-danger"> {{ errors.total[0] }}</span>
                                     </div>
                                     <div class="button-create">
                                         <button class="btn btn-primary">Update</button>
@@ -583,6 +591,7 @@
                     day_start: '',
                     day_end: '',
                     amount: '',
+                    total: '',
                     account: '',
                     description: ''
                 },
@@ -883,9 +892,9 @@
                 formData.append('tour_id', this.tour.id);
                 formData.append('day_start', this.detail.day_start);
                 formData.append('day_end', this.detail.day_end);
-                formData.append('amount', this.detail.amount);
+                formData.append('total', this.detail.total);
                 formData.append('account', this.admin_current.user_name);
-                formData.append('description', this.admin_current.description);
+                formData.append('description', this.detail.description);
 
                 axios.post('/api/detail', formData, config)
                 .then(response => {
@@ -932,7 +941,7 @@
                 formData.append('tour_id', this.tour.id);
                 formData.append('day_start', this.detail.day_start);
                 formData.append('day_end', this.detail.day_end);
-                formData.append('amount', this.detail.amount);
+                formData.append('total', this.detail.total);
 
                 axios.post('/api/detail/' + this.detail.id, formData)
                 .then(response => {
@@ -981,6 +990,9 @@
                         this.errors = error.response.data.errors
                     }
 				})
+            },
+            goReserve(tour) {
+                this.$router.push({ path: '/Admin/Reserve/' + tour.id});
             }
         },
         mounted() {

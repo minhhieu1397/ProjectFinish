@@ -17,7 +17,6 @@ class HightLightTourController extends Controller
     {   
         $tour = Tour::find($id);
         $tour->update([
-            
             'tour_hot' => $request->input('tour_hot'),
         ]);
     }

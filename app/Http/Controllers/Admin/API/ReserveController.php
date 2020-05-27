@@ -13,10 +13,28 @@ class ReserveController extends Controller
         return Reserve::create([
             'tour_id' => $request->input('tour_id'),
             'booking_date' => $request->input('booking_date'),
-            'children' => $request->input('children'),
-            'adults' => $request->input('adults'),
+            'people' => $request->input('people'),
+            'email' => $request->input('email'),
+            'address' => $request->input('address'),
             'phone' => $request->input('phone'),
             'note' => $request->input('note'),
         ]);
+    }
+
+    public function getAll($tour_id)
+    {
+        return Reserve::where('tour_id',$tour_id)->get();
+    }
+
+    public function setStatus($id)
+    {
+        $reserve = Reserve::find($id);
+        $reserve->status = true;
+        $reserve->save();
+        
+        return response([
+            'reserve' => $reserve
+        ], 200);
+        
     }
 }

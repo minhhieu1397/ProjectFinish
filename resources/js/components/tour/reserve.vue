@@ -6,30 +6,33 @@
                     <label>Tour: {{tour.tour_name}}</label>
                 </div>
                 <div class="form-group">
-                    <label>Trẻ em dưới 10 tuổi</label>
-                    <input v-model="reserve.children" type="number" name="user_name"
+                    <label>Số lượng người</label>
+                    <input v-model="reserve.people" type="number" name="user_name"
                     class="form-control">
                     <!-- <span v-if="errors.departure" class="text-danger"> {{ errors.departure[0] }}</span> -->
-                </div>
-                <div class="form-group">
-                    <label>Người lớn</label>
-                    <input v-model="reserve.adults" type="text" name="user_name"
-                    class="form-control">
-                    
-                    <!-- <span v-if="errors.day_night" class="text-danger"> {{ errors.day_night[0] }}</span> -->
                 </div>
                 <div class="form-group">
                     <label>Số Điện Thoại</label>
                     <input v-model="reserve.phone" type="text" name="user_name"
                     class="form-control">
-                    
+                    <!-- <span v-if="errors.price" class="text-danger"> {{ errors.price[0] }}</span> -->
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input v-model="reserve.email" type="text" name="user_name"
+                    class="form-control">
+                    <!-- <span v-if="errors.price" class="text-danger"> {{ errors.price[0] }}</span> -->
+                </div>
+                <div class="form-group">
+                    <label>Địa Chỉ</label>
+                    <input v-model="reserve.address" type="text" name="user_name"
+                    class="form-control">
                     <!-- <span v-if="errors.price" class="text-danger"> {{ errors.price[0] }}</span> -->
                 </div>
                 <div class="form-group">
                     <label>Ghi chú</label>
                     <input v-model="reserve.note" type="text" name="user_name"
                     class="form-control">
-                    
                     <!-- <span v-if="errors.note" class="text-danger"> {{ errors.note[0] }}</span> -->
                 </div>
                 <div class="button-create">
@@ -37,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div v-else class="col-md-2 offset-md-4">
+        <div v-else class="col-md-2 offset-md-4 text-success">
             Bạn đã đặt tour thành công, vui lòng đợi phản hồi
             <br>
             <br>
@@ -53,11 +56,12 @@
                reserve: {
                    tour_id: '',
                    booking_date: '',
-                   children: '',
-                   adults: '',
+                   people: '',
+                   email: '',
+                   address: '',
                    phone: '',
                    note: ''
-               },
+                },
                tour: {
                     id: '',
                     tour_name: '',
@@ -79,8 +83,8 @@
         methods: {
             CreateReserve(reserve) {
                 var today = new Date();
-                axios.post('/api/reserve', {tour_id: this.id, booking_date: today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear(), children: this.reserve.children, 
-                adults: this.reserve.adults, phone: this.reserve.phone, note: this.reserve.note })
+                axios.post('/api/reserve', {tour_id: this.id, booking_date: today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear(), people: this.reserve.people, 
+                email: this.reserve.email, phone: this.reserve.phone, note: this.reserve.note, address: this.reserve.address })
                 .then(response => {
                     this.successCreateProgram = 'Tạo program thành công';
                     this.success = true;

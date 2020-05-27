@@ -28,6 +28,12 @@ Route::put('/setTourHot/{id}', 'Admin\API\HightLightTourController@setTourHot');
 Route::post('get', 'Admin\API\TestController@get');
 Route::post('/reserve', 'Admin\API\ReserveController@store');
 Route::post('/searchSpace', 'Tour\API\SpaceController@search');
+Route::put('/setStatus/{id}', 'Admin\API\ReserveController@setStatus');
+Route::get('/getAllReserve/{tour_id}', 'Admin\API\ReserveController@getAll');
+Route::put('/setAmount/{id}', 'Admin\API\SetAmountController@setAmount');
+
+
+
 Route::get('/current_admin', function() {
     return Auth::guard('admin')->user();
 });

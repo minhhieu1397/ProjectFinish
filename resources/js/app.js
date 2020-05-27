@@ -61,17 +61,13 @@ const router = new VueRouter({
                     component: require('./components/admin/Program.vue').default
                 },
                 {
-                    path: '/Admin/Reserve',
+                    path: '/Admin/Reserve/:tour_id',
                     component: require('./components/admin/Reserve.vue').default
                 },
                 {
                     path: '/Admin/Tour',
                     component: require('./components/admin/Tour.vue').default
-                },
-                {
-                    path: '/Admin/TestJWT',
-                    component: require('./components/admin/TestJWT.vue').default
-                },
+                }
             ]
         },
         {

@@ -2576,6 +2576,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2583,8 +2586,9 @@ __webpack_require__.r(__webpack_exports__);
       reserve: {
         tour_id: '',
         booking_date: '',
-        children: '',
-        adults: '',
+        people: '',
+        email: '',
+        address: '',
         phone: '',
         note: ''
       },
@@ -2614,10 +2618,11 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/reserve', {
         tour_id: this.id,
         booking_date: today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear(),
-        children: this.reserve.children,
-        adults: this.reserve.adults,
+        people: this.reserve.people,
+        email: this.reserve.email,
         phone: this.reserve.phone,
-        note: this.reserve.note
+        note: this.reserve.note,
+        address: this.reserve.address
       }).then(function (response) {
         _this.successCreateProgram = 'Tạo program thành công';
         _this.success = true;
@@ -71705,52 +71710,26 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Trẻ em dưới 10 tuổi")]),
+              _c("label", [_vm._v("Số lượng người")]),
               _vm._v(" "),
               _c("input", {
                 directives: [
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.reserve.children,
-                    expression: "reserve.children"
+                    value: _vm.reserve.people,
+                    expression: "reserve.people"
                   }
                 ],
                 staticClass: "form-control",
                 attrs: { type: "number", name: "user_name" },
-                domProps: { value: _vm.reserve.children },
+                domProps: { value: _vm.reserve.people },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.reserve, "children", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Người lớn")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.reserve.adults,
-                    expression: "reserve.adults"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", name: "user_name" },
-                domProps: { value: _vm.reserve.adults },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.reserve, "adults", $event.target.value)
+                    _vm.$set(_vm.reserve, "people", $event.target.value)
                   }
                 }
               })
@@ -71777,6 +71756,58 @@ var render = function() {
                       return
                     }
                     _vm.$set(_vm.reserve, "phone", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Email")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.reserve.email,
+                    expression: "reserve.email"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", name: "user_name" },
+                domProps: { value: _vm.reserve.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.reserve, "email", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Địa Chỉ")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.reserve.address,
+                    expression: "reserve.address"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", name: "user_name" },
+                domProps: { value: _vm.reserve.address },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.reserve, "address", $event.target.value)
                   }
                 }
               })
@@ -71824,7 +71855,7 @@ var render = function() {
             ])
           ])
         ])
-      : _c("div", { staticClass: "col-md-2 offset-md-4" }, [
+      : _c("div", { staticClass: "col-md-2 offset-md-4 text-success" }, [
           _vm._v(
             "\n        Bạn đã đặt tour thành công, vui lòng đợi phản hồi\n        "
           ),

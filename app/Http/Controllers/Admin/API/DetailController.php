@@ -39,14 +39,16 @@ class DetailController extends Controller
      */
     public function store(CreateDetailRequest $request)
     {
-            return Detail::create([
-                'tour_id' => $request->input('tour_id'),
-                'day_start' => $request->input('day_start'),
-                'day_end' => $request->input('day_end'),
-                'amount' => $request->input('amount'),
-                'account' => $request->input('account'),
-                'description' => $request->input('description')
-            ]);
+        $acount = 0;
+        return Detail::create([
+            'tour_id' => $request->input('tour_id'),
+            'day_start' => $request->input('day_start'),
+            'day_end' => $request->input('day_end'),
+            'total' => $request->input('total'),
+            'amount' => 0,
+            'account' => $request->input('account'),
+            'description' => $request->input('description')
+        ]);
     }
     /**
      * Display the specified resource.
