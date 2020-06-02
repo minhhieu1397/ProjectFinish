@@ -77,6 +77,7 @@
            }
         },
         created() {
+            this.getJwt();
             this.id = this.$route.params.id;
             this.showTour();
         },
@@ -107,6 +108,26 @@
                 .catch(error => {
                    this.errors = error.response.data.errors.name
                 })
+            },
+            getJwt() {
+                this.myCookie = document.cookie;
+                var name = 'Jwt' + "=";
+                var ad = 'name_user' + "=";
+                var ca = this.myCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf('jwt') == 0) {
+                        this.jwt=  c.substring(name.length,c.length);
+                        console.log(this.jwt);
+                    } else if (c.indexOf('user') == 0) {
+                        this.name_user = c.substring(ad.length,c.length);
+                        console.log(this.name_user);
+                        console.log('aa');
+                    }
+                }
             }
         },
         mounted() {

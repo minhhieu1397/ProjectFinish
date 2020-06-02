@@ -3909,7 +3909,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     setJwt: function setJwt() {
-      console.log('test jwt');
       this.myCookie = document.cookie;
       var name = 'Jwt' + "=";
       var ad = 'admin' + "=";
@@ -3974,6 +3973,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -75795,7 +75795,7 @@ var render = function() {
           [_vm._v("Login")]
         )
       ]),
-      _vm._v("\n                " + _vm._s(this.login.message) + "\n        ")
+      _vm._v("\n            " + _vm._s(this.login.message) + "\n        ")
     ])
   ])
 }

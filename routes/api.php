@@ -31,6 +31,8 @@ Route::post('/searchSpace', 'Tour\API\SpaceController@search');
 Route::put('/setStatus/{id}', 'Admin\API\ReserveController@setStatus');
 Route::get('/getAllReserve/{tour_id}', 'Admin\API\ReserveController@getAll');
 Route::put('/setAmount/{id}', 'Admin\API\SetAmountController@setAmount');
+Route::post('/createUser', 'User\API\UserController@register');
+Route::post('/loginUser', 'User\API\UserController@login');
 
 
 

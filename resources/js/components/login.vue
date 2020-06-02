@@ -1,18 +1,19 @@
 <template>
+    
     <div class="row">
         <div class="col-md-2 offset-md-5 form-login">
-                <div class="form-group">
-                    <label for="usr">User Name:</label>
-                    <input v-model="admin.user_name" type="text" class="form-control" id="usr" name="user_name">
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Password</label>
-                    <input  v-model="admin.password" type="password" class="form-control" id="pwd" name="password">
-                </div>
-                <div class="btncre">
-                    <button @click="Login(admin)" type="submit" class="btn btn-primary">Login</button>
-                </div>
-                {{this.login.message}}
+            <div class="form-group">
+                <label for="usr">User Name:</label>
+                <input v-model="admin.user_name" type="text" class="form-control" id="usr" name="user_name">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password</label>
+                <input  v-model="admin.password" type="password" class="form-control" id="pwd" name="password">
+            </div>
+            <div class="btncre">
+                <button @click="Login(admin)" type="submit" class="btn btn-primary">Login</button>
+            </div>
+            {{this.login.message}}
         </div>
 	</div>
 </template>
@@ -36,7 +37,6 @@
                     this.login = response.data;
                     console.log(this.login)
                     if (this.login.result) {
-                        
                         this.Jwt = response.data.jwt;
                         console.log(this.Jwt)
                         document.cookie = 'jwt=' +  this.Jwt;

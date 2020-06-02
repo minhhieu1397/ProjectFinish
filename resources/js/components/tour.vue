@@ -25,12 +25,21 @@
                     </router-link>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto">
+            <ul v-if="!jwt" class="navbar-nav ml-auto">
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">Đăng kí</a>
+                    <router-link to="/register" class="nav-link">
+                        <p>Đăng kí</p>
+                    </router-link>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">Đăng nhập</a>
+                    <router-link to="/login" class="nav-link">
+                        <p>Đăng nhập</p>
+                    </router-link>
+                </li>
+            </ul>
+            <ul v-else class="navbar-nav ml-auto">
+                <li class="nav-item font-site16">
+                    Xin Chào {{name_user}}
                 </li>
             </ul>
         </nav>
@@ -80,7 +89,6 @@
                         </ul>
                     </div>
                     <h5 class=" the-travel ">Theo dõi để nhận ưu đãi !!!</h5>
-                    
                 </div>
             </div>
         </div>
@@ -138,8 +146,14 @@
             return {
                 search: '',
                 data: [],
-                errorsSearch: ''
+                errorsSearch: '',
+                myCookie: '',
+                jwt:'',
+                name_user:''
             }
+        },
+        created() {
+            this.getJwt();
         },
         methods: {
             searchSpace(search) {
@@ -161,6 +175,26 @@
                     }
                     this.errorsSearch = 'Vui lòng nhập lại địa điểm';
                 })
+            },
+            getJwt() {
+                this.myCookie = document.cookie;
+                var name = 'Jwt' + "=";
+                var ad = 'name_user' + "=";
+                var ca = this.myCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf('jwt') == 0) {
+                        this.jwt=  c.substring(name.length,c.length);
+                        console.log(this.jwt);
+                    } else if (c.indexOf('user') == 0) {
+                        this.name_user = c.substring(ad.length,c.length);
+                        console.log(this.name_user);
+                        console.log('aa');
+                    }
+                }
             }
         },
         mounted() {

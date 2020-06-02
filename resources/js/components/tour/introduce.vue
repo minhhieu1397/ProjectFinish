@@ -54,14 +54,13 @@
     export default {
         data() {
            return {
-               
            }
         },
         created() {
-            
+            this.getJwt();
         },
         methods: {
-           
+          
         },
         mounted() {
             console.log('Component mounted.')

@@ -35,7 +35,6 @@
                     </div>
                 </div>
             </div>
-        
         <div class="col-md-12 pl-0 pr-0">
             <hr class="mt-2">
             <div>
@@ -97,7 +96,7 @@
                     note: '',
                 },
                 isHighLight: true,
-                tourHighlights: []
+                tourHighlights: [],
             }
         },
         created(){

@@ -28,7 +28,7 @@
                         <strong>Ngày về:</strong> {{ detail.day_end }}
                     </div>
                     <div>
-                        <strong>Số lượng:</strong> {{ detail.total }}/{{ detail.amount }}
+                        <strong>Số lượng:</strong> {{ detail.amount }}/{{ detail.total }}
                     </div>
                     <div>
                         <strong>Mô tả:</strong> {{ detail.description }}
@@ -101,10 +101,11 @@
                     tour_id: '',
                     url: ''
                 },
-                images: []
+                images: [],
            }
         },
         created() {
+            this.getJwt();
             this.id = this.$route.params.id;
             console.log(this.id)
             this.getDetail();
@@ -116,17 +117,17 @@
             console.log(this.tours);
         },
         methods: {
-           getDetail() {
-                axios.get('/api/detail/' + this.id)
-                .then(response => {
-                    console.log('detail');
-                   this.details = response.data;
-                   this.detail  = this.details[0];
-                })
-                .catch(error => {
-                   this.errors = error.response.data.errors.name
-                })
-           },
+            getDetail() {
+                    axios.get('/api/detail/' + this.id)
+                    .then(response => {
+                        console.log('detail');
+                    this.details = response.data;
+                    this.detail  = this.details[0];
+                    })
+                    .catch(error => {
+                    this.errors = error.response.data.errors.name
+                    })
+            },
             getListProgram() {
                 axios.get('/api/program/' + this.id)
                 .then(response => {
@@ -161,6 +162,26 @@
             },
             reserve(tour) {
                 this.$router.push({ path: '/Reserve/' + tour.id});
+            },
+            getJwt() {
+                this.myCookie = document.cookie;
+                var name = 'Jwt' + "=";
+                var ad = 'name_user' + "=";
+                var ca = this.myCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf('jwt') == 0) {
+                        this.jwt=  c.substring(name.length,c.length);
+                        console.log(this.jwt);
+                    } else if (c.indexOf('user') == 0) {
+                        this.name_user = c.substring(ad.length,c.length);
+                        console.log(this.name_user);
+                        console.log('aa');
+                    }
+                }
             }
         },
         mounted() {

@@ -23,9 +23,8 @@ class JwtService
         return $JwtPayload;
     }
 
-    public function Signature($string)
+    public function Signature($data)
     {
-        $data =  implode(".", $string);
         $secret = 'nguyenminhhieu20151340';
         $sig = hash_hmac('sha256', $data, $secret);
         $JwtSig = rtrim(strtr(base64_encode($sig), '+/', '-_'), '=');

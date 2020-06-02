@@ -52,12 +52,21 @@ const router = new VueRouter({
                     path: '/introduce',
                     component: require('./components/tour/introduce.vue').default
                 },
+                
             ]
         },
         {
             path: '/tourSearch/:search',
             component: require('./components/tourSearch.vue').default,
         },
+        {
+            path: '/register',
+            component: require('./components/user/register.vue').default
+        },
+        {
+            path: '/login',
+            component: require('./components/user/login.vue').default
+        }
     ],
 })
 /**

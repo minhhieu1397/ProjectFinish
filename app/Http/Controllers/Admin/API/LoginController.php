@@ -66,14 +66,13 @@ class LoginController extends Controller
                 $header,
                 $PayLoadJwt
             ];
-            $data =  implode(".", $string);
-            $signature = $this->Jwt->Signature($string);
+            $data = implode(".", $string);
+            $signature = $this->Jwt->Signature($data);
             $Jwt = [
-                $header,
-                $PayLoadJwt,
+                $data,
                 $signature
             ];
-            $Jwt =  implode(".", $Jwt);
+            $Jwt = implode(".", $Jwt);
             $admin = Auth::guard('admin')->user();
             $admin->jwt = $Jwt;
             $admin->save();
@@ -81,63 +80,13 @@ class LoginController extends Controller
             return response([
                 'message' => 'Đăng nhập thành công',
                 'result' => true,
-                'jwt' => $Jwt
+                'jwt' => $Jwt,
             ], 200);
         } else {
             return response([
                 'message' => 'Đăng nhập thất bại',
                 'result' => false
             ]);
-        }
-
-
-        $email = $request->input('email');
-        $password = $request->input('password');
-        
-        if (Auth::attempt(['email' => $email, 'password' => $password])) {
-            // $header = array(
-            //     "alg" => "HS256",
-            //     "typ" => "JWT"
-            // );
-            // $headerjson = json_encode($header);
-            // $base = $this->Jwt->encode($headerjson);
-            // $libBase64 = base64_encode($headerjson);
-            
-            $header = $this->Jwt->HeaderJWT();
-            $date = Carbon::now();
-            $payload = array(
-                "iss" => "Project Finish, From Hust",
-                "iat"=> $date->toDateTimeString(),
-                "exp"=> $date->addDays(29)->toDateTimeString(),
-                "aud"=> "www.doan.com",
-                "sub"=> "minhhieu97.hust@gmail.com",
-                "GivenName"=> "Johnny",
-                "Surname"=> "Rocket",
-                "Email"=> "minhhieu97.hust@gmail.com"
-            );
-
-            $PayLoadJwt = $this->Jwt->PayloadJWT($payload);
-            
-            
-            $string = [
-                $header,
-                $PayLoadJwt
-            ];
-            $data =  implode(".", $string);
-            $signature = $this->Jwt->Signature($string);
-            $Jwt = [
-                $header,
-                $PayLoadJwt,
-                $signature
-            ];
-            $Jwt =  implode(".", $Jwt);
-            $user = Auth::user();
-            $user->jwt = $Jwt;
-            $user->save();
-
-            return $Jwt;
-        } else {
-            dd(2);
         }
     }
 

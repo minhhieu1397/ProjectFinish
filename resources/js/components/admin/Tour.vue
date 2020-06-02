@@ -955,7 +955,7 @@
                 })
             },
             setJwt() {
-                console.log('test jwt');
+                
                 this.myCookie = document.cookie;
                 var name = 'Jwt' + "=";
                 var ad = 'admin' + "=";
