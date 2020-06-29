@@ -7,7 +7,7 @@
 
     <title>Quản trị viên</title>
 
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
 
   
 </head>
@@ -146,6 +146,6 @@
     </footer>
 </div>
 
-<script src="/js/app.js'"></script>
+<script src="{{ asset('/js/app.js') }}"></script>
 </body>
 </html>
