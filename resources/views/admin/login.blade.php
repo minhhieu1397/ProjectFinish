@@ -10,14 +10,14 @@
 
 	<title>Login</title>
 	<!-- Bootstrap core CSS -->
-	<link rel="stylesheet" href="{{ asset('/css/app.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"> 
+	<link rel="stylesheet" href="/css/app.css'">
+	<link rel="stylesheet" type="text/css" href="css/style.css"> 
 </head>
 <body>
   <!-- Page Content -->	
 	<div class="container-fluid" id="app">	
 		<router-view></router-view>
 	</div>
-	<script src="{{ asset('/js/app.js') }}"></script>
+	<script src="/js/app.js"></script>
 </body>
 </html>
