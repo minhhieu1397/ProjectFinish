@@ -31,7 +31,10 @@
             <div class="col-md-12">
                 <h1 class="text-center headeing">Đăng Nhập</h1>
             </div>
-            <div class="col-md-2 offset-md-5 mt-5 pt-5">
+            <div class="col-md-2 offset-md-5 mt-2 pt-2">
+                <div v-if="this.loginUser.message != ''">
+                    <p class="text-danger mb-2">{{this.loginUser.message}}</p>
+                </div>
                 <div>
                     <div class="form-group">
                         <label for="phone">Số Điện Thoại: </label>
@@ -69,8 +72,14 @@
                     email: '',
                 },
                 loginUser: '',
-                name_user: ''
+                name_user: '',
+                Reserve: false,
+                tour_id: '',
+                errorLogin:'',
             }
+        },
+        created() {
+            this.setReserve();
         },
         methods: {
             login(user) {
@@ -80,19 +89,44 @@
                     this.name_user = response.data.name_user;
                     if (this.loginUser.result) {
                         this.Jwt = response.data.jwt;
-                        console.log(this.Jwt);
-                        document.cookie = 'jwt=' +  this.Jwt;
-                        document.cookie = 'user=' +  this.name_user;
+                        let d = new Date();
+                        d.setTime(d.getTime() + (1*24*60*60*1000));
+                        let expires = "expires="+ d.toUTCString();
+                        document.cookie = 'jwt=' +  this.Jwt + ";" + expires;
+                        document.cookie = 'user=' +  this.name_user + ";" + expires;
+                        console.log(this.Reserve);
+
+                        if (this.Reserve) {
+                            this.$router.push({ path: '/Reserve/' + this.tour_id});
+                        } else {
+                            this.$router.push({ path: '/tour/'});
+                        }
                     } else {
-                        console.log('no')
+                        console.log('no no no');
                     }
-                    this.$router.push({ path: '/tour/'});
+
                 })
                 .catch(error => {
                     if (error.response.status == 422) {
+                        this.loginUser = response.result;
                         this.errors = error.response.data.errors
                     }
                 })
+            },
+            setReserve() {
+                this.myCookie = document.cookie;
+                    var name = 'tour' + "=";
+                    var ca = this.myCookie.split(';');
+                    for(var i = 0; i <ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0)==' ') {
+                            c = c.substring(1);
+                        }
+                        if (c.indexOf('tour') == 0) {
+                            this.Reserve = true;
+                            this.tour_id=  c.substring(name.length,c.length);
+                        }
+                    }
             }
         }
         ,

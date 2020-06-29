@@ -1,13 +1,13 @@
 <?php
 namespace App\Services;
-use App\Models\Admin;
+use App\Models\User;
 use Carbon\Carbon;
 
-class checkJwt
+class checkJwtUser
 {
-	public function checkJwt($admin, $jwt)
+	public function checkJwtUser($user, $jwt)
 	{
-		$ad = Admin::where('user_name', $admin)->first();
+		$ad = User::where('name', $user)->first();
 		if($ad !== null) {
 			if($ad->jwt = $jwt) {
 				$data = explode('.', $jwt);

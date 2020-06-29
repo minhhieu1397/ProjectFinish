@@ -2,6 +2,9 @@
     
     <div class="row">
         <div class="col-md-2 offset-md-5 form-login">
+            <div v-if="this.login.message != ''">
+                <p class="text-danger mb-2">{{this.login.message}}</p>
+            </div>
             <div class="form-group">
                 <label for="usr">User Name:</label>
                 <input v-model="admin.user_name" type="text" class="form-control" id="usr" name="user_name">
@@ -13,7 +16,7 @@
             <div class="btncre">
                 <button @click="Login(admin)" type="submit" class="btn btn-primary">Login</button>
             </div>
-            {{this.login.message}}
+            
         </div>
 	</div>
 </template>

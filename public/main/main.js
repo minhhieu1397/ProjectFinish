@@ -1996,7 +1996,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2060,6 +2059,11 @@ __webpack_require__.r(__webpack_exports__);
           console.log('aa');
         }
       }
+    },
+    Logout: function Logout() {
+      document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+      document.cookie = 'user=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+      location.reload();
     }
   },
   mounted: function mounted() {
@@ -2671,6 +2675,7 @@ __webpack_require__.r(__webpack_exports__);
       id: '',
       reserve: {
         tour_id: '',
+        tour_name: '',
         booking_date: '',
         people: '',
         email: '',
@@ -2689,31 +2694,37 @@ __webpack_require__.r(__webpack_exports__);
       },
       tours: [],
       number_children: 0,
-      success: false
+      success: false,
+      jwt: '',
+      name_user: '',
+      errors: []
     };
   },
   created: function created() {
-    this.getJwt();
     this.id = this.$route.params.id;
+    this.getJwt();
+    this.checkLogin();
     this.showTour();
   },
   methods: {
     CreateReserve: function CreateReserve(reserve) {
       var _this = this;
 
+      this.errors = [];
       var today = new Date();
-      axios.post('/api/reserve', {
+      axios.post('/api/reserve/store', {
         tour_id: this.id,
         booking_date: today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear(),
         people: this.reserve.people,
         email: this.reserve.email,
         phone: this.reserve.phone,
         note: this.reserve.note,
-        address: this.reserve.address
+        address: this.reserve.address,
+        jwt: this.jwt,
+        user: this.name_user
       }).then(function (response) {
         _this.successCreateProgram = 'Tạo program thành công';
         _this.success = true;
-        console.log(_this.success);
       })["catch"](function (error) {
         _this.successCreateProgram = '';
 
@@ -2735,8 +2746,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     getJwt: function getJwt() {
       this.myCookie = document.cookie;
-      var name = 'Jwt' + "=";
-      var ad = 'name_user' + "=";
+      var name = 'jwt' + "=";
+      var ad = 'user' + "=";
       var ca = this.myCookie.split(';');
 
       for (var i = 0; i < ca.length; i++) {
@@ -2748,14 +2759,19 @@ __webpack_require__.r(__webpack_exports__);
 
         if (c.indexOf('jwt') == 0) {
           this.jwt = c.substring(name.length, c.length);
-          console.log(this.jwt);
         } else if (c.indexOf('user') == 0) {
           this.name_user = c.substring(ad.length, c.length);
-          console.log(this.name_user);
-          console.log('aa');
         }
       }
-    }
+
+      if (this.jwt == '') {
+        document.cookie = 'tour=' + this.id;
+        this.$router.push({
+          path: '/login/'
+        });
+      }
+    },
+    checkLogin: function checkLogin() {}
   },
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -3069,6 +3085,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3078,8 +3097,14 @@ __webpack_require__.r(__webpack_exports__);
         email: ''
       },
       loginUser: '',
-      name_user: ''
+      name_user: '',
+      Reserve: false,
+      tour_id: '',
+      errorLogin: ''
     };
+  },
+  created: function created() {
+    this.setReserve();
   },
   methods: {
     login: function login(user) {
@@ -3094,21 +3119,49 @@ __webpack_require__.r(__webpack_exports__);
 
         if (_this.loginUser.result) {
           _this.Jwt = response.data.jwt;
-          console.log(_this.Jwt);
-          document.cookie = 'jwt=' + _this.Jwt;
-          document.cookie = 'user=' + _this.name_user;
-        } else {
-          console.log('no');
-        }
+          var d = new Date();
+          d.setTime(d.getTime() + 1 * 24 * 60 * 60 * 1000);
+          var expires = "expires=" + d.toUTCString();
+          document.cookie = 'jwt=' + _this.Jwt + ";" + expires;
+          document.cookie = 'user=' + _this.name_user + ";" + expires;
+          console.log(_this.Reserve);
 
-        _this.$router.push({
-          path: '/tour/'
-        });
+          if (_this.Reserve) {
+            _this.$router.push({
+              path: '/Reserve/' + _this.tour_id
+            });
+          } else {
+            _this.$router.push({
+              path: '/tour/'
+            });
+          }
+        } else {
+          console.log('no no no');
+        }
       })["catch"](function (error) {
         if (error.response.status == 422) {
+          _this.loginUser = response.result;
           _this.errors = error.response.data.errors;
         }
       });
+    },
+    setReserve: function setReserve() {
+      this.myCookie = document.cookie;
+      var name = 'tour' + "=";
+      var ca = this.myCookie.split(';');
+
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+
+        if (c.indexOf('tour') == 0) {
+          this.Reserve = true;
+          this.tour_id = c.substring(name.length, c.length);
+        }
+      }
     }
   },
   mounted: function mounted() {
@@ -70980,8 +71033,6 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("ul", { staticClass: "navbar-nav" }, [
-          _vm._m(1),
-          _vm._v(" "),
           _c(
             "li",
             { staticClass: "nav-item" },
@@ -70995,7 +71046,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "li",
@@ -71041,10 +71092,17 @@ var render = function() {
             ])
           : _c("ul", { staticClass: "navbar-nav ml-auto" }, [
               _c("li", { staticClass: "nav-item font-site16" }, [
-                _vm._v(
-                  "\n                Xin Chào " +
-                    _vm._s(_vm.name_user) +
-                    "\n            "
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link",
+                    on: {
+                      click: function($event) {
+                        return _vm.Logout()
+                      }
+                    }
+                  },
+                  [_vm._v("\n                    Đăng xuất\n                ")]
                 )
               ])
             ])
@@ -71058,9 +71116,9 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "row" }, [
-        _vm._m(3),
+        _vm._m(2),
         _vm._v(" "),
-        _vm._m(4),
+        _vm._m(3),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-4 offset-md-2 pl-0 pr-0" }, [
           _c("h5", { staticClass: " the-travel " }, [
@@ -71128,7 +71186,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(5),
+          _vm._m(4),
           _vm._v(" "),
           _c("h5", { staticClass: " the-travel " }, [
             _vm._v("Theo dõi để nhận ưu đãi !!!")
@@ -71144,7 +71202,7 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _vm._m(6)
+    _vm._m(5)
   ])
 }
 var staticRenderFns = [
@@ -71155,16 +71213,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "top-header" }, [
       _c("h5", { staticClass: "text-right" }, [
         _vm._v("Liên hệ: Đại học Bách khoa Hà Nội, số 1 Đại Cồ Việt - Hà Nội")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Loại Tour")
       ])
     ])
   },
@@ -72056,9 +72104,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
+  return _c("div", { staticClass: "row mb-5" }, [
     !_vm.success
-      ? _c("div", { staticClass: "col-md-2 offset-md-4" }, [
+      ? _c("div", { staticClass: "col-md-3 offset-md-5" }, [
           _c("div", { staticClass: "create-form" }, [
             _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Tour: " + _vm._s(_vm.tour.tour_name))])
@@ -72087,7 +72135,13 @@ var render = function() {
                     _vm.$set(_vm.reserve, "people", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors.people
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(" " + _vm._s(_vm.errors.people[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
@@ -72113,7 +72167,13 @@ var render = function() {
                     _vm.$set(_vm.reserve, "phone", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors.phone
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(" " + _vm._s(_vm.errors.phone[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
@@ -72139,7 +72199,13 @@ var render = function() {
                     _vm.$set(_vm.reserve, "email", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors.email
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(" " + _vm._s(_vm.errors.email[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
@@ -72165,7 +72231,13 @@ var render = function() {
                     _vm.$set(_vm.reserve, "address", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors.address
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(" " + _vm._s(_vm.errors.address[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
@@ -72191,7 +72263,13 @@ var render = function() {
                     _vm.$set(_vm.reserve, "note", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors.note
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(" " + _vm._s(_vm.errors.note[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "button-create" }, [
@@ -72205,12 +72283,12 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("Create")]
+                [_vm._v("Gửi")]
               )
             ])
           ])
         ])
-      : _c("div", { staticClass: "col-md-2 offset-md-4 text-success" }, [
+      : _c("div", { staticClass: "col-md-4 offset-md-4 text-success h5" }, [
           _vm._v(
             "\n        Bạn đã đặt tour thành công, vui lòng đợi phản hồi\n        "
           ),
@@ -72767,7 +72845,15 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _vm._m(4),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-2 offset-md-5 mt-5 pt-5" }, [
+        _c("div", { staticClass: "col-md-2 offset-md-5 mt-2 pt-2" }, [
+          this.loginUser.message != ""
+            ? _c("div", [
+                _c("p", { staticClass: "text-danger mb-2" }, [
+                  _vm._v(_vm._s(this.loginUser.message))
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("div", [
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "phone" } }, [
@@ -72941,7 +73027,7 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     !_vm.RegisterSuccess
-      ? _c("div", { staticClass: "col-md-2 offset-md-5 mt-5 pt-5" }, [
+      ? _c("div", { staticClass: "col-md-2 offset-md-5 mt-2 pt-2" }, [
           _c("div", [
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "a" } }, [_vm._v("Họ tên: ")]),
@@ -88616,14 +88702,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************!*\
   !*** ./resources/js/components/tour/reserve.vue ***!
   \**************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reserve_vue_vue_type_template_id_46958150___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reserve.vue?vue&type=template&id=46958150& */ "./resources/js/components/tour/reserve.vue?vue&type=template&id=46958150&");
 /* harmony import */ var _reserve_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reserve.vue?vue&type=script&lang=js& */ "./resources/js/components/tour/reserve.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _reserve_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _reserve_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -88653,7 +88740,7 @@ component.options.__file = "resources/js/components/tour/reserve.vue"
 /*!***************************************************************************!*\
   !*** ./resources/js/components/tour/reserve.vue?vue&type=script&lang=js& ***!
   \***************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

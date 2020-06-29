@@ -9,9 +9,6 @@
             </router-link>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Loại Tour</a>
-                </li>
-                <li class="nav-item">
                     <router-link to="/listTour" class="nav-link">
                         <p>Danh sách Tour</p>
                     </router-link>
@@ -39,7 +36,9 @@
             </ul>
             <ul v-else class="navbar-nav ml-auto">
                 <li class="nav-item font-site16">
-                    Xin Chào {{name_user}}
+                   <a class="nav-link" @click="Logout()">
+                        Đăng xuất
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -195,6 +194,11 @@
                         console.log('aa');
                     }
                 }
+            },
+            Logout() {
+                document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+                document.cookie = 'user=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+                location.reload()
             }
         },
         mounted() {

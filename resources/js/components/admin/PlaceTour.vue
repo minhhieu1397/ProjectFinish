@@ -69,7 +69,7 @@
                                         <span v-if="errors.place" class="text-danger"> {{ errors.place[0] }} </span>
                                     </div>
                                     <div class="button-create">
-                                        <button class="btn btn-primary" @click="createSpace(space)">Update</button>
+                                        <button class="btn btn-primary" @click="createSpace(space)">Tạo mới</button>
                                     </div>
                                 </div>
                             </div>
@@ -127,11 +127,16 @@
             }
         },
         created() {
+            this.setJwt();
             this.getAllSpace();
         },
         methods: {
             getAllSpace() {
-                axios.get('/api/space')
+                axios.get('/api/place/view', {
+                        params: {
+                          jwt: this.jwt,
+                          admin: this.adminCurrent
+                        }})
                 .then(response => {
                     this.listSpace = response.data;
                 })
@@ -140,7 +145,7 @@
                 })
             },
             createSpace(space) {
-                axios.post('/api/space', {place: this.space.place})
+                axios.post('/api/place/store', {place: this.space.place, jwt: this.jwt, admin: this.adminCurrent})
                 .then(response => {
                     this.space.place = '';
                     this.getAllSpace();
@@ -163,7 +168,7 @@
                     confirmButtonText: 'Xóa!',
                     cancelButtonText: 'Hủy',
                 }).then((result) => {
-                    axios.delete('/api/space/' + space.id)
+                    axios.delete('/api/place/delete/' + space.id, {data:{jwt: this.jwt, admin: this.adminCurrent}})
                     .then(response => {
                         this.successDeleteSpace = 'Xóa thành công';
                         console.log(response.data.result);
@@ -175,7 +180,6 @@
                     })
 
                     if (result.value) {
-                        
                         Swal.fire(
                         'Xóa Thành Công!',
                         'Bạn đã xóa địa điểm',
@@ -183,13 +187,12 @@
                         )
                     }
                 })
-               
             },
             sendSpace(space) {
                 this.space = space;
             },
             updateSpace(space) {
-                axios.put('/api/space/' + this.space.id, {place: this.space.place} )
+                axios.put('/api/place/update/' + space.id, {place: this.space.place, jwt: this.jwt, admin: this.adminCurrent} )
                 .then(response => {
                     this.successUpdateSpace = "Cập nhập địa điểm thành công";
                 })
@@ -198,7 +201,26 @@
                         this.errors = error.response.data.errors;
                     }
                 })
-            }
+            },
+            setJwt() {
+                this.myCookie = document.cookie;
+                var name = 'Jwt' + "=";
+                var ad = 'admin' + "=";
+                var ca = this.myCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf('jwt') == 0) {
+                        this.jwt=  c.substring(name.length,c.length);
+                        console.log(this.jwt);
+                    } else if (c.indexOf('admin') == 0) {
+                        this.adminCurrent = c.substring(ad.length,c.length);
+                        console.log(this.adminCurrent);
+                    }
+                }
+            },
         },
         mounted() {
             console.log('Component mounted.')

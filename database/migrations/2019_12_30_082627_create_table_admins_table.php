@@ -18,6 +18,7 @@ class CreateTableAdminsTable extends Migration
             $table->string('user_name')->unique();
             $table->string('password');
             $table->boolean('is_super_manager');
+            $table->string('jwt')->nullable();
             $table->timestamps();
         });
     }

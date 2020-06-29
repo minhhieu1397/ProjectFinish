@@ -624,9 +624,8 @@
             }
         },
         created() {
-            this.getAllTours();
-            this.getAdminCurrent();
             this.setJwt();
+            this.getAllTours();
             this.getAllPlace();
         },
         methods: {
@@ -642,7 +641,11 @@
                 }
             },
             getAllPlace() {
-                axios.get('/api/space')
+                axios.get('/api/place/view', {
+                        params: {
+                          jwt: this.jwt,
+                          admin: this.adminCurrent
+                        }})
                 .then(response => {
                     this.listPlaces = response.data;
                 })
@@ -650,7 +653,7 @@
                     this.errors = error.response.data.errors.name
                 })
             }
-            ,
+,
             onImageChangeTour(e){
                 console.log(e.target.files[0]);
                 this.tour.img = e.target.files[0];
@@ -678,7 +681,7 @@
                 formData.append('jwt', this.jwt);
                 formData.append('admin', this.admin);
 
-                axios.post('/api/tour', formData, config)
+                axios.post('/api/tour/store', formData, config)
                     .then(response => {
                         this.tour.tour_name = null;
                         this.tour.vehicle = null;
@@ -698,7 +701,11 @@
             },
             getAllTours() {
                 this.successUpdateTour = '';
-                axios.get('/api/tour')
+                axios.get('/api/tour/viewTour', {
+                    params: {
+                      jwt: this.jwt,
+                      admin: this.adminCurrent
+                    }})
                 .then(response => {
                    this.list_Tours = response.data
                 })
@@ -718,7 +725,7 @@
                 })
             },
             deleteTour(tour, index) {
-                axios.delete('/api/tour/' + tour.id)
+                axios.delete('/api/tour/delete/' + tour.id, {data:{jwt: this.jwt, admin: this.admin}})
                 .then(response => {
                     console.log(response.data.result)
                     this.list_Tours.splice(index, 1)
@@ -732,8 +739,8 @@
                 this.tour = tour
             },
             updateTour() {
-                axios.put('/api/tour/' + this.tour.id, {tour_name: this.tour.tour_name, vehicle: this.tour.vehicle, departune: this.tour.departune, day_night: this.tour.day_night,
-                    price: this.tour.price, note: this.tour.note, place_id: this.tour.place_id, jwt: this.jwt, admin: this.adminCurrent})
+                axios.put('/api/tour/update/' + this.tour.id, {tour_name: this.tour.tour_name, vehicle: this.tour.vehicle, departune: this.tour.departune, day_night: this.tour.day_night,
+                    price: this.tour.price, note: this.tour.note, place_id: this.tour.place_id, jwt: this.jwt, admin: this.admin})
 				.then(response => {
                     this.successUpdateTour = 'Cập nhập Tour thành công'
 				})
@@ -751,8 +758,7 @@
                 this.iscreateProgram = true;
             },
             createProgram() {
-                axios.post('/api/program', {tour_id: this.tour.id, title: this.program.title, day: this.program.day, 
-                detail: this.program.detail })
+                axios.post('/api/program/store', {tour_id: this.tour.id, title: this.program.title, day: this.program.day, detail: this.program.detail , jwt: this.jwt, admin: this.admin})
                 .then(response => {
                     this.successCreateProgram = 'Tạo program thành công'
                 })
@@ -764,7 +770,7 @@
                 })
             },
             deleteProgram(program, index) {
-                axios.delete('/api/program/' + program.id)
+                axios.delete('/api/program/delete/' + program.id, {data:{jwt: this.jwt, admin: this.admin}})
                 .then(response => {
                     console.log(response.data.result)
                     this.list_Program.splice(index, 1)
@@ -784,7 +790,11 @@
                     day: '',
                     detail: '',
                 }
-                axios.get('/api/program/' + this.tour.id)
+                axios.get('/api/program/view/' + this.tour.id, {
+                    params: {
+                      jwt: this.jwt,
+                      admin: this.admin
+                    }})
                 .then(response => {
                    this.list_Program = response.data
                 })
@@ -800,7 +810,7 @@
                 this.program = program;
             },
             updateProgram() {
-                axios.put('/api/program/' + this.program.id, {title: this.program.title, day: this.program.day, detail: this.program.detail})
+                axios.put('/api/program/update/' + this.program.id, {title: this.program.title, day: this.program.day, detail: this.program.detail, jwt: this.jwt, admin: this.admin})
 				.then(response => {
                     this.successUpdateProgram = 'Cập nhập thành công'
 				})
@@ -831,7 +841,11 @@
                     amount: '',
                     account: '',
                 }
-                axios.get('/api/detail/' + this.tour.id)
+                axios.get('/api/detail/view/' + tour.id, {
+                    params: {
+                      jwt: this.jwt,
+                      admin: this.admin
+                    }})
                 .then(response => {
                     this.list_Detail = response.data
                 })
@@ -881,6 +895,7 @@
             },
             CreateDetail(tour) {
                 this.errorFileMessage ='';
+                console.log(this.admin);
                 event.preventDefault();
                 let currentObj = this;
  
@@ -893,10 +908,12 @@
                 formData.append('day_start', this.detail.day_start);
                 formData.append('day_end', this.detail.day_end);
                 formData.append('total', this.detail.total);
-                formData.append('account', this.admin_current.user_name);
+                formData.append('account', this.admin);
                 formData.append('description', this.detail.description);
+                formData.append('jwt', this.jwt);
+                formData.append('admin', this.admin);
 
-                axios.post('/api/detail', formData, config)
+                axios.post('/api/detail/store', formData, config)
                 .then(response => {
                     this.detail.day_start = null;
                     this.detail.day_end = null;
@@ -955,7 +972,6 @@
                 })
             },
             setJwt() {
-                
                 this.myCookie = document.cookie;
                 var name = 'Jwt' + "=";
                 var ad = 'admin' + "=";
@@ -969,8 +985,7 @@
                         this.jwt=  c.substring(name.length,c.length);
                         console.log(this.jwt);
                     } else if (c.indexOf('admin') == 0) {
-                        this.adminCurrent = c.substring(ad.length,c.length);
-                        console.log(this.adminCurrent);
+                        this.admin = c.substring(ad.length,c.length);
                     }
                 }
             },

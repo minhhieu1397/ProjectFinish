@@ -11,7 +11,6 @@
                         </button>
                     </div>
                 </div>
-            
             <!-- /.box-body -->
             </div>
             <div>
@@ -153,15 +152,18 @@
                 errors: [],   
                 success: null,
                 list_Admins: [],
+                adminCurrent: '',
+                jwt: '',
             }
         },
         created() {
-           this.getListAdmins()
+           this.setJwt();
+           this.getListAdmins();
         },
         methods: {
             createAdmin() {
                 this.errors = []
-                axios.post('/api/admin', {user_name: this.admin.user_name, password: this.admin.password, is_super_manager: this.admin.is_super_manager})
+                axios.post('/api/admin/store', {user_name: this.admin.user_name, password: this.admin.password, is_super_manager: this.admin.is_super_manager, jwt: this.jwt, admin: this.adminCurrent})
                 .then(response => {
                     this.admin.user_name = null
                     this.admin.password = null
@@ -177,13 +179,18 @@
                 })
             },
             getListAdmins() {
-                axios.get('/api/admin')
-                .then(response => {
-                   this.list_Admins = response.data
-                })
-                .catch(error => {
-                   this.errors = error.response.data.errors.name
-                })
+                axios.get('/api/admin/view', {
+                        params: {
+                          jwt: this.jwt,
+                          admin: this.adminCurrent
+                        }
+                    })
+                    .then(response => {
+                       this.list_Admins = response.data
+                    })
+                    .catch(error => {
+                       this.errors = error.response.data.errors.name
+                    })
             },
            sendAdmin(admin) {
                this.success = '';
@@ -198,7 +205,7 @@
                 }
             },
            updateAdmin(admin) {
-                axios.put('/api/admin/' + this.admin.id, {user_name: this.admin.user_name, is_super_manager: this.admin.is_super_manager})
+                axios.put('/api/admin/update/' + admin.id, {user_name: this.admin.user_name, is_super_manager: this.admin.is_super_manager, jwt: this.jwt, admin: this.adminCurrent})
 				.then(response => {
                     this.success = 'Cập nhập thành công'
 				})
@@ -210,7 +217,7 @@
 				})
             },
             deleteAdmin(admin, index) {
-                axios.delete('/api/admin/' + admin.id)
+                axios.delete('/api/admin/destroy/' + admin.id, {data:{jwt: this.jwt, admin: this.adminCurrent}})
                 .then(response => {
                     console.log(response.data.result)
                     this.list_Admins.splice(index, 1)
@@ -221,7 +228,26 @@
                         this.errors = error.response.data.errors
                     }
 				})
-            }
+            },
+            setJwt() {
+                this.myCookie = document.cookie;
+                var name = 'Jwt' + "=";
+                var ad = 'admin' + "=";
+                var ca = this.myCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf('jwt') == 0) {
+                        this.jwt=  c.substring(name.length,c.length);
+                        console.log(this.jwt);
+                    } else if (c.indexOf('admin') == 0) {
+                        this.adminCurrent = c.substring(ad.length,c.length);
+                        console.log(this.adminCurrent);
+                    }
+                }
+            },
         },
         mounted() {
             console.log('Component mounted.')

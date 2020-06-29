@@ -15,14 +15,16 @@ class CreateTableReservationListTable extends Migration
     {
         Schema::create('reservation_list', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('detail_id');
+            $table->integer('tour_id');
+            $table->string('tour_name');
             $table->date('booking_date');
-            $table->integer('children');
-            $table->integer('adults');
-            $table->boolean('status');
+            $table->integer('people');
+            $table->string('email');
+            $table->boolean('status')->nullable();
             $table->string('phone');
+            $table->string('address');
             $table->string('note');
-            $table->boolean('pay');
+            $table->boolean('pay')->nullable();
             $table->timestamps();
         });
     }

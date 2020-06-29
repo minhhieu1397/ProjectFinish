@@ -34,7 +34,6 @@ class LoginController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -48,6 +47,7 @@ class LoginController extends Controller
         $user_name = $request->input('user_name');
         $password = $request->input('password');
         if (Auth::guard('admin')->attempt(['user_name' => $user_name, 'password' => $password])) {
+            $admin = Auth::guard('admin')->user();
             $header = $this->Jwt->HeaderJWT();
             $date = Carbon::now();
             $payload = array(
@@ -57,8 +57,6 @@ class LoginController extends Controller
                 "aud"=> "www.doan.com",
                 "sub"=> "minhhieu97.hust@gmail.com",
                 "GivenName"=> $user_name,
-                "Surname"=> "Rocket",
-                "Email"=> "minhhieu97.hust@gmail.com"
             );
             $PayLoadJwt = $this->Jwt->PayloadJWT($payload);
 
@@ -73,7 +71,6 @@ class LoginController extends Controller
                 $signature
             ];
             $Jwt = implode(".", $Jwt);
-            $admin = Auth::guard('admin')->user();
             $admin->jwt = $Jwt;
             $admin->save();
 

@@ -3,7 +3,7 @@
         <div class="col-md-10 offset-md-1">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Comment</h3>
+                    <h3 class="box-title">Đặt trước</h3>
                 </div>
             </div>
             <div>
@@ -21,7 +21,6 @@
                             <th>Trạng thái</th>
                             <th>Điện thoại</th>
                             <th>Ghi chú</th>
-                            <th>Thanh toán</th>
                         </tr>
                     </thead>
                     <tbody v-for="(reserve) in listReserves" :key="reserve.id">
@@ -43,7 +42,6 @@
                             </td>
                             <td>{{reserve.phone}}</td>
                             <td>{{reserve.note}}</td>
-                            <td>{{reserve.pay}}</td>
                         </tr>
                     </tbody>
                 </table>

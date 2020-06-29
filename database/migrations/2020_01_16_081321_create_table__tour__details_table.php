@@ -20,7 +20,8 @@ class CreateTableTourDetailsTable extends Migration
             $table->date('day_end');
             $table->integer('amount');
             $table->string('account');
-            $table->string('img');
+            $table->string('description');
+            $table->integer('total');
             $table->timestamps();
         });
     }

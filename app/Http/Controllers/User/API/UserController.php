@@ -34,7 +34,6 @@ class UserController extends Controller
         $phone = $request->input('phone');
         $password = $request->input('password');
         if (Auth::attempt(['phone' => $phone, 'password' => $password])) {
-            
             $user = User::where('phone', $phone)->first();
             $header = $this->Jwt->HeaderJWT();
             $date = Carbon::now();

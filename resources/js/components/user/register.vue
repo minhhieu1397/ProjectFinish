@@ -4,7 +4,7 @@
             <h1 class="text-center headeing">Đăng kí</h1>
         </div>
         
-        <div v-if="!RegisterSuccess" class="col-md-2 offset-md-5 mt-5 pt-5">
+        <div v-if="!RegisterSuccess" class="col-md-2 offset-md-5 mt-2 pt-2">
             <div>
                 <div class="form-group">
                     <label for="a">Họ tên: </label>

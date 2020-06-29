@@ -44,12 +44,6 @@
               </a>
               <ul class="nav nav-treeview tree-left">
                 <li class="nav-item">
-                  <router-link to="/Admin/TestJWT" class="nav-link">
-                    <i class="fas fa-map-marker nav-icon red"></i>
-                    <p>Test JWT</p>
-                  </router-link>
-                </li>
-                <li class="nav-item">
                   <router-link to="/Admin/PlaceTour" class="nav-link">
                     <i class="fas fa-map-marker nav-icon red"></i>
                     <p>Địa điểm</p>
@@ -59,12 +53,6 @@
                   <router-link to="/Admin/Tour" class="nav-link">
                     <i class="fas fa-list nav-icon purple"></i>
                     <p>Tour</p>
-                  </router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link to="/Admin/Comment" class="nav-link">
-                    <i class="fas fa-comment-alt nav-icon while"></i>
-                    <p>Bình luận</p>
                   </router-link>
                 </li>
                 <li class="nav-item">

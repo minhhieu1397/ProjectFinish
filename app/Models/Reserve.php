@@ -12,6 +12,6 @@ class Reserve extends Model
     protected $table = 'reservation_list';
 
     protected $fillable = [
-        'tour_id', 'booking_date', 'people','email', 'phone', 'note','address'
+        'tour_id', 'tour_name','booking_date', 'people','email', 'phone', 'note','address', 'pay'
     ];
 }

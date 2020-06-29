@@ -1972,18 +1972,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -2055,134 +2043,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2346,7 +2206,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2357,10 +2216,13 @@ __webpack_require__.r(__webpack_exports__);
       },
       errors: [],
       success: null,
-      list_Admins: []
+      list_Admins: [],
+      adminCurrent: '',
+      jwt: ''
     };
   },
   created: function created() {
+    this.setJwt();
     this.getListAdmins();
   },
   methods: {
@@ -2368,10 +2230,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.errors = [];
-      axios.post('/api/admin', {
+      axios.post('/api/admin/store', {
         user_name: this.admin.user_name,
         password: this.admin.password,
-        is_super_manager: this.admin.is_super_manager
+        is_super_manager: this.admin.is_super_manager,
+        jwt: this.jwt,
+        admin: this.adminCurrent
       }).then(function (response) {
         _this.admin.user_name = null;
         _this.admin.password = null;
@@ -2390,7 +2254,12 @@ __webpack_require__.r(__webpack_exports__);
     getListAdmins: function getListAdmins() {
       var _this2 = this;
 
-      axios.get('/api/admin').then(function (response) {
+      axios.get('/api/admin/view', {
+        params: {
+          jwt: this.jwt,
+          admin: this.adminCurrent
+        }
+      }).then(function (response) {
         _this2.list_Admins = response.data;
       })["catch"](function (error) {
         _this2.errors = error.response.data.errors.name;
@@ -2411,9 +2280,11 @@ __webpack_require__.r(__webpack_exports__);
     updateAdmin: function updateAdmin(admin) {
       var _this3 = this;
 
-      axios.put('/api/admin/' + this.admin.id, {
+      axios.put('/api/admin/update/' + admin.id, {
         user_name: this.admin.user_name,
-        is_super_manager: this.admin.is_super_manager
+        is_super_manager: this.admin.is_super_manager,
+        jwt: this.jwt,
+        admin: this.adminCurrent
       }).then(function (response) {
         _this3.success = 'Cập nhập thành công';
       })["catch"](function (error) {
@@ -2427,7 +2298,12 @@ __webpack_require__.r(__webpack_exports__);
     deleteAdmin: function deleteAdmin(admin, index) {
       var _this4 = this;
 
-      axios["delete"]('/api/admin/' + admin.id).then(function (response) {
+      axios["delete"]('/api/admin/destroy/' + admin.id, {
+        data: {
+          jwt: this.jwt,
+          admin: this.adminCurrent
+        }
+      }).then(function (response) {
         console.log(response.data.result);
 
         _this4.list_Admins.splice(index, 1);
@@ -2438,6 +2314,185 @@ __webpack_require__.r(__webpack_exports__);
           _this4.errors = error.response.data.errors;
         }
       });
+    },
+    setJwt: function setJwt() {
+      this.myCookie = document.cookie;
+      var name = 'Jwt' + "=";
+      var ad = 'admin' + "=";
+      var ca = this.myCookie.split(';');
+
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+
+        if (c.indexOf('jwt') == 0) {
+          this.jwt = c.substring(name.length, c.length);
+          console.log(this.jwt);
+        } else if (c.indexOf('admin') == 0) {
+          this.adminCurrent = c.substring(ad.length, c.length);
+          console.log(this.adminCurrent);
+        }
+      }
+    }
+  },
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/ListReserve.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/ListReserve.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      reserver: {
+        tour_id: '',
+        booking_date: '',
+        children: '',
+        people: '',
+        status: '',
+        email: '',
+        phone: '',
+        note: '',
+        address: ''
+      },
+      errors: [],
+      success: null,
+      list_Admins: [],
+      adminCurrent: '',
+      jwt: ''
+    };
+  },
+  created: function created() {
+    this.setJwt();
+    this.getListAdmins();
+  },
+  methods: {
+    createAdmin: function createAdmin() {
+      var _this = this;
+
+      this.errors = [];
+      axios.post('/api/admin/store', {
+        user_name: this.admin.user_name,
+        password: this.admin.password,
+        is_super_manager: this.admin.is_super_manager,
+        jwt: this.jwt,
+        admin: this.adminCurrent
+      }).then(function (response) {
+        _this.admin.user_name = null;
+        _this.admin.password = null;
+        _this.admin.is_super_manager = false;
+        _this.success = 'Tạo admin thành công';
+
+        _this.getListAdmins();
+      })["catch"](function (error) {
+        _this.success = '';
+
+        if (error.response.status == 422) {
+          _this.errors = error.response.data.errors;
+        }
+      });
+    },
+    getListAdmins: function getListAdmins() {
+      var _this2 = this;
+
+      axios.get('/api/admin/view', {
+        params: {
+          jwt: this.jwt,
+          admin: this.adminCurrent
+        }
+      }).then(function (response) {
+        _this2.list_Admins = response.data;
+      })["catch"](function (error) {
+        _this2.errors = error.response.data.errors.name;
+      });
+    },
+    setJwt: function setJwt() {
+      this.myCookie = document.cookie;
+      var name = 'Jwt' + "=";
+      var ad = 'admin' + "=";
+      var ca = this.myCookie.split(';');
+
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+
+        if (c.indexOf('jwt') == 0) {
+          this.jwt = c.substring(name.length, c.length);
+          console.log(this.jwt);
+        } else if (c.indexOf('admin') == 0) {
+          this.adminCurrent = c.substring(ad.length, c.length);
+          console.log(this.adminCurrent);
+        }
+      }
     }
   },
   mounted: function mounted() {
@@ -2584,13 +2639,19 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
+    this.setJwt();
     this.getAllSpace();
   },
   methods: {
     getAllSpace: function getAllSpace() {
       var _this = this;
 
-      axios.get('/api/space').then(function (response) {
+      axios.get('/api/place/view', {
+        params: {
+          jwt: this.jwt,
+          admin: this.adminCurrent
+        }
+      }).then(function (response) {
         _this.listSpace = response.data;
       })["catch"](function (error) {
         _this.errors = error.response.data.errors.name;
@@ -2599,8 +2660,10 @@ __webpack_require__.r(__webpack_exports__);
     createSpace: function createSpace(space) {
       var _this2 = this;
 
-      axios.post('/api/space', {
-        place: this.space.place
+      axios.post('/api/place/store', {
+        place: this.space.place,
+        jwt: this.jwt,
+        admin: this.adminCurrent
       }).then(function (response) {
         _this2.space.place = '';
 
@@ -2626,7 +2689,12 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Xóa!',
         cancelButtonText: 'Hủy'
       }).then(function (result) {
-        axios["delete"]('/api/space/' + space.id).then(function (response) {
+        axios["delete"]('/api/place/delete/' + space.id, {
+          data: {
+            jwt: _this3.jwt,
+            admin: _this3.adminCurrent
+          }
+        }).then(function (response) {
           _this3.successDeleteSpace = 'Xóa thành công';
           console.log(response.data.result);
 
@@ -2647,8 +2715,10 @@ __webpack_require__.r(__webpack_exports__);
     updateSpace: function updateSpace(space) {
       var _this4 = this;
 
-      axios.put('/api/space/' + this.space.id, {
-        place: this.space.place
+      axios.put('/api/place/update/' + space.id, {
+        place: this.space.place,
+        jwt: this.jwt,
+        admin: this.adminCurrent
       }).then(function (response) {
         _this4.successUpdateSpace = "Cập nhập địa điểm thành công";
       })["catch"](function (error) {
@@ -2656,6 +2726,28 @@ __webpack_require__.r(__webpack_exports__);
           _this4.errors = error.response.data.errors;
         }
       });
+    },
+    setJwt: function setJwt() {
+      this.myCookie = document.cookie;
+      var name = 'Jwt' + "=";
+      var ad = 'admin' + "=";
+      var ca = this.myCookie.split(';');
+
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+
+        if (c.indexOf('jwt') == 0) {
+          this.jwt = c.substring(name.length, c.length);
+          console.log(this.jwt);
+        } else if (c.indexOf('admin') == 0) {
+          this.adminCurrent = c.substring(ad.length, c.length);
+          console.log(this.adminCurrent);
+        }
+      }
     }
   },
   mounted: function mounted() {
@@ -2728,8 +2820,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -3557,9 +3647,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.getAllTours();
-    this.getAdminCurrent();
     this.setJwt();
+    this.getAllTours();
     this.getAllPlace();
   },
   methods: {
@@ -3577,7 +3666,12 @@ __webpack_require__.r(__webpack_exports__);
     getAllPlace: function getAllPlace() {
       var _this = this;
 
-      axios.get('/api/space').then(function (response) {
+      axios.get('/api/place/view', {
+        params: {
+          jwt: this.jwt,
+          admin: this.adminCurrent
+        }
+      }).then(function (response) {
         _this.listPlaces = response.data;
       })["catch"](function (error) {
         _this.errors = error.response.data.errors.name;
@@ -3610,7 +3704,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('place_id', this.tour.place_id);
       formData.append('jwt', this.jwt);
       formData.append('admin', this.admin);
-      axios.post('/api/tour', formData, config).then(function (response) {
+      axios.post('/api/tour/store', formData, config).then(function (response) {
         _this2.tour.tour_name = null;
         _this2.tour.vehicle = null;
         _this2.tour.departune = null;
@@ -3632,7 +3726,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.successUpdateTour = '';
-      axios.get('/api/tour').then(function (response) {
+      axios.get('/api/tour/viewTour', {
+        params: {
+          jwt: this.jwt,
+          admin: this.adminCurrent
+        }
+      }).then(function (response) {
         _this3.list_Tours = response.data;
       })["catch"](function (error) {
         _this3.errors = error.response.data.errors.name;
@@ -3652,7 +3751,12 @@ __webpack_require__.r(__webpack_exports__);
     deleteTour: function deleteTour(tour, index) {
       var _this5 = this;
 
-      axios["delete"]('/api/tour/' + tour.id).then(function (response) {
+      axios["delete"]('/api/tour/delete/' + tour.id, {
+        data: {
+          jwt: this.jwt,
+          admin: this.admin
+        }
+      }).then(function (response) {
         console.log(response.data.result);
 
         _this5.list_Tours.splice(index, 1);
@@ -3667,7 +3771,7 @@ __webpack_require__.r(__webpack_exports__);
     updateTour: function updateTour() {
       var _this6 = this;
 
-      axios.put('/api/tour/' + this.tour.id, {
+      axios.put('/api/tour/update/' + this.tour.id, {
         tour_name: this.tour.tour_name,
         vehicle: this.tour.vehicle,
         departune: this.tour.departune,
@@ -3676,7 +3780,7 @@ __webpack_require__.r(__webpack_exports__);
         note: this.tour.note,
         place_id: this.tour.place_id,
         jwt: this.jwt,
-        admin: this.adminCurrent
+        admin: this.admin
       }).then(function (response) {
         _this6.successUpdateTour = 'Cập nhập Tour thành công';
       })["catch"](function (error) {
@@ -3695,11 +3799,13 @@ __webpack_require__.r(__webpack_exports__);
     createProgram: function createProgram() {
       var _this7 = this;
 
-      axios.post('/api/program', {
+      axios.post('/api/program/store', {
         tour_id: this.tour.id,
         title: this.program.title,
         day: this.program.day,
-        detail: this.program.detail
+        detail: this.program.detail,
+        jwt: this.jwt,
+        admin: this.admin
       }).then(function (response) {
         _this7.successCreateProgram = 'Tạo program thành công';
       })["catch"](function (error) {
@@ -3713,7 +3819,12 @@ __webpack_require__.r(__webpack_exports__);
     deleteProgram: function deleteProgram(program, index) {
       var _this8 = this;
 
-      axios["delete"]('/api/program/' + program.id).then(function (response) {
+      axios["delete"]('/api/program/delete/' + program.id, {
+        data: {
+          jwt: this.jwt,
+          admin: this.admin
+        }
+      }).then(function (response) {
         console.log(response.data.result);
 
         _this8.list_Program.splice(index, 1);
@@ -3734,7 +3845,12 @@ __webpack_require__.r(__webpack_exports__);
         day: '',
         detail: ''
       };
-      axios.get('/api/program/' + this.tour.id).then(function (response) {
+      axios.get('/api/program/view/' + this.tour.id, {
+        params: {
+          jwt: this.jwt,
+          admin: this.admin
+        }
+      }).then(function (response) {
         _this9.list_Program = response.data;
       })["catch"](function (error) {
         _this9.errors = error.response.data.errors.name;
@@ -3750,10 +3866,12 @@ __webpack_require__.r(__webpack_exports__);
     updateProgram: function updateProgram() {
       var _this10 = this;
 
-      axios.put('/api/program/' + this.program.id, {
+      axios.put('/api/program/update/' + this.program.id, {
         title: this.program.title,
         day: this.program.day,
-        detail: this.program.detail
+        detail: this.program.detail,
+        jwt: this.jwt,
+        admin: this.admin
       }).then(function (response) {
         _this10.successUpdateProgram = 'Cập nhập thành công';
       })["catch"](function (error) {
@@ -3786,7 +3904,12 @@ __webpack_require__.r(__webpack_exports__);
         amount: '',
         account: ''
       };
-      axios.get('/api/detail/' + this.tour.id).then(function (response) {
+      axios.get('/api/detail/view/' + tour.id, {
+        params: {
+          jwt: this.jwt,
+          admin: this.admin
+        }
+      }).then(function (response) {
         _this11.list_Detail = response.data;
       })["catch"](function (error) {
         _this11.errors = error.response.data.errors.name;
@@ -3836,6 +3959,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this14 = this;
 
       this.errorFileMessage = '';
+      console.log(this.admin);
       event.preventDefault();
       var currentObj = this;
       var config = {
@@ -3848,9 +3972,11 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('day_start', this.detail.day_start);
       formData.append('day_end', this.detail.day_end);
       formData.append('total', this.detail.total);
-      formData.append('account', this.admin_current.user_name);
+      formData.append('account', this.admin);
       formData.append('description', this.detail.description);
-      axios.post('/api/detail', formData, config).then(function (response) {
+      formData.append('jwt', this.jwt);
+      formData.append('admin', this.admin);
+      axios.post('/api/detail/store', formData, config).then(function (response) {
         _this14.detail.day_start = null;
         _this14.detail.day_end = null;
         _this14.detail.amount = null;
@@ -3925,8 +4051,7 @@ __webpack_require__.r(__webpack_exports__);
           this.jwt = c.substring(name.length, c.length);
           console.log(this.jwt);
         } else if (c.indexOf('admin') == 0) {
-          this.adminCurrent = c.substring(ad.length, c.length);
-          console.log(this.adminCurrent);
+          this.admin = c.substring(ad.length, c.length);
         }
       }
     },
@@ -3973,6 +4098,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -71846,28 +71974,6 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "nav-link",
-                            attrs: { to: "/Admin/TestJWT" }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-map-marker nav-icon red"
-                            }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Test JWT")])
-                          ]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
                             attrs: { to: "/Admin/PlaceTour" }
                           },
                           [
@@ -71898,28 +72004,6 @@ var render = function() {
                             }),
                             _vm._v(" "),
                             _c("p", [_vm._v("Tour")])
-                          ]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
-                            attrs: { to: "/Admin/Comment" }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-comment-alt nav-icon while"
-                            }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Bình luận")])
                           ]
                         )
                       ],
@@ -72198,309 +72282,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "NewUser",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-dialog-centered",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "api-calling" }, [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "create-form" }, [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("div", { staticClass: "block" }, [
-                        _c("div", { staticClass: "title" }, [
-                          _vm._v("Super Admin")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "input" },
-                          [
-                            _c("b-form-checkbox", [
-                              _vm._v(
-                                "\n                                            Admin\n                                        "
-                              )
-                            ])
-                          ],
-                          1
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(5)
-                  ])
-                ])
-              ])
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "UpdateAdmin",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalCenterTitle",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-dialog-centered",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(6),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "api-calling" }, [
-                  _c("div", { staticClass: "alert alert-success" }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "create-form" }, [
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("div", { staticClass: "block" }, [
-                        _c("div", { staticClass: "title" }, [
-                          _vm._v("Super Admin")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "input" },
-                          [
-                            _c("b-form-checkbox", { attrs: { value: "1" } }, [
-                              _vm._v(
-                                "\n                                            Admin\n                                        "
-                              )
-                            ])
-                          ],
-                          1
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(8)
-                  ])
-                ])
-              ])
-            ])
-          ]
-        )
-      ]
-    )
-  ])
+  return _c("div")
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-10 offset-md-1" }, [
-      _c("div", { staticClass: "box" }, [
-        _c("div", { staticClass: "box-header" }, [
-          _c("h3", { staticClass: "box-title" }, [_vm._v("Tour du lịch")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "box-tools text-right" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success",
-                attrs: { "data-toggle": "modal", "data-target": "#NewUser" }
-              },
-              [
-                _vm._v(
-                  "\n                        Thêm mới tour\n                        "
-                ),
-                _c("i", { staticClass: "fas fa-user-plus fa-fw" })
-              ]
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("table", { staticClass: "table table-condensed" }, [
-          _c("thead", [
-            _c("tr", { staticClass: "table__title" }, [
-              _c("th", [_vm._v("Ngày đi")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Ngày về")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("HÌnh ảnh")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Số tiền")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Tài khoản tạo")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tbody", [
-            _c("tr", { staticClass: "table__content" }, [
-              _c("td"),
-              _vm._v(" "),
-              _c("td"),
-              _vm._v(" "),
-              _c("td"),
-              _vm._v(" "),
-              _c("td"),
-              _vm._v(" "),
-              _c("td")
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title", attrs: { id: "NewUserLabel" } }, [
-        _vm._v("Add New")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("div", { staticClass: "alert alert-success" })])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Username")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", name: "user_name" }
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "text-danger" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Password")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "password", name: "password" }
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "text-danger" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "button-create" }, [
-      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Create")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "UpdateAdminLable" } },
-        [_vm._v("Update user")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Username")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", name: "user_name" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "button-create" }, [
-      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Update")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -72955,6 +72739,145 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/ListReserve.vue?vue&type=template&id=165464ba&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/ListReserve.vue?vue&type=template&id=165464ba& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-10 offset-md-1" }, [
+      _c("div", { staticClass: "box" }, [
+        _c("div", { staticClass: "box-header" }, [
+          _c("h3", { staticClass: "box-title" }, [_vm._v("Users")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "box-tools text-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success",
+                attrs: { "data-toggle": "modal", "data-target": "#NewUser" },
+                on: { click: _vm.handleClickNewUser }
+              },
+              [
+                _vm._v(
+                  "\n                        New Admin\n                        "
+                ),
+                _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _c(
+          "table",
+          { staticClass: "table table-condensed" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._l(_vm.list_Admins, function(admin, index) {
+              return _c("tbody", { key: admin.id }, [
+                _c("tr", { staticClass: "table__content" }, [
+                  _c("td", [_vm._v(_vm._s(admin.user_name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(admin.is_super_manager))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("ul", { staticClass: "nav nav-treeview" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "nav-link",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteAdmin(admin, index)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-trash-alt nav-icon text-red"
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "nav-link",
+                          attrs: {
+                            "data-toggle": "modal",
+                            "data-target": "#UpdateAdmin"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.sendAdmin(admin)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-edit nav-icon text-blue"
+                          })
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            })
+          ],
+          2
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { staticClass: "table__title" }, [
+        _c("th", [_vm._v("Tour")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ngày đặt")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Số lượng")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Địa chỉ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Trạng thái")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Điện thoại")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ghi chú")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Thanh toán")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/PlaceTour.vue?vue&type=template&id=0a30ca24&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/PlaceTour.vue?vue&type=template&id=0a30ca24& ***!
@@ -73153,7 +73076,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Update")]
+                          [_vm._v("Tạo mới")]
                         )
                       ])
                     ])
@@ -73494,9 +73417,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(reserve.phone))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(reserve.note))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(reserve.pay))])
+                  _c("td", [_vm._v(_vm._s(reserve.note))])
                 ])
               ])
             })
@@ -73514,7 +73435,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box" }, [
       _c("div", { staticClass: "box-header" }, [
-        _c("h3", { staticClass: "box-title" }, [_vm._v("Comment")])
+        _c("h3", { staticClass: "box-title" }, [_vm._v("Đặt trước")])
       ])
     ])
   },
@@ -73538,9 +73459,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Điện thoại")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Ghi chú")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Thanh toán")])
+        _c("th", [_vm._v("Ghi chú")])
       ])
     ])
   },
@@ -75728,6 +75647,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-md-2 offset-md-5 form-login" }, [
+      this.login.message != ""
+        ? _c("div", [
+            _c("p", { staticClass: "text-danger mb-2" }, [
+              _vm._v(_vm._s(this.login.message))
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c("label", { attrs: { for: "usr" } }, [_vm._v("User Name:")]),
         _vm._v(" "),
@@ -75794,8 +75721,7 @@ var render = function() {
           },
           [_vm._v("Login")]
         )
-      ]),
-      _vm._v("\n            " + _vm._s(this.login.message) + "\n        ")
+      ])
     ])
   ])
 }
@@ -90924,6 +90850,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     }, {
       path: '/Admin/Tour',
       component: __webpack_require__(/*! ./components/admin/Tour.vue */ "./resources/js/components/admin/Tour.vue")["default"]
+    },, {
+      path: '/Admin/ListReserve',
+      component: __webpack_require__(/*! ./components/admin/ListReserve.vue */ "./resources/js/components/admin/ListReserve.vue")["default"]
     }]
   }, {
     path: '/Admin/Login',
@@ -91271,6 +91200,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListAdmin_vue_vue_type_template_id_0ff90a76___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListAdmin_vue_vue_type_template_id_0ff90a76___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/ListReserve.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/admin/ListReserve.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ListReserve_vue_vue_type_template_id_165464ba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListReserve.vue?vue&type=template&id=165464ba& */ "./resources/js/components/admin/ListReserve.vue?vue&type=template&id=165464ba&");
+/* harmony import */ var _ListReserve_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListReserve.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/ListReserve.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ListReserve_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ListReserve_vue_vue_type_template_id_165464ba___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ListReserve_vue_vue_type_template_id_165464ba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/ListReserve.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/ListReserve.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/admin/ListReserve.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReserve_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListReserve.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/ListReserve.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReserve_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/ListReserve.vue?vue&type=template&id=165464ba&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/admin/ListReserve.vue?vue&type=template&id=165464ba& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReserve_vue_vue_type_template_id_165464ba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListReserve.vue?vue&type=template&id=165464ba& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/ListReserve.vue?vue&type=template&id=165464ba&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReserve_vue_vue_type_template_id_165464ba___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReserve_vue_vue_type_template_id_165464ba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

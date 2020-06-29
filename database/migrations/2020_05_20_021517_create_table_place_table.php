@@ -15,7 +15,7 @@ class CreateTablePlaceTable extends Migration
     {
         Schema::table('place', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('space');
+            $table->string('place');
             $table->timestamps();
         });
     }

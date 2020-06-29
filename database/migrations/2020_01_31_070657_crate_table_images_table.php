@@ -19,7 +19,6 @@ class CrateTableImagesTable extends Migration
             $table->string('url');
             $table->timestamps();
         });
-       
     }
 
     /**

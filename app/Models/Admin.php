@@ -13,7 +13,7 @@ class Admin extends Authenticatable
     protected $table = 'admins';
 
     protected $fillable = [
-        'user_name', 'password', 'is_super_manager',
+        'user_name', 'password', 'is_super_manager', 'jwt'
     ];
 
     protected $hidden = [

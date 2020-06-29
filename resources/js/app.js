@@ -67,6 +67,10 @@ const router = new VueRouter({
                 {
                     path: '/Admin/Tour',
                     component: require('./components/admin/Tour.vue').default
+                },
+                ,{
+                    path: '/Admin/ListReserve',
+                    component: require('./components/admin/ListReserve.vue').default
                 }
             ]
         },
